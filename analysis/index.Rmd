@@ -1,5 +1,8 @@
 ---
-title: "Home"
+title: | 
+  
+  Capacitação no R
+  ![](https://i.imgur.com/L5ibkb2.png){width=300px style="display:block; margin:0 auto;"}
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -8,4 +11,2010 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+Site: [Conecta GEM](https://www.conectagem.com/)
+
+# Instalações
+
+-   Instalação do [software R](https://cran.r-project.org/)
+-   Instalação do [software RStudio](https://www.rstudio.com/products/rstudio/download/#download)
+
+## Abrindo o R
+
+-   Digite Rgui na busca do seu computador;
+
+Ou:
+
+-   Vá em disco local (c:);
+-   Arquivos de programa;
+-   Encontre a pasta com nome "R";
+-   Entre na pasta com a última versão;
+-   Entre na pasta "bin" e depois em "x64";
+-   Dê um duplo click em "Rgui".
+
+## Abrindo o RStudio
+
+-   Digite RStudio na busca do seu computador;
+
+Ou:
+
+-   Vá em disco local (c:);
+-   Arquivos de programa;
+-   Encontre a pasta com nome "RStudio";
+-   Entre na pasta "bin";
+-   Dê um duplo click em "RStudio".
+
+# Objetos
+
+## Criando objetos
+
+```{r}
+x <- 50
+15 -> y
+z = 25
+m <- sqrt(z)
+```
+
+- Imprimir os valores dos objetos
+
+```{r}
+print(x)
+print(y)
+print(z)
+print(m)
+```
+
+-   Observação: Se atribuirmos um novo valor a um objeto já existente perderemos o conteúdo que ele estava armazenando anteriormente.
+
+## Listar objetos armazenados no ambiente
+
+```{r}
+ls()
+```
+
+## Removendo objetos especificados
+
+```{r}
+rm(x,y)
+```
+
+## Remover todos objetos
+
+```{r}
+rm(list=ls()) 
+```
+
+# Atributos dos Objetos
+
+-   No **R**, quase todo objeto possui atributos como tipo, tamanho etc.
+-   Tipo e tamanho são os atributos intrínsecos de todo objeto.
+-   O tipo de um objeto é revelado pelo comando `mode()` ou `class()`.
+
+## Principais tipos de objetos no **R**:
+
+###   `caracter`:
+
+-   Texto ou caracter.
+
+###   `numeric`:
+
+-   Números inteiros ou reais.
+
+###   `logical`:
+
+-   Verdadeiro ou falso.
+
+###   `fator`:
+
+-   Vetor que representa dados categóricos.
+
+###   `complex`:
+
+-   Números complexos.
+
+## Identificando os atributos dos objetos - `mode()` ou `class()`.
+
+```{r}
+nome <- "Erika" # Observe que caracteres são tratados com o uso de aspas.
+mode(nome)      # Retorna o tipo do objeto
+class(nome)     # Retorna o tipo do objeto
+```
+
+```{r}
+valor <- 5
+mode(valor)
+```
+
+```{r, eval=FALSE}
+soma <- 2 + valor
+mistura <- 2 + nome
+```
+
+```{r, eval=FALSE}
+v <- TRUE
+mode(v)
+```
+
+```{r, eval=FALSE}
+f <- FALSE
+mode(f)
+```
+
+```{r, eval=FALSE}
+2+v
+2+f
+```
+
+- Um objeto pode conter um ou mais elementos.
+
+```{r}
+x <- 10
+length(x)                # Retorna o tamanho do objeto
+```
+
+```{r}
+y <- seq(1,5,1)
+length(y)                # Retorna o tamanho do objeto
+```
+
+# Estrutura dos objetos
+
+-   No **R**, os dados contidos em um objeto podem estar organizados em diferentes estruturas.
+
+## `vector()`:
+    -   Uma sequência de valores numéricos ou de caracteres (letras, palavras) organizados em apenas uma dimensão.
+
+```{r}
+z <- c(60,70,80,90)
+z
+mode(z)
+class(z)
+```
+
+```{r}
+z <- as.vector(z)
+z
+class(z)
+```
+
+-   Observação: Todos os elementos de um vetor têm que ser do mesmo tipo (modo). Caso tentemos criar um vetor com elementos de tipo diferente o R vai forçá-los a ser do mesmo tipo.
+
+```{r}
+z <- c(60,70,80,90, "Erika")
+z
+mode(z)
+class(z)
+```
+
+```{r}
+z <- c(60,70,80,90, NA)
+z
+mode(z)
+class(z)
+```
+
+-   ATIVIDADE:
+    - Transforme o vetor z em um vetor de fatores
+
+```{r}
+z<- factor(z)
+class(z)
+mode(z)
+```
+
+## `array()`: 
+  - Pode conter uma (vetor), duas (matriz) ou mais dimensões.
+
+```{r}
+z <- array(y)
+z
+mode(z)
+class(z)
+```
+
+
+```{r}
+z <- array(c(x,y), dim = c(2,2,3))
+z
+mode(z)
+class(z)
+```
+
+
+```{r}
+z[,,3]
+```
+
+## `matrix()`:
+-   Coleção de vetores em linhas e colunas, todos os vetores dever ser do mesmo tipo (numérico ou de caracteres).
+
+```{r}
+w<-matrix(c(60,70,80,90,100,110,120,130),2,4,byrow=T)
+w
+class(w)
+```
+
+
+```{r}
+w<-as.matrix(z)
+w
+class(w)
+```
+
+-   Agrupando colunas ou linhas em uma matriz com as funções `cbind()` e `rbind()`.
+
+```{r}
+w<-cbind(z,z)
+w
+
+w<-rbind(z,z)
+w
+class(w)
+```
+
+-   ATIVIDADE:
+    - Crie uma matriz com dois vetores, considere um vetor com números e caracteres e outro apenas com números. Calcule o tamanho dessa matriz.
+
+```{r}
+x <- c(60,70,80,90, "Erika")
+y <- c(60,70,80,90, NA)
+z <- cbind(x,y)
+z <- rbind(x,y)
+w <- as.matrix(z)
+
+class(w)
+
+length(w)
+
+dim(w)                               # Retorna a dimensão da matriz
+```
+
+## `data.frame()`:
+-   O mesmo que uma matriz, mas aceita vetores de diferentes estruturas (numérico, caracteres, lógicos, complexos, inteiros). Geralmente nós guardamos nossos dados em objetos do tipo data frame, pois sempre temos variáveis numéricas e variáveis categóricas (por exemplo, largura do rio e nome do rio, respectivamente).
+
+```{r}
+w <- as.data.frame(w)
+w
+class(w)
+```
+
+```{r}
+w <- as.data.frame(cbind(x,y))
+w
+class(w)
+```
+
+## `list()`:
+-   Combina diferentes tipos num mesmo objeto, mas em formato de lista.
+
+```{r}
+q<- as.list(w)
+q
+```
+
+## `function()`:
+-   Comandos.
+
+```{r}
+m<-function(x){
+  sum(x)/length(x)
+}
+
+m(y)
+```
+
+- ATIVIDADES
+
+1.  Crie um vetor numérico de comprimento 5, obtenha a raiz quadrada e multiplique por um número.
+
+2.  Considere o vetor `x <- c("milho","soja")`. Transforme o vetor `x` em um vetor de fatores, mas inclua o nível `"algodao"`.
+
+3.  Crie uma matriz (M) quadrada de ordem 5 preenchida com a sequência de 1 à 25.
+
+4.  Defina um fator e um vetor numérico e construa uma lista com os dois objetos atribuindo a cada componente um nome de sua escolha.
+
+5.  Crie um data frame com a matriz de dados peso=(60,70,80), altura=( 160,150,170) e sexo=(F,M,F). Calcule a média de cada variável.
+
+# Funções
+
+## Funções Envolvendo *Loops*
+
+- *Loop* é um processo iterativo, cujo objetivo é a realização de uma sequência de comandos até uma condição previamente estabelecida. É importante, nesse caso, que as iterações tenham condição finita.
+
+-   Dentre outras, duas funções importantes são:
+
+### `while()` e `for()`
+
+-   No comando for(), o termo entre parênteses (i in 1:1) quer dizer que um contador, que chamamos aqui de i, assumirá os valores 1, 2, 3, 4, 5, 6, 7, 8, 9 e 10.
+
+```{r}
+nome <- "João"
+for (i in 1:3) print (nome)
+
+for (i in 1:3){
+  print (nome)
+}
+
+for(i in 1:5){
+  print(i)
+}
+
+
+for(i in 1:5){
+  print(letters[i])
+}
+
+```
+
+-   Laço duplo
+
+```{r}
+for(i in 1:3){
+  for(j in 3:5){
+    print(i+j)
+  }
+}
+```
+
+-   Equações
+
+```{r}
+x <- rep(seq(5,50,2),10)
+soma <- 0
+# soma de todos valores 
+for(i in 1:length(x)){
+  soma <- x[i] + soma
+}
+soma
+
+# soma dos 10 primeiros valores 
+soma <- 0
+for(i in 1:10){
+  soma <- x[i] + soma
+}
+soma
+
+```
+
+-   A função `while()`, realiza a mesma tarefa da função anterior.
+
+```{r}
+nome <- "João"
+i <- 1
+while (i < 4){
+  print (nome)
+  i <- i + 1
+} 
+
+
+i <- 1
+while (i < 4){
+  print(i)
+  i <- i + 1
+}
+
+
+i <- 1
+while (i < 4){
+  print(letters[i])
+  i <- i + 1
+}
+```
+
+-   Laço duplo
+
+```{r}
+i <- 1
+j <- 3
+while(i < 4){
+  while(j < 6){
+    print(i+j)
+    j <- j + 1
+  }
+  i <- i + 1
+  j <- 3
+}
+```
+
+-   Equações
+
+```{r}
+x <- rep(seq(5,50,2),10)
+soma <- 0
+# soma de todos valores
+i <- 1
+n <- length(x)+1
+while(i < n){
+  soma <- x[i] + soma
+  i <- i + 1
+}
+soma
+
+# soma dos 10 primeiros valores 
+soma <- 0
+i <- 1
+n <- 10+1
+while(i < n){
+  soma <- x[i] + soma
+  i <- i+1
+}
+soma
+```
+
+## Função Envolvendo Condições
+
+- No R, as funções envolvendo condições são programadas com `if()`, `else() e ifelse()`.
+
+-   O início do código se dá com o comando if seguido de parênteses e chaves;
+
+-   Dentro dos parênteses temos uma condição lógica, que deverá ter como resultado ou TRUE ou FALSE;
+
+-   Dentro das chaves temos o bloco de código que será executado se -- e somente se -- a condição dos parênteses for TRUE.
+
+-   Vejamos um exemplo muito simples. Temos dois blocos de código que criam as variáveis x e y, mas eles só serão executados se as variáveis x e y forem TRUE, respectivamente.
+
+### Vetores de condição lógica
+
+```{r}
+
+x <- TRUE
+y <- FALSE
+# só executa se x = TRUE
+if (x) {
+ a <- 1
+}
+# só executa se cria_y = TRUE
+if (y) {
+ b <- 1
+}
+# note que a foi criado
+exists("a")
+exists("b")
+```
+
+-   Diversas vezes em programação queremos apenas que a ação descrita no código ocorra caso ela satisfaça uma condição pré estabelecida. Para isso existem os operadores lógicos e as expressões apresentadas abaixo:
+
+    ![](tabela_1-8.png)
+
+### Expressões lógicas: 
+- `if()`, `else()` e `ifelse()`. 
+
+- Para utilizá-las, além dos operadores acima, é importante saber o comando de E e OU em programação, que são respectivamente: `&` e `|`.
+
+```{r}
+m <- 5
+if(m == 5){
+  print("sim")
+}else{
+  print("não")
+}
+
+
+if(m == 4){
+  print("sim")
+}else{
+  print("não")
+}
+
+if(m >= 4){
+  print("sim")
+}else{
+  print("não")
+}
+
+if(m > 4){
+  print("sim")
+}else{
+  print("não")
+}
+
+if(m != 4){
+  print("sim")
+}else{
+  print("não")
+}
+```
+
+Alternativamente, pode-se usar o comando `ifelse()`
+
+```{r}
+n <- 6
+
+ifelse(n == 6, "sim", "não")
+
+ifelse(n != 6, "sim", "não")
+
+ifelse(n >= 6, "sim", "não")
+
+ifelse(n %% 2 == 0, "par", "impar")
+```
+
+###   Utilizando os operadores lógicos `&` e `|`.
+
+-   Atribua valores para duas variáveis a e b, e crie um programa que identifique se elas são positivas ou negativas.
+
+```{r}
+ 
+a <- -5
+b <- 0
+
+if (a >= 0 & b >= 0){
+  print("a e b são números positivos")
+}else{
+  if(a >= 0 & b < 0){
+    print("a é positivo e b é negativo")
+  }else{
+      if(a < 0 & b >= 0){
+        print("a é negativo e b é positivo")
+      }else{
+        if(a < 0 & b < 0){
+          print("a e b são negativos")
+        }
+      }
+    }
+  }
+```
+
+-   Atribua valores para duas variáveis a e b, e crie um programa que identifique se pelo menos uma delas é negativa ou se todas são positivas.
+
+```{r}
+a <- 2
+b <- -5
+
+if(a < 0 | b < 0){
+  print("Existe pelo menos uma variável negativa")
+}else{
+  print("Todas as variáveis do conjunto de dados são positivas")
+}
+```
+
+-   A função `case_when()` permite vetorizar várias instruções `if_else ()` .
+
+```{r}
+#install.package("dplyr")
+library(dplyr)
+x <- 1:50
+#Substituir Valores primos de 35, 5 ou 7 por "pin" 
+case_when(
+  x %% 35 == 0 ~ "pin",
+  x %% 5 == 0 ~ "pin",
+  x %% 7 == 0 ~ "pin",
+  TRUE ~ as.character(x)
+)
+```
+
+- ATIVIDADES
+
+1.  Escreva os passos para fritar um ovo. (Entendendo os princípios da programação, não se esqueça de nenhum passo nesse manual de tarefas)
+
+2.  Crie um vetor contendo 10 valores e em seguida crie um programa que identifique qual o maior valor desta lista.
+
+3.  Faça um programa, utilizando ***`while()`***, que print no console os números de 0 a 100.
+
+4.  Crie um programa que identifique se um valor é par ou ímpar.
+
+## Criando funções no R
+
+Uma das maiores vantagens do R é a possibilidade e a facilidade de se criar novas funções. Como vimos, já existem várias funções nativas do R e também disponíveis em diversos pacotes, além do fato que novos pacotes e novas funções surgem a cada dia. Desta forma, apesar de ser fácil criar uma função, não se deve descartar a possibilidade de elas já existirem, com o mesmo propósito e terem sido disponibilizadas por outros autores, o que nos economiza muito tempo em nossos trabalhos. Desta forma, não queira reinventar a roda. Será mostrado aqui como criar algumas funções simples, visando apenas ao entendimento de como elas podem ser desenvolvidas.
+
+Exemplos:
+
+-   Vamos criar algumas funções que realizam cálculos  matemáticos básicos
+
+-   Você irá observar que as funções nada mais são que objetos do R da classe `function`.
+
+-   Como todo objeto, as funções podem ter quaisquer nomes, desde que iniciados com uma letra (maiúscula ou minúscula).
+
+-   Lembre-se sempre de prestar atenção para não criar um objeto com um nome já existente, pois o novo objeto apagará o antigo.
+
+-   Além disso, evite criar objetos com nomes de funções já existentes no R, por exemplo: sum, mean, sd, t, c, etc.
+
+```{r}
+    # Uma função que soma dois números
+
+    soma <- function(a,b){
+      soma <- a+b
+      return(soma)
+    }
+    class(soma)
+
+    x <- 6
+    y <- 10
+    soma(x,y)
+
+    x <- c(2, 4, 6)
+    y <- c(6, 8, 10)
+    soma(x,y)
+```
+
+-   Criando uma função para identificar se um valor é par ou ímpar.
+
+```{r}
+    par_ou_impar <- function(a){
+      if(a %% 2 == 0){
+        resultado <- "par"
+      }else{
+        resultado <- "impar"
+      }
+      return(resultado)
+    }
+
+    par_ou_impar(1001)
+
+
+    par_ou_impar <- function(a){
+      resultado <- ifelse(a %% 2 == 0, "par", "impar")
+      return(resultado)
+    }
+
+    par_ou_impar(1001)
+
+```
+
+-   Crie um arquivo com a valores de produção de 10 cultivares e crie um programa que indique apenas aquelas que forem maior que a média geral.
+
+```{r}
+cultivares <- paste0("Cultivar", 1:10)
+prod <- rnorm(10, 100, sd = 5)
+dados <- data.frame(cultivares, prod)
+dados
+plot(dados$prod)
+abline(h = mean(dados$prod), lty = 3)
+
+for(i in 1:length(dados$cultivares)){
+  if(dados[i,"prod"] >= mean(dados$prod)){
+    dados$situacao[i] <- "Selecionar"
+  }else{
+    dados$situacao[i] <- "descartar"
+  }
+}
+dados
+```
+
+# Pacotes
+
+O R é composto por vários pacotes (*packages*), também chamados de bibliotecas (*libraries*). Pacotes ou bibliotecas são os nomes de bibliotecas mais usados para designar um conjunto de comandos e, ou conjunto de dados. Os comandos básicos do R estão agrupados em um pacote chamado *base*. Existem inúmeros pacotes, alguns já incluídos na instalação padrão do R e vários foram desenvolvidos por usuários do R que, em certo momento, julgaram importante criar comandos que suprissem suas necessidades. Depois, esses usuários disponibilizaram esses comandos na forma de um pacote com determinado nome, para que outras pessoas que necessitem usar os mesmos comandos não precisem implementá-los novamente. É essa colaboração mútua que faz do R um programa amplo, interdisciplinar e em constante evolução.
+
+Comandos:
+
+##   Ajuda e descrição:
+
+    -   `library(help= base)` \# exemplo para o pacote *base*
+
+##   Pacotes instalados:
+
+    -   `installed.packages()`
+
+##   Instalar pacote:
+
+    -   install.packages("")
+
+##   Visualizar os pacotes carregados na memória:
+
+    -   `search()`
+
+##   Carregar pacote já instalado:
+
+    -   `library()`
+
+    -   `require()`
+
+##   Atualizar pacotes:
+
+    -   `update.packages()` \# nome de um pacote específico entre "aspas", ou digite ask=FALSE, para atualizar todos de uma vez.
+
+- ATIVIDADES:
+
+1.  Criar um novo script e refazer todas as atividades anteriores deixando anotado todas as dúvidas e/ou dificuldades para a próxima aula.
+
+
+# Introdução à manipulação de dados no R.
+
+- O dplyr é a biblioteca que iremos utilizar para manipulação de dados. A biblioteca dplyr faz parte do framework tidyverse. Saiba mais em: https://www.tidyverse.org/.
+
+- Esse pacote permite a organização por operador pipe (`%>%`), facilitando a organização do script e permitindo ser mais simples e rápido.
+
+- Possui um conjunto de funções que auxiliando na manipulação de dados:
+
+  -   Verbos: `mutate()`, `select()`, `filter()`, `arrange()`,
+`summarise()`, `slice()`, `rename()`, etc.
+  -   Sufixos: `_at()`, `_if()`, `_all()`, etc.
+  -   Agrupamento: `group_by()` e `ungroup()`.
+  -   Junções: `inner_join()`, `full_join()`, `left_join()` e
+`right_join()`.
+  -   Funções resumo: `n()`, `n_distinct()`, `first()`, `last()`, `nth()`,
+etc.
+
+## Biblioteca `tidyverse`
+
+```{r}
+library(tidyverse)
+```
+
+- Buscando o arquivo de dados
+
+```{r}
+library(readr)                             #Importar arquivos em CSV e Excel
+dados <- read_csv("dados.csv")             #Funçao para importar os dados
+dados
+```
+
+- Leitura dos 6 primeiros observações
+
+```{r}
+head(dados)
+```
+
+## Análise descritiva dos dados
+
+```{r}
+summary(dados)
+```
+
+## Operador pipe `%>%`
+
+```{r}
+#Maneira tradicional
+numeros <- 0:100
+mean(numeros)
+```
+
+
+```{r}
+#Operador pipe
+numeros %>%
+mean()
+```
+
+## `arrange()`
+- Ordenando pela `area` 
+
+```{r}
+# Ordenando pela menor area (crescente)
+dados %>%
+  arrange(area)
+```
+
+
+```{r}
+# Ordenando pela maior area (descendente)
+dados %>%
+  arrange(desc(area))
+```
+
+
+```{r}
+# Ordenando por gen e area
+dados %>%
+  arrange(gen, desc(area))
+```
+
+## `filter()` 
+  -   A função `filter()` retorna as linhas (observações) que satisfaçam as condições estabelecidas
+
+```{r}
+#Filtrar apenas os genótipos `Ruda`
+dados %>%
+  filter(gen == "Ruda")
+```
+
+```{r}
+#Filtrar os genótipos `Ruda` com área maior do que 100
+dados %>%
+  filter(gen == "Ruda" & area >= 100)
+```
+
+```{r}
+#Filtrar os tratamentos `UFLA 02` OU `UFLA 04`
+dados %>%
+  filter(trat == "UFLA 02" | trat == "UFLA 04")
+```
+
+- Funções e condições úteis para se combinar com a função filter
+  -	`==` filtrar os valores iguais a …
+  -	ex: `>`,`>=`,`<` ou `<=` filtrar valores maiores, maiores ou iguais, menores ou menores ou iguais
+  -	`&`, `|`, `!` ou `xor()` “e”,“ou”,“diferente”, “ou exclusivo”.
+  -	`is.na()` #verifica se o valor é NA
+  -	`between()` - entre os valores
+  -	`near()` - valores próximos, você define a tolerância
+
+
+## `slice()`
+
+- Retorna as linhas (observações) determinadas 
+
+```{r}
+#Filtrar as observações 1 até 5
+dados %>%
+  slice(1:5)
+```
+
+```{r}
+#Filtrar todas observações menos a numero 1 até a 5
+dados %>%
+  slice(-(1:5))
+```
+
+```{r}
+#Filtrar as 4 observações  com maior area
+dados %>%
+slice_max(area,n = 4)
+```
+
+```{r}
+#Filtrar as 4 observações com menor area
+dados %>%
+slice_min(area,n = 4)
+```
+
+## `select()`
+- Retorna as colunas (variáveis) determinadas 
+
+```{r}
+#Selecionar as colunas 3 (gen) e 8 (area)
+#Método 1 - indicando o número da coluna no conjunto de dados
+dados %>%
+  select(3,8)
+```
+
+```{r}
+#Selecionar as colunas 3 (gen) e 8 (area)
+#Método 2 - indicando o nome da coluna no conjunto de dados
+dados %>%
+  select(gen,area)
+```
+
+```{r}
+#Excluir a variável 2 (id)
+dados %>%
+  select(-id)
+```
+
+```{r}
+#Selecionar um intervalo de variaveis
+dados %>%
+  select(c(1:4,8))
+```
+
+
+```{r}
+#selecionar colunas pela classe
+#Método 1 - Usando `where`
+dados %>%
+select(where(is.numeric))
+```
+
+```{r}
+#selecionar colunas pela classe
+#Método 1 - Usando `select_if`
+dados %>%
+select(where(is.numeric))
+```
+
+
+```{r}
+#Escolha as colunas que possuem um determinado texto
+dados %>%
+select(contains("area"))
+```
+
+## `mutate()`
+- Transforma variáveis existentes ou adiciona novas variáveis. 
+
+```{r}
+#Criando uma variável que é a soma das variáveis de severidade
+dados <- dados %>%
+  mutate(soma_sev = sev1 + sev2 + sev3)
+```
+
+```{r}
+#Convertendo em fator as variáveis trat e gen
+dados <- dados %>%
+  mutate(trat = as.factor(trat), gen = as.factor(gen))
+```
+
+## `trasmute()`
+- Adiciona novas variáveis e exclui as outras
+
+```{r}
+#Criando uma varivel da interaçao entre trat e gen
+dados %>%
+  transmute(soma_sev = sev1 + sev2 + sev3)
+```
+
+## `rename()` 
+- Altera os nomes das variáveis
+
+```{r}
+#Renomear trat e gen por tratamento e genótipo, respectivamente.
+dados %>%
+rename(tratamento = trat , genotipo = gen)
+```
+
+```{r}
+#Renomeia sev por severidade
+dados %>%
+rename_with(~ gsub("sev", "severidade", .x))
+```
+
+## `summarise()`
+
+- A Função `summarise()` retorna a estatística determinada pelo usurário do conjunto de dados
+
+  -   Funções úteis: 
+    - Media: `mean()`, 
+    - Mediana: `median()`,
+    - Desvio: `sd()`, 
+    - variancia: `var()`,
+    - Minimo e maximo: `min()`, `max()`,
+    - Quantils: `quantile()`.
+    - Posição: `first()`, `last()`, `nth()`, 
+    - Frequencia: `n()`, `n_distinct()`,
+    - Lógicas: `any()`, `all()`
+    
+```{r}
+#Media e mediana da area
+dados %>%
+summarise(area_mean = mean(area),
+          area_median = median(area)) 
+```
+
+```{r}
+#Calcula a média para todas as variáveis numéricas
+dados %>%
+summarise_if(.predicate = is.numeric, .funs = mean)
+```
+
+## `group_by()`
+
+- A Função `group_by()` agrupa os dados para a varaivel determinada.
+Sempre é utilizada com outra função.
+
+```{r}
+#Filtrando os genótipos pela area menor que 100
+dados %>%
+  group_by(trat, gen) %>% 
+  filter(area < 100)
+  
+```
+
+
+```{r}
+#Estatísticas da área por tratamento por genótipo
+dados %>%
+  group_by(trat, gen) %>%
+  summarise(
+    area_mean = mean(area),
+    area_range = max(area) - min(area),
+    area_desv = sd(area)
+  ) 
+```
+
+
+```{r}
+#Contagem de tratamentos com área maior que 100
+dados %>%
+  filter(area > 100) %>% 
+  group_by(trat) %>% 
+  summarise(cont_trat = n()) 
+  
+```
+
+## Junções
+
+- A função mais utilizada para fazer junções de conjunto de dados é a `join()`.
+
+Fazer um join nada mais é do que juntar dois conjuntos de dados por meio de um ou mais variáveis em comum.
+
+
+### Tipos de Join
+  - Podemos dividir as funções do tipo join em 2 tipos:
+
+    - Mutating joins: `left_join()`, `right_join()`,`inner_join()`, `full_join()`.
+
+    - Filtering joins: `semi_join()`, `anti_join()`.
+
+Temos ainda, no pacote dplyr, as funções `union()`, `intersect()`, `setdiff()`, `setequal()` que também serão úteis para unir e comparar conjuntos de dados.
+
+### `inner_join()`
+
+- Retorna todas as linhas de x onde existem valores correspondentes em y e todas as colunas de x e y.
+
+```{r}
+#Criando dois conjuntos de dados
+dados1<- dados %>%
+  mutate(soma_sev = sev1 + sev2 + sev3) %>%
+  select(trat:blocos, soma_sev) %>%
+  filter(soma_sev > 50)
+
+head(dados1)
+```
+
+
+```{r}
+dados2<-dados %>%
+  mutate(mult_sev = sev1 * sev2 * sev3) %>%
+  select(trat:blocos, mult_sev) %>%
+  filter(mult_sev > mean(mult_sev))
+
+head(dados2)
+```
+
+
+```{r}
+inner<-inner_join(dados1,dados2,by="trat")
+inner
+```
+
+### `anti_join()`
+
+  - Retorna todas as linhas de x para as quais não existem valores correspondente em y, mantendo apenas as colunas de x. É considerado um “filtering join”.
+
+```{r}
+anti<-anti_join(dados1,dados2,by="trat")
+anti
+```
+
+
+### `semi_join()`
+
+  - Retorna todas as linhas de x para as quais existem valores correspondente em y, mantendo apenas as x. O semi join difere do inner join porque o inner join irá retornar uma linha de x para cada valor correspondente de y, enquanto um semi join nunca irá duplicar valores x.
+
+```{r}
+semi<-semi_join(dados1,dados2,by="trat")
+semi
+```
+
+### `full_join()`
+
+  - Retorna todas as linhas e todas as colunas tanto de x quanto de y. Returna NA no caso de não haver valor correspondente.
+
+```{r}
+full<-full_join(dados1,dados2,by="trat")
+full
+```
+
+### `left_join()`
+
+  - Retorna todas as linhas de x, e todas as colunas tanto de x quanto de y. Se houver múltiplas correspondências entre x e y, todas as combinações de correspondências serão retornadas.
+
+```{r}
+left<-left_join(dados1,dados2,by="trat")
+left
+```
+
+### `right_join()`
+
+  - Retorna todas as linhas de y, e todas as colunas tanto de x quanto de y. Se houver múltiplas correspondências entre x e y, todas as combinações de correspondências serão retornadas.
+
+```{r}
+right<-right_join(dados1,dados2,by="trat")
+right
+```
+
+# Formatos de banco de dados
+
+- Podemos remodelar nossos dados para formatos longo, conjuntos de dados onde temos uma linha por observação, ou amplo, cada tipo de observação tenha sua própria coluna e as linhas sejam grupos mais agregados.
+
+## Formato 'longo':
+
+  - cada coluna é uma variável
+  - cada linha é uma observação
+  - No formato ‘longo’, normalmente você tem 1 coluna para a variável observada e as demais colunas são variáveis de ID.
+  
+## Formato 'amplo':
+  - uma linha corresponde a um indivíduo 
+  - As variáveis de observação sao dispostas em colunas
+
+## Funções `pivot_wider()` e `pivot_longer()`
+
+### `pivot_wider()`
+
+  -   Permite converter um banco de dados no formato longo para amplo, providenciando dois argumentos: `names_from` descreve qual coluna usar para o nome da coluna de saída e `values_from` informa a coluna para obter os valores das células.
+
+```{r}
+library(readxl)
+library(tidyverse)
+Pasta1 <- read_excel("Pasta1.xlsx")
+
+Pasta2<-Pasta1  %>%
+  count(FIELD_name, Est_Fenol_Inset) %>% 
+  arrange(Est_Fenol_Inset)
+
+Pasta2
+
+```
+
+```{r}
+Est_fenol_ins_wide <- Pasta2 %>%
+  pivot_wider(names_from = Est_Fenol_Inset, 
+              values_from = n)
+
+Est_fenol_ins_wide
+```
+
+
+### `pivot_longer()`
+
+  - Para passar de um formato amplo para longo, que aumentará o número de linhas e diminuirá o número de colunas. Fornecemos três argumentos: `cols` que são as colunas que queremos dinamizar no formato longo, `names_to`, que é uma string especificando o nome da coluna a ser criada a partir dos dados armazenados nos nomes das colunas e `values_to`, que é também uma string, especificando o nome da coluna a ser criada a partir dos dados armazenados nos valores das células.
+
+```{r}
+Est_fenol_ins_long <- Est_fenol_ins_wide %>% 
+  pivot_longer(cols = -FIELD_name,
+               names_to = "Est_fenol_ins",
+               values_to = "n")
+Est_fenol_ins_long
+
+```
+
+## Funções `spread()` e `gather()`
+
+- As funções `spread()` e `gather()` desempenham a mesma função que as funções `pivot_wider()` e `pivot_longer()`, respectivamente.
+
+
+### `spread()` 
+  -   Declaramos os argumentos `key` e `value`. `key`é a variável de coluna-chave cujos valores se tornarão novos nomes de coluna e `value` a variável de coluna de valor cujos valores preencherão as novas variáveis de coluna.
+
+```{r}
+Est_fenol_ins_spread <- Pasta2 %>%
+   spread(key = Est_Fenol_Inset, value = n)   # n funciona como count()
+
+#NA declarado como 0, basta acrescentar fill = 0, como argumento
+
+Est_fenol_ins_spread
+```
+
+### `gather()`
+  -   Estamos reunindo os nomes das colunas e transformando-os em um par de novas variáveis. Uma variável representa os nomes das colunas como valores e a outra variável contém os valores anteriormente associados aos nomes das colunas.
+
+```{r}
+Est_fenol_ins_gather <- Est_fenol_ins_spread %>%
+   gather(key = Est_Fenol_Inset, value = n, -FIELD_name)
+
+Est_fenol_ins_gather
+```
+
+## Exportando dados:
+
+```{r}
+write_csv(Est_fenol_ins_gather, file = "Est_fenol_ins_gather.csv")
+```
+
+
+- ATIVIDADES
+
+1. Ordene os dados1 e dados2 pelo trat > gen > bloco. 
+
+2. Filtre os dados1 e dados2 apenas para o tratamento UFLA72 e genótipo Ruda.
+
+3. Filtre os dados para área < 50, em ordem decrescente para a variável área.
+
+4. Selecione os 2 tratamentos que apresentaram menor área.
+
+5. Crie um conjunto de dados sem as variáveis sev, do arquivo dados.
+
+6. Agrupe os dados usando funções resumos para calcular o mínimo, media, mediana, desvio e para todas as variáveis numéricas, com a exceção de blocos, para cada genótipo.
+
+7. Adicione no conjunto de dados uma variável que seja a interação entre tratamentos, genótipos e blocos.
+
+8. Faça as junções dos dois conjuntos de dados 'dados1' e 'dados2', com o conjunto de dados 'dados'.
+
+9. Crie um conjunto de dados com o FIELD_name como colunas e Hibrido_produtor como linhas e a região como valores. Você precisará resumir antes de reformular e usar a função n_distinct() para obter a região exclusiva em um determinado bloco de dados.
+
+
+10. Agora pegue esse quadro de dados e use o `gather()` novamente, para que cada linha seja uma combinação única de Hibrido_produtor por FIELD_name.
+
+
+# Realizando análise de dados
+
+## Análise descritivas (medida de tendencia central e de variabildiade)
+
+### Medidas de tendencia central
+
+#### Média, mediana e moda.
+
+
+```{r}
+set.seed(123)                   #Semente para a aleatorizaÃ§Ã£o dos dados
+```
+
+```{r}
+Amostra1 <- rnorm(100, 12, 3)   # Gera uma amostra com distribuiçao normal
+
+Amostra2 <- rpois(100, 12)      # Gera uma amostra com distribuiçao Poisson
+
+mean(Amostra1)                  # m?dia
+mean(Amostra2) 
+median(Amostra1)                # mediana
+median(Amostra2)
+```
+
+```{r}
+#Nao existe no R base uma funçao para computar a moda, ent?o 
+#vamos cria-la utilizando a abordagem `function()`:
+
+
+moda <- function(x)
+{
+  if ((is.numeric(x) == TRUE) && (is.list(x) == FALSE))
+  {
+    xx <- table(x)
+    valores <- which(xx == max(xx))
+    vmodal <- 0
+    for (i in 1:(length(valores)))
+      if (i == 1)
+        vmodal <- as.numeric(names(valores[i]))
+    else
+      vmodal <- c(vmodal, as.numeric(names(valores[i])))
+    if (length(vmodal) == length(xx))
+      print("conjunto sem valor modal")
+    else
+      return(vmodal)
+  }
+  else
+    print("o par?metro deve ser um vetor ou uma matriz")
+}
+```
+
+```{r}
+x<-c(7,8,9,10,7,8,9,10,7,6,5,4,7)     #criando vetor
+x
+```
+
+```{r}
+moda(x)                               #obtendo a moda
+```
+
+```{r}
+Amostra1
+moda(Amostra1)
+```
+
+```{r}
+#Criando função para média
+media<-function(x){
+  sum(x)/length(x)
+}
+
+media(Amostra1)
+
+mean(Amostra1)
+```
+
+### Medidas de variabilidade
+
+### Desvio padrao, variancia, Amplitude total e coefciente de variaçao
+
+```{r}
+min(Amostra1)
+max(Amostra1)
+sd(Amostra1)                          #Desvio padr?o
+var(Amostra1)                         #Variancia
+range(Amostra1)                       #Amplitude total
+```
+
+
+
+```{r}
+#N?o existe no R base uma fun??o para computar o coefciente de varia??o, ent?o 
+#vamos cria-la utilizando a abordagem `function()`:
+CV <- function(dados){
+  if(!class(dados) == "numeric"){
+    stop("Os dados precisam ser num?ricos")
+  } #Indica que os dados devem ser numÃ©ricos
+  media <- mean(dados)
+  sd <- sd(dados)
+  CV <- (sd/media) * 100
+  return(CV) # Valor que serÃ¡ retornado pela funÃ§Ã£o
+}
+```
+
+```{r}
+CV(Amostra1)
+CV(x)
+```
+
+```{r}
+#Segunda forma de se obter o CV 
+
+CV<-(sd(Amostra1)/mean(Amostra1))*100
+CV
+```
+
+
+```{r}
+## Outras medidas importantes Erro padraoo da média, covariancia e correlaçao
+
+cov(Amostra1, Amostra2, method = "spearman")  
+
+cor(Amostra1, Amostra2) 
+cor(Amostra1, Amostra2, method = "spearman") 
+
+EPM<-sd(Amostra1)/sqrt(length(Amostra1))       #Erro padr?o da m?dias
+
+cov(Amostra1, Amostra2)                        #obtendo a covariancia entre Amostra1 e Amostra2
+cor(Amostra1, Amostra2)                        #obtendo a correlaçao entre Amostra1 e Amostra2
+```
+
+```{r}
+# Podemos utilizar a função `summary()` para obter várias estimativas de tendencia
+
+summary(Amostra1)  
+```
+
+## Planejamento de experimentos em DBC
+
+### Definindo o número de tratamentos e blocos
+
+```{r}
+NumTrat<-5
+NumBlocos<-4
+```
+
+### Criando o vetor de Tratamentos
+```{r}
+Tratamentos<-NULL                          #Criando um vetor vazio para tratamento
+```
+
+### Loop para casualizaçao dos tratamentos
+```{r}
+for(i in 1:NumBlocos){
+  Tratamentos<-c(Tratamentos,sample(paste("Trat",1:NumTrat,sep="_")))
+}
+```
+
+### Criando o vetor de Blocos
+
+```{r}
+Blocos<-rep(1:NumBlocos,each=NumTrat)
+```
+
+### Criando o data frame do delineamento experimental
+
+```{r}
+DBC<-cbind(Tratamentos,Blocos)                #Agrupando os vetores em uma matriz por coluna
+
+DBC<-as.data.frame(DBC)                       #Transformando a matriz em data frame
+
+DBC$Tratamentos<-as.factor(DBC$Tratamentos)   #Convertendo a coluna de tratamentos em fator
+
+DBC$Blocos<-as.numeric(DBC$Blocos)            #Convertendo a coluna de blocos em numérica
+
+## Criando a coluna indicando as linhas do experimento para visualizaçao
+
+DBC$col<-as.factor(rep(1:NumTrat,NumBlocos))
+```
+
+
+### Visualizar o experimento
+
+```{r}
+library(tidyverse)
+
+DBC%>%
+  ggplot(aes(x=Blocos, y = col))+
+  geom_text(aes(label = Tratamentos, colour = Tratamentos))+
+  labs(y="",
+       x="")+
+  guides(colour = "none")+
+  theme_void()
+```
+
+# ANOVA DIC
+
+## Manipulaçao e organizaçao dos dados
+
+### Leitura do arquivo de dados
+
+```{r}
+library(agricolae)                           #pacote necess?rio para ANOVA
+library(readr)                               #Pacote para leitura do arquivo
+
+dados_aula7 <- read_delim("dados_aula7.csv", 
+                          delim = ";", escape_double = FALSE, trim_ws = TRUE)      #Buscar o arquivo
+```
+
+### Resumo dos dados
+
+```{r}
+str(dados_aula7)                                      #Resumo dos dados
+```
+
+```{r}
+head(dados_aula7)
+```
+### Converter em fator blocos e tratamentos
+```{r}
+dados_aula7$blocos<-as.factor(dados_aula7$blocos)      #Tranformar a coluna de blocos em fatores
+dados_aula7$trat<-as.factor(dados_aula7$trat)          #Tranformar a coluna de tratamentos em fatores
+```
+
+## Análise de variancia (ANOVA) DIC
+```{r}
+anova <- aov(sev1 ~ trat, data = dados_aula7) #Modelo da Anova em DIC
+
+summary(anova)                                #Resumo da ANOVA
+
+```
+
+### Visualizaçao das pressuposiçoes
+
+```{r}
+par(mfrow=c(2,2))                             #Dividir a area grafica em 2 x 2
+
+plot(anova, which=1:3)                        #Plotar os valores residuais vs valores estimados, normalidade e valores padronizados dos residuos vs valores estimados dos dados
+```
+
+### Coeficiente de variaçao
+
+```{r}
+cv.model(anova)                               #Coeficiente de variaçaoo 
+```
+
+## Teste de shapiro para normalidade dos dados
+
+```{r}
+shapiro.test(anova$res)
+```
+
+## Transformaçao Box-Cox
+
+```{r}
+library(MASS)                           #Pacote para transformaçao dos dados
+```
+
+```{r}
+par(mfrow=c(1,2)) 
+
+boxcox(sev1 ~ trat + blocos, data=dados_aula7, plotit=T)  
+```
+
+
+
+```{r}
+### Verificar o valor ótimo de lambda para transformação dos dados
+boxcox(sev1 ~ trat, data=dados_aula7, lam=seq(-2, 2, 1/10)) #lam diminuir a expansÃ£o do eixo x
+
+bc <-
+  boxcox(
+    sev1 ~ trat, data=dados_aula7, lam=seq(-2, 2, 1/10),
+    plot = F
+  )
+
+lambda <- bc$x[which(bc$y == max(bc$y))] + 0.00000001
+```
+
+### Transformando os dados de acordo com o valor obtido pelo box-cox
+
+```{r}
+dados_aula7$sev1t <- (dados_aula7$sev1^(lambda)-1)/(lambda)     
+
+```
+
+### Anova corrigida
+
+```{r}
+anovat <- aov(sev1t ~ trat, data=dados_aula7)              #Anova com os dados transformados
+anovat
+
+summary(anovat)
+```
+
+
+```{r}
+### Teste de shapiro para normalidade dos dados
+shapiro.test(anovat$res)
+```
+
+# ANOVA DBC
+
+## Manipulaçao e organizaçao dos dados
+
+### Leitura do arquivo de dados
+```{r}
+library(agricolae)                           #pacote necess?rio para ANOVA
+library(readr)                               #Pacote para leitura do arquivo
+
+dados_aula7 <- read_delim("dados_aula7.csv", 
+                          delim = ";", escape_double = FALSE, trim_ws = TRUE)      #Buscar o arquivo
+```
+
+
+### Converter em fator blocos e tratamentos
+```{r}
+dados_aula7$blocos<-as.factor(dados_aula7$blocos)      #Tranformar a coluna de blocos em fatores
+dados_aula7$trat<-as.factor(dados_aula7$trat)          #Tranformar a coluna de tratamentos em fatores
+```
+
+## Análise de variancia (ANOVA) DBC
+
+```{r}
+anova <- aov(sev3 ~ trat, data = dados_aula7)
+
+anova <- aov(sev3 ~ blocos + trat, data = dados_aula7) #Modelo da Anova em DBC
+
+summary(anova)                                        #Resumo da ANOVA
+```
+
+### Visualizaçao das pressuposiçoes
+
+```{r}
+par(mfrow=c(2,2)); plot(anova, which=1:3)             #Plotar os valores residuais vs valores estimados, normalidade e valores padronizados dos residuos vs valores estimados dos dados
+```
+### Coeficiente de variaçao
+
+```{r}
+cv.model(anova)                                       #Coeficiente de variaÃ§Ã£o 
+```
+
+### Teste de shapiro para normalidade dos dados
+
+```{r}
+shapiro.test(anova$res)
+```
+
+# Testes de comparação múltipla
+
+## Teste de tukey
+
+```{r}
+teste_tukey<-HSD.test(anova, "trat")
+summary(teste_tukey)
+```
+
+```{r}
+teste_tukey$groups
+```
+
+### Plotando o teste
+
+```{r}
+par(mfrow=c(1,1))
+
+bar.group(teste_tukey$groups,ylim=c(0,(max(dados_aula7$sev3)*1.25)), density=4,border="blue")
+
+text((nrow(teste_tukey$groups[2]))/2,max(dados_aula7$sev3)*1.20,"Teste de Media para o Sev3")
+```
+
+## Teste de SNK
+
+```{r}
+teste<-SNK.test(anova,"trat")
+```
+
+### Plotando o teste
+```{r}
+bar.group(teste$groups,ylim=c(0,(max(dados_aula7$sev3)*1.25)), density=4,border="blue")
+text((nrow(teste$groups[2]))/2,max(dados_aula7$sev3)*1.20,"Teste de Media para o Sev3")
+```
+
+## Teste de Duncan
+
+```{r}
+teste<-duncan.test(anova,"trat")
+```
+
+### Plotando o teste
+
+```{r}
+bar.group(teste$groups,ylim=c(0,(max(dados_aula7$sev3)*1.25)), density=4,border="blue")
+text((nrow(teste$groups[2]))/2,max(dados_aula7$sev3)*1.20,"Teste de Media para o Sev1")
+```
+
+## Teste de Scheffe
+
+```{r}
+teste<-scheffe.test(anova,"trat", group=TRUE,console=TRUE, alpha=0.05)
+```
+
+### Plotando o teste
+
+```{r}
+bar.group(teste$groups,ylim=c(0,(max(dados_aula7$sev3)*1.25)), density=4,border="blue")
+text((nrow(teste$groups[2]))/2,max(dados_aula7$sev3)*1.20,"Teste de Media para o Sev3")
+```
+
+## Teste de Dunett
+
+```{r}
+library(multcomp)
+
+teste <- glht(anova, linfct = mcp("trat" = "Dunnett"))
+
+print(summary(teste))
+print(confint(teste))
+```
+
+## Teste de Scott e Knott pacote ScottKnott
+
+```{r}
+library(ScottKnott)                                  #Pacote para realizar o teste de Scott e Knott
+
+scotknot_dadostransf<- SK(x=anova,
+                          which='trat')              #Teste de comparaÃ§Ã£o multipla Scott Knott
+
+summary(scotknot_dadostransf)                        #Resumo do teste Scott e Knott
+```
+
+```{r}
+scotknot_dadostransf$info
+```
+
+### Gráfico usando ggplot para teste de médias
+
+```{r}
+grafico<-as.data.frame(scotknot_dadostransf$info)  #Criando o data frame com as informaÃ§Ãµes de mÃ©dias e do teste
+```
+
+### adicionando as letras para diferenciaÃ§Ã£o dos tratamentos em uma coluna do data frame
+
+```{r}
+grafico['sig']<-c('a','a','a','a','b','b','b','b','b','b','b','c','c','c','c')  
+```
+
+### Adicionando os nomes corretos das colunas
+
+```{r}
+colnames(grafico)<-c('trat', 'means', 'trat1', 'min',  'max', 'trat2', 'linf_sd', 'lsup_sd','trat3' ,  'linf_se',   'lsup_se', 'trat4', 'linf_sepool', 'lsup_sepool', 'sig')
+```
+
+### Gráfico
+
+```{r}
+library(tidyverse)
+
+grafico %>%
+  ggplot(aes(x=trat, y=means))+
+  geom_col(aes(fill = as.factor(sig)), colour = 'black', alpha = 0.8, width = 0.85)+
+  geom_errorbar(aes(ymin=linf_sd, ymax=lsup_sd),  color = "#22292F", width=.3)+
+  guides(fill = "none") +
+  geom_text(label = grafico$sig, aes(y = lsup_sd, x = trat),vjust = -0.5, size = 3)+
+  theme_classic()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+# ANOVA FATORIAL
+
+```{r}
+library(readxl)
+dados1 <- read_excel("C:/Aulas_R/Aula_9/dados1.xlsx")
+```
+
+```{r}
+anova <-  aov(Produtividade ~ Blocos/Local + Trat + Local + Trat*Local, 
+             data = dados1)
+```
+
+```{r}
+summary(anova)
+```
+
+# ANOVA EM PARCELA SUBDIVIDA
+
+```{r}
+library(readxl)
+dados2 <- read_excel("C:/Aulas_R/Aula_9/dados2.xlsx")
+
+dados2 <- dados2 %>%
+  mutate(
+  Parcela = as.factor(Parcela),
+  Subparcela = as.factor(Subparcela),
+  Bloco = as.factor(Bloco),
+  Variavel = as.numeric(Variavel)
+)
+```
+
+
+```{r}
+anova <-  aov(Variavel ~ Parcela + Bloco:Parcela + Subparcela + Bloco*Subparcela + Parcela*Subparcela, 
+             data = dados2)
+summary(anova)
+```
+
+
+```{r}
+library(tidyverse)
+library(ExpDes)
+  
+parcelas<-split2.rbd(dados2$Parcela, dados2$Subparcela, dados2$Bloco, dados2$Variavel, quali = c(TRUE,TRUE),
+       mcomp = "tukey", fac.names = c("Parcela","Subparcela"))
+```
+
+## ANOVA em Blocos aumentados
+
+```{r}
+
+library(readr)
+
+blocos <- read_delim("C:/Aulas_R/Aula_10/Blocos_Aumentados.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+library(easyanova)
+
+??ea1
+
+blocos_aumentados<- ea1(blocos, design=8, alpha = 0.05)
+
+blocos_aumentados
+```
+
+## ANOVA em Faixas
+
+```{r}
+library(readr)
+aula10 <- read_csv("C:/Aulas_R/Aulas_R/aula10.csv")
+
+aula10<- aula10 %>%
+  mutate(trat = as.factor(trat),
+         dose=as.factor(dose),
+         bloco = as.factor(bloco))
+
+faixas<-strip(aula10$dose, aula10$trat, aula10$bloco, aula10$prod, quali = c(TRUE,TRUE),
+       mcomp = "tukey", fac.names = c("Tratamento","Dose"))
+
+```
+
+# Material Suplementar (Calcula da area abaixo da curva)
+
+## Carregando os dados
+
+```{r}
+library(readr)
+dados <- read_delim("C:/Aulas_R/Aula_10/dados_aula8.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+```
+
+## Convertendo as variaveis em fatores
+```{r}
+dados <- transform(
+  dados,
+  blocos = factor(blocos),
+  trat = factor(trat)
+)
+```
+
+## Definindo as datas de avaliação
+
+```{r}
+dates <- c(7, 14, 21) # dias de avaliação
+```
+
+## Data frame apenas com as variaveis `sev`
+```{r}
+sev <- data.frame(dados$sev1,
+                         dados$sev2,
+                         dados$sev3)
+```
+
+## Calculo da área abaixo da curva
+```{r}
+library(agricolae)
+area <- audpc(sev, dates)
+```
+
+## Agrupando os conjunto de dados
+
+```{r}
+dadosfinal <- cbind(dados, area)
+head(dadosfinal)
+```
+
+## Gráfico de severidade
+
+```{r}
+dadosplot <- dadosfinal %>%
+  group_by(trat) %>%
+  summarise(sev1 = mean(sev1),
+            sev2 = mean(sev2),
+            sev3 = mean(sev3))
+
+dadosplot <- dadosplot %>%
+  pivot_longer(
+    cols = sev1:sev3,
+    # as colunas desse intervalo
+    names_to = "time",
+    # terão seus nomes armazenados nessa nova coluna
+    names_prefix = "sev",
+    # pegar apenas os nomes que vem depois de 'ano_'
+    values_to = "y"
+  ) # e os seus valores armazenados nessa nova coluna
+
+dadosplot <- dadosplot %>%
+  mutate(time = as.numeric(case_when(time == 1  ~ 7,
+                                     time == 2  ~ 14,
+                                     time == 3 ~ 21)))
+
+ggplot(dadosplot,
+       aes(time, y,
+           colour = trat)) +
+  geom_point(aes(time, y), shape = 1, size = 2) + # plot the replicate values
+  geom_line() +
+  labs(x = "Dias de avaliação",
+       y = "AACPD") +
+  scale_x_continuous(label = c(7, 14, 21), breaks = c(7, 14, 21)) +
+  ylim(0, 50) + 
+  scale_colour_brewer(palette = "Paired") +
+  theme(text = element_text(size = 20,
+                            family = "A"),
+        legend.position = "right") +
+  guides(colour = guide_legend(title = NULL))
+```
+
+-   ATIVIDADES
+
+1. Realiza a análise de variância para os dados da área abaixo da curva. Lembrem-se das pressuposições, caso seja necessário, realiza transformações de dados. 
+
+2. Calcule o coeficiente de variação do experimento.
+
+3. Realize o teste de comparação de médias e plot um gráfico com os resutlados.
+
+
+# Regressão e Correlação
+
+## Regressão linear
+```{r}
+library(readr)
+DadosReg <- read_delim("C:/Aulas_R/Aula_10/DadosReg.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+head(DadosReg)
+```
+
+- Modelo y = B0 + B1X + e
+  -   y - variável resposta
+  -   B0 - coeficiente linear da reta
+  -   B1 - coeficiente angular da reta
+  -   X - variável independente
+  -   e - erro experimental
+  
+### Modelo de regressão
+```{r}
+reglin<-lm(PROD ~ TRAT, data = DadosReg)
+
+summary(reglin) 
+```
+
+### Predição via modelo de regressão
+
+```{r}
+predict(reglin)
+```
+
+### Plotando a regressão
+
+```{r}
+DadosReg %>%
+  ggplot(aes(TRAT,PROD))+
+  geom_point()+
+  geom_smooth(method = lm)                          
+
+ggplot(DadosReg, aes(as.factor(DadosReg$TRAT),PROD))+
+  geom_boxplot()
+```
+
+## Regressão Multipla
+
+### Criando o arquivo de dados
+
+```{r}
+data.frame(DadosReg, TRAT2 = DadosReg$TRAT + DadosReg$TRAT)
+
+DadosReg_mult <-
+  data.frame(
+    DadosReg,
+    TRAT2 = DadosReg$TRAT ^ 2,
+    TRAT3 = DadosReg$TRAT ^ 3,
+    TRATr = sqrt(DadosReg$TRAT),
+    TRATl = log(DadosReg$TRAT),
+    TRATi = 1 / DadosReg$TRAT,
+    TRATi2 = 1 / DadosReg$TRAT ^ 2
+  )
+
+head(DadosReg_mult)
+
+```
+
+### Ajuste do modelo quadrático (dois fatores)
+
+```{r}
+m2 <- lm(MAT~TRAT+TRAT2, data=DadosReg_mult)       #Modelo de regressão
+
+summary(m2)
+```
+
+#### Plotando a regressão
+
+```{r}
+plot(MAT~TRAT, DadosReg_mult)
+lines(fitted(m2)~TRAT, DadosReg_mult)
+```
+
+### Ajuste do modelo cúbico
+
+```{r}
+m3 <- lm(MAT~TRAT+TRAT2+TRAT3, data=DadosReg_mult) #Modelo de regressão
+
+summary(m3)                                        #Resumo da regressão
+```
+
+#### Plotando a regress?o
+
+```{r}
+plot(MAT~TRAT, DadosReg_mult)
+lines(fitted(m3)~TRAT, DadosReg_mult)
+```
+
+- Qual modelo é o melhor?
+  - O melhor modelo pode ser avaliados pelos indices de comparação de modelos `AIC` ou `R-squared`.
+
+### Comparação entre modelos
+
+```{r}
+AIC2<-step(m2, direction="both")
+AIC3<-step(m3, direction="both")
+# O modelo mais recomendado é o que apresenta menor `AIC` ou maior `R-squared`
+## AIC
+AIC2[["anova"]][["AIC"]]
+AIC3[["anova"]][["AIC"]]
+## R-squared
+summary(m2)
+summary(m3)
+```
+
+## Correlação
+
+```{r}
+library(readr)
+dados_cor <- read_delim("C:/Aulas_R/Aula_10/dados_cor.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+head(dados_cor)
+```
+
+### Matriz de correlação de Pearson
+
+```{r}
+cor(dados_cor,method = "pearson")
+cor.test(dados_cor$PROD, dados_cor$ALP,method = "pearson")
+```
+
+## Visualizando a correlação entre duas variaveis
+
+```{r}
+library(ggpubr)
+ggscatter(dados_cor, x = "PROD", y = "ALP", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Produtividade em sacos/hectare", 
+          ylab = "Altura de plantas em cm")
+
+```
+
+## Gráfico de Correlação
+### Criando a matriz de correla??o
+
+```{r}
+# Preciamos das médias das variáveis para cada tratamento
+dados1 <-
+  aggregate(x = dados_cor[3:ncol(dados_cor)],
+            by = list(Trat = dados_cor$Trat),
+            FUN = mean)
+```
+
+### Criando o gráfico
+
+```{r}
+library(ggcorrplot)
+ggcorrplot(
+  cor(dados1),
+  p.mat = cor_pmat(dados1),
+  hc.order = TRUE,
+  type = 'lower'
+)
+```
+
+
