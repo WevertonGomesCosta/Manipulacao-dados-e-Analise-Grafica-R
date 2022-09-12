@@ -19,7 +19,6 @@ navbar:
     href: license.html
   right:
   - icon: fa-github
-    text: Source code
     href: https://github.com/wevertongomescosta/
 output:
   workflowr::wflow_html:
