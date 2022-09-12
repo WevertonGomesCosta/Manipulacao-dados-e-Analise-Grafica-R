@@ -162,7 +162,7 @@ dados %>%
 
 Para gráficos de correlação precisamos antes de plotar o gráfico calcular a correlação entre as variáveis. Vamos estimar a correlação das variaveis `sev1`, `sev2`, `sev3`, `area` e `areat`. Usaremos a função `corr_coef()`, do pacote `metan` [(mais informações sobre esse pacote)](https://tiagoolivoto.github.io/metan/index.html) para retornar uma matriz de correlação das nossas variáveis e a função `plot()` para plotar o gráfico. 
 
-```{r}
+```{r, eval=FALSE}
 #install.packages(metan)
 library(metan)
 coef_cor <- corr_coef(dados %>%
@@ -215,7 +215,7 @@ dados %>%
 
 Se quisermos inserir a fórmula no gráfico, utilizamos a `stat_poly_eq` função do pacote `ggpmisc`, indicando que a estética da equação é `..eq.label..` e/ ou da correlação `..rr.label..`.
 
-```{r}
+```{r, eval=FALSE}
 library(ggpmisc)
 dados %>%
   ggplot(aes(x = id, y = area)) +
@@ -335,7 +335,7 @@ Para mudar a posição da legenda usamos o argumento `legend.position =` dentro 
 p + theme(legend.position = "top")
 ```
 
-PAra inserir a legenda dentro do gráfico temos que atribuir valores de posição de x e y dentro do gráfico. x vale de 0 (esquerda) a 1 (direita) e y vale de 0 (inferior) a 1 (superior). Assim se quisermos que a legenda fique na esquerda da parte superior podemos, por exemplo, especificar `legend.position = c(0.2, 0.8)`.
+Para inserir a legenda dentro do gráfico temos que atribuir valores de posição de x e y dentro do gráfico. x vale de 0 (esquerda) a 1 (direita) e y vale de 0 (inferior) a 1 (superior). Assim se quisermos que a legenda fique na esquerda da parte superior podemos, por exemplo, especificar `legend.position = c(0.2, 0.8)`.
 
 ```{r}
 p + theme(
@@ -352,7 +352,7 @@ Para remover legendas basta indicar o atributo indicador da legenda como `FALSE`
 p + guides(color = FALSE)
 ```
 
-# Escalas de cores
+## Escalas de cores
 
 A indicação de cores pode ser feita de forma manual utilizando a função `scale_color_manual()`, dentro da função atribuímos valores ou nome das cores, para conhecer lagumas cores disponeis acesse [aqui](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
 ```{r}
