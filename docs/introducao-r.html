@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Costa, W. G." />
+
+<meta name="date" content="2022-09-12" />
+
+<title>Introdução ao R </title>
+
+<script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Curso Análise Gráfica no R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Tutorial.html">Tutorial</a>
+</li>
+<li>
+  <a href="introducao-r.html">Introdução ao R</a>
+</li>
+<li>
+  <a href="manipulacaodedados.html">Manipulação de dados</a>
+</li>
+<li>
+  <a href="analise-grafica.html">Análise Gráfica</a>
+</li>
+<li>
+  <a href="about.html">Sobre</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/wevertongomescosta/">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"><p>Introdução ao R <img
+src="images/logo.jpg" style="display:block; margin:0 auto"
+width="100" /></p></h1>
+<h4 class="author">Costa, W. G.</h4>
+<h4 class="date">2022-09-12</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-09-12
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong>
+<code>Manipulacao-dados-e-Analise-Grafica-R/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20220826code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20220826)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20220826code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20220826)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreed849dda6bf5276aa4c9b3d223449bda82e7dd234targetblankd849ddaa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/d849dda6bf5276aa4c9b3d223449bda82e7dd234" target="_blank">d849dda</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreed849dda6bf5276aa4c9b3d223449bda82e7dd234targetblankd849ddaa"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/d849dda6bf5276aa4c9b3d223449bda82e7dd234" target="_blank">d849dda</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  Manipulacao-dados-e-Analise-Grafica-R.Rproj
+    Untracked:  analysis/Tutorial.Rmd
+    Untracked:  analysis/Tutorial_cache/
+    Untracked:  analysis/index_cache/
+    Untracked:  analysis/introducao-r.Rmd
+    Untracked:  analysis/manipulacaodedados_cache/
+    Untracked:  dados2.csv
+    Untracked:  data/dados2.csv
+
+Unstaged changes:
+    Deleted:    Introdu-o-ao-R.Rproj
+    Modified:   README.md
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/analise-grafica.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
+    Modified:   analysis/manipulacaodedados.Rmd
+    Deleted:    data/Blocos_Aumentados.csv
+    Deleted:    data/CV_prod.txt
+    Deleted:    data/DadosReg.csv
+    Deleted:    data/Dados_tabulados.xlsx
+    Deleted:    data/README.md
+    Deleted:    data/aula10.csv
+    Modified:   data/dados.csv
+    Deleted:    data/dados1.xlsx
+    Deleted:    data/dados2.xlsx
+    Deleted:    data/dados_aula7.csv
+    Deleted:    data/dados_cafe.xlsx
+    Deleted:    data/dados_cor.csv
+    Deleted:    data/data.xlsx
+    Deleted:    data/data2.xlsx
+    Deleted:    data/eig_val.xlsx
+    Deleted:    data/face.txt
+    Deleted:    data/imp.xlsx
+    Deleted:    data/medias.xlsx
+    Deleted:    data/prod.txt
+    Deleted:    data/prod_cv.txt
+    Deleted:    data/prod_herd.txt
+    Deleted:    data/prod_med.txt
+    Deleted:    data/progress.xlsx
+    Deleted:    data/reg.xlsx
+    Deleted:    data/yield.xlsx
+
+Staged changes:
+    Modified:   analysis/_site.yml
+    New:        analysis/analise-grafica.Rmd
+    Modified:   analysis/index.Rmd
+    New:        analysis/manipulacaodedados.Rmd
+    New:        data/CV_prod.txt
+    New:        data/Dados_tabulados.xlsx
+    New:        data/dados_cafe.xlsx
+    New:        data/data.xlsx
+    New:        data/data2.xlsx
+    New:        data/eig_val.xlsx
+    New:        data/face.txt
+    New:        data/imp.xlsx
+    New:        data/medias.xlsx
+    New:        data/prod.txt
+    New:        data/prod_cv.txt
+    New:        data/prod_herd.txt
+    New:        data/prod_med.txt
+    New:        data/progress.xlsx
+    New:        data/reg.xlsx
+    New:        data/yield.xlsx
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="introdução-ao-r" class="section level1">
+<h1>Introdução ao R</h1>
+<p>Para que você possa ter mais conhecimento sobre o R, preparei um
+material de introdução ao R. Assim você pode aprender mais sobre o
+software e como utilizá-lo. Na seção <a href="#Tutorial">Tutorial</a> já
+vimos sobre a instalação e carregamento de pacotes e outros tópicos
+importantes. Aqui vamos dar mais enfoque na programação em si.</p>
+<div id="objetos" class="section level2">
+<h2>Objetos</h2>
+<p>Objetos são qualquer variável que irá ser armazenado durante a sua
+sessão no R. Para que uma variável será armazenada no ambiente de sua
+sessão você deve atribuir um ou mais valores a está variável utilizando
+<code>&lt;-</code>.</p>
+<div id="criando-objetos" class="section level3">
+<h3>Criando objetos</h3>
+<pre class="r"><code>x &lt;- 50</code></pre>
+<p>Em seu ambiente de trabalho (parte superior direita da janela do
+RStudio) o objetivo irá ser armazenado e você pode acessá-lo quando
+desejar.</p>
+<p><img src="images/environmentRStudio.png" /></p>
+<p>Você também pode atribuir valores de objetos de outras formas,
+utilizando <code>=</code> ou <code>-&gt;</code>:</p>
+<pre class="r"><code>15 -&gt; y
+z = 25</code></pre>
+<p><em>OBS: Quando utilizar <code>-&gt;</code> o valor da variavel deve
+ser especificado antes do sinal e a variável do objeto deve ser
+especificado depois do sinal.</em></p>
+<p>Também é possível especificar que um objeto seja atribuído por um
+resultado de uma função. Nesse caso vamos adotar a raiz quadrada de z
+<code>sqrt(z)</code> como a variavel <code>m</code>.</p>
+<pre class="r"><code>m &lt;- sqrt(z)</code></pre>
+</div>
+<div id="imprimir-valores-dos-objetos" class="section level3">
+<h3>Imprimir valores dos objetos</h3>
+<p>Usamos a função <code>print()</code> para printar ou imprimir os
+valores dos objetos que estão armazenados, veja o exemplo:</p>
+<pre class="r"><code>print(x)</code></pre>
+<pre><code>[1] 50</code></pre>
+<pre class="r"><code>print(y)</code></pre>
+<pre><code>[1] 15</code></pre>
+<pre class="r"><code>print(z)</code></pre>
+<pre><code>[1] 25</code></pre>
+<pre class="r"><code>print(m)</code></pre>
+<pre><code>[1] 5</code></pre>
+<p><em>Observação: Se atribuirmos um novo valor a um objeto já existente
+perderemos o conteúdo que ele estava armazenando anteriormente. Por
+exemplo, se atribuirmos um valor a <code>x &lt;- 100</code>, em seu
+ambiente x passará a ter o valor de 100 e não mais de 50, como atribuído
+anteriormente</em></p>
+</div>
+<div id="listar-objetos-armazenados-no-ambiente" class="section level3">
+<h3>Listar objetos armazenados no ambiente</h3>
+<p>Para listar todos os objetos armazenados no ambiente utilizamos a
+função <code>ls()</code>.</p>
+<pre class="r"><code>ls()</code></pre>
+<pre><code>[1] &quot;m&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
+</div>
+<div id="removendo-objetos" class="section level3">
+<h3>Removendo objetos</h3>
+<div id="removendo-objetos-específicos" class="section level4">
+<h4>Removendo objetos específicos</h4>
+<p>Se desejar remover algum objeto armazenado, você pode utilizar a
+função <code>rm()</code> incluindo dentro do parênteses o objeto a ser
+removido do seu ambiente.</p>
+<pre class="r"><code>rm(x, y)</code></pre>
+</div>
+<div id="remover-todos-objetos" class="section level4">
+<h4>Remover todos objetos</h4>
+<p>Agora, se você quer limpar todo o seu ambiente, dentro da função
+<code>rm()</code> você pode especificar uma lista <code>list()</code>,
+<em>veremos mais à frente sobre listas</em>, das variáveis presentes no
+seu ambiente <code>ls()</code>.</p>
+<pre class="r"><code>rm(list = ls()) </code></pre>
+</div>
+</div>
+<div id="atributos-dos-objetos" class="section level3">
+<h3>Atributos dos Objetos</h3>
+<ul>
+<li><p>No <strong>R</strong>, quase todo objeto possui atributos como
+tipo, tamanho, etc.</p></li>
+<li><p>Tipo e tamanho são os atributos intrínsecos de todo
+objeto.</p></li>
+<li><p>O tipo de um objeto é revelado pelo comando <code>mode()</code>
+ou <code>class()</code> ou <code>typeof()</code>. Para saber mais
+recomendo o <a
+href="https://stat.ethz.ch/R-manual/R-devel/doc/manual/R-lang.html#Objects">Manual
+de definição de linguagem R</a>.</p></li>
+</ul>
+<div id="principais-tipos-de-objetos-no-r" class="section level4">
+<h4>Principais tipos de objetos no <strong>R</strong>:</h4>
+<ul>
+<li><code>caracter</code>: Texto ou caracter.</li>
+</ul>
+<pre class="r"><code>nome &lt;- &quot;nome&quot; ## Observe que caracteres são tratados com o uso de aspas.
+nome</code></pre>
+<pre><code>[1] &quot;nome&quot;</code></pre>
+<ul>
+<li><code>numeric</code>: Números reais.</li>
+</ul>
+<pre class="r"><code>numero &lt;- 5.10
+numero</code></pre>
+<pre><code>[1] 5.1</code></pre>
+<ul>
+<li><code>integer</code>: Números inteiros.</li>
+</ul>
+<pre class="r"><code>inteiro &lt;- c(5, 10, 15, 16)
+inteiro</code></pre>
+<pre><code>[1]  5 10 15 16</code></pre>
+<ul>
+<li><code>double</code>: Números reais, mesmo que
+<code>numeric</code>.</li>
+</ul>
+<pre class="r"><code>numero &lt;- 5.10
+numero</code></pre>
+<pre><code>[1] 5.1</code></pre>
+<ul>
+<li><code>logical</code>: também chamados de ou booleanos, são TRUE ou
+FALSE. T ou F também são aceitos.</li>
+</ul>
+<pre class="r"><code>x &lt;- c(TRUE, FALSE, FALSE) # vetor de elementos lógicos
+x</code></pre>
+<pre><code>[1]  TRUE FALSE FALSE</code></pre>
+<ul>
+<li><code>fator</code>: Vetor que representa dados categóricos.</li>
+</ul>
+<pre class="r"><code>cores &lt;- factor(c(&quot;rosa&quot;, &quot;azul&quot;, &quot;preto&quot;))
+cores</code></pre>
+<pre><code>[1] rosa  azul  preto
+Levels: azul preto rosa</code></pre>
+</div>
+<div
+id="identificando-os-atributos-dos-objetos---mode-ou-class-ou-typeof."
+class="section level4">
+<h4>Identificando os atributos dos objetos - <code>mode()</code> ou
+<code>class()</code> ou <code>typeof()</code>.</h4>
+<p>Exemplo com <code>caracter</code>.</p>
+<pre class="r"><code>mode(nome)      ## Retorna o modo do objeto</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(nome)     ## Retorna a classe do objeto</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre class="r"><code>typeof(nome)    ## Retorna o tipo do objeto</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<p>Exemplo com <code>numeric</code>.</p>
+<pre class="r"><code>valor &lt;- 5
+mode(valor)</code></pre>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>class(valor)</code></pre>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>typeof(valor)</code></pre>
+<pre><code>[1] &quot;double&quot;</code></pre>
+<p>Exemplo com <code>logical</code>.</p>
+<pre class="r"><code>v &lt;- TRUE
+mode(v)
+class(v)
+typeof(v)</code></pre>
+<p>Um objeto pode conter um ou mais elementos, a função
+<code>length()</code> retorna o tamanho do objeto. Como exemplo
+atribuímos um valor a <code>x</code> e depois utilizamos a função
+<code>length()</code> para retornar o tamanho do objeto.</p>
+<pre class="r"><code>x &lt;- 10
+length(x)                ## Retorna o tamanho do objeto</code></pre>
+<pre><code>[1] 1</code></pre>
+<p>Como exemplo, vamos criar um objeto <code>y</code> sendo uma
+sequência <code>seq()</code> de 1 a 5 e vamos solicitar o tamanho
+<code>length()</code> desse objeto.</p>
+<pre class="r"><code>y &lt;- seq(1, 5, 1)          ## A função seq() retorna uma sequência de números, considerando o número inicial (1) até um número final (5), dando um salto do último número indicado (1).
+
+length(y)                ## Retorna o tamanho do objeto</code></pre>
+<pre><code>[1] 5</code></pre>
+</div>
+<div id="estrutura-dos-objetos" class="section level4">
+<h4>Estrutura dos objetos</h4>
+<p>No <strong>R</strong>, os dados contidos em um objeto podem estar
+organizados em diferentes estruturas.</p>
+<ul>
+<li><code>vector()</code>: Uma sequência de valores numéricos ou de
+caracteres (letras, palavras) organizados em apenas uma dimensão.</li>
+</ul>
+<pre class="r"><code>z &lt;- c(60, 70, 80, 90)
+z</code></pre>
+<pre><code>[1] 60 70 80 90</code></pre>
+<pre class="r"><code>mode(z)</code></pre>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>class(z)</code></pre>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>typeof(z)</code></pre>
+<pre><code>[1] &quot;double&quot;</code></pre>
+<p><em>Observação: Todos os elementos de um vetor têm que ser do mesmo
+tipo (modo). Caso tentemos criar um vetor com elementos de tipo
+diferente o R vai forçá-los a ser do mesmo tipo.</em></p>
+<pre class="r"><code>z &lt;- c(60, 70, 80, 90, &quot;nome&quot;)
+z</code></pre>
+<pre><code>[1] &quot;60&quot;   &quot;70&quot;   &quot;80&quot;   &quot;90&quot;   &quot;nome&quot;</code></pre>
+<pre class="r"><code>mode(z)</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(z)</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre class="r"><code>typeof(z)</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<ul>
+<li><code>matrix()</code>: Coleção de vetores em linhas e colunas, todos
+os vetores dever ser do mesmo tipo (numérico ou de caracteres).</li>
+</ul>
+<pre class="r"><code>w &lt;- matrix(c(60, 70, 80, 90, 100, 110, 120, 130, 150), 2, 4, byrow = T)</code></pre>
+<pre><code>Warning in matrix(c(60, 70, 80, 90, 100, 110, 120, 130, 150), 2, 4, byrow = T):
+comprimento dos dados [9] não é um submúltiplo ou múltiplo do número de linhas
+[2]</code></pre>
+<pre class="r"><code>w</code></pre>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]   60   70   80   90
+[2,]  100  110  120  130</code></pre>
+<pre class="r"><code>class(w)</code></pre>
+<pre><code>[1] &quot;matrix&quot; &quot;array&quot; </code></pre>
+<pre class="r"><code>class(w)</code></pre>
+<pre><code>[1] &quot;matrix&quot; &quot;array&quot; </code></pre>
+<pre class="r"><code>typeof(w)</code></pre>
+<pre><code>[1] &quot;double&quot;</code></pre>
+<ul>
+<li><code>array()</code>: Pode conter uma (vetor), duas (matriz) ou mais
+dimensões.</li>
+</ul>
+<pre class="r"><code>z &lt;- array(c(60, 70, 80, 90, 100, 110, 120, 130, 150), dim = c(3, 3, 3))
+z</code></pre>
+<pre><code>, , 1
+
+     [,1] [,2] [,3]
+[1,]   60   90  120
+[2,]   70  100  130
+[3,]   80  110  150
+
+, , 2
+
+     [,1] [,2] [,3]
+[1,]   60   90  120
+[2,]   70  100  130
+[3,]   80  110  150
+
+, , 3
+
+     [,1] [,2] [,3]
+[1,]   60   90  120
+[2,]   70  100  130
+[3,]   80  110  150</code></pre>
+<pre class="r"><code>mode(z)</code></pre>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>class(z)</code></pre>
+<pre><code>[1] &quot;array&quot;</code></pre>
+<pre class="r"><code>typeof(z)</code></pre>
+<pre><code>[1] &quot;double&quot;</code></pre>
+<ul>
+<li><code>list()</code>: Combina diferentes tipos num mesmo objeto, mas
+em formato de lista. Listas são coleções de elementos que não precisam
+ser da mesma classe. list é uma importante classe de objetos no R.
+Listas podem ser criadas explicitamente usando a função
+<code>list()</code>. Vejamos alguns exemplos:</li>
+</ul>
+<pre class="r"><code>q &lt;- list(w)
+mode(q)</code></pre>
+<pre><code>[1] &quot;list&quot;</code></pre>
+<pre class="r"><code>class(q)</code></pre>
+<pre><code>[1] &quot;list&quot;</code></pre>
+<pre class="r"><code>typeof(q)</code></pre>
+<pre><code>[1] &quot;list&quot;</code></pre>
+<p><em>Observações:</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Uma lista pode conter vetores e outras listas;</p></li>
+<li><p>Cada componente da lista pode ser acessado por meio de um índice
+entre dois colchetes [].</p></li>
+</ol>
+<ul>
+<li><code>data.frame()</code>: O mesmo que uma matriz, mas aceita
+vetores de diferentes estruturas (numérico, caracteres, lógicos,
+complexos, inteiros). Geralmente nós guardamos nossos dados em objetos
+do tipo <code>data.frame</code>, pois sempre temos variáveis numéricas e
+variáveis categóricas (por exemplo, largura do rio e nome do rio,
+respectivamente).</li>
+</ul>
+<pre class="r"><code>w &lt;- data.frame(c(1, 2, 3), c(1, 2, 3))
+mode(w)</code></pre>
+<pre><code>[1] &quot;list&quot;</code></pre>
+<pre class="r"><code>class(w)</code></pre>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>typeof(w)</code></pre>
+<pre><code>[1] &quot;list&quot;</code></pre>
+<p><em>Veja que o modo do data.frame e o tipo aparecem em formato de
+list e a classe como data.frame. Isso porque a coleção formada pelas 2
+variáveis forma um objeto do tipo list (lista). Então cada uma das
+variáveis é um vetor e os dois vetores formam uma lista. Essa é uma
+lista especial onde cada um dos vetores possuem o mesmo número de
+elementos. Este conjunto de dados é da classe data.frame. Assim um data
+frame contém uma lista na qual todos os seus componentes possuem o mesmo
+número de elementos.</em></p>
+</div>
+<div id="exercícios" class="section level4">
+<h4>Exercícios</h4>
+<ol style="list-style-type: decimal">
+<li><p>Crie um vetor numérico de comprimento 5, obtenha a raiz quadrada
+e multiplique por um número.</p></li>
+<li><p>Considere o vetor <code>x &lt;- c("milho", "soja")</code>.
+Transforme o vetor <code>x</code> em um vetor de fatores, mas inclua o
+nível <code>"algodao"</code>.</p></li>
+<li><p>Crie uma matriz (M) quadrada de ordem 5 preenchida com a
+sequência de 1 à 25.</p></li>
+<li><p>Defina um fator e um vetor numérico e construa uma lista com os
+dois objetos atribuindo a cada componente um nome de sua
+escolha.</p></li>
+<li><p>Crie um data frame com a matriz de dados peso=(60,70,80),
+altura=(160,150,170) e sexo=(F,M,F). Calcule a média de cada
+variável.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="função-envolvendo-condições" class="section level2">
+<h2>Função Envolvendo Condições</h2>
+<p>No R, as funções envolvendo condições são programadas com
+<code>if()</code>, <code>else() e ifelse()</code>. O início do código se
+dá com o comando if seguido de parênteses e chaves <code>if(){}</code>.
+Dentro dos parênteses temos uma condição lógica, que deverá ter como
+resultado ou <code>TRUE</code> ou <code>FALSE</code>. Dentro das chaves
+temos o bloco de código que será executado se – e somente se – a
+condição dos parênteses for <code>TRUE</code>. Vejamos um exemplo muito
+simples. Temos dois blocos de código que criam as variáveis
+<code>x</code> e <code>y</code>, mas eles só serão executados se as
+variáveis <code>x</code> e <code>y</code> forem <code>TRUE</code>,
+respectivamente.</p>
+<pre class="r"><code>x &lt;- TRUE
+y &lt;- FALSE
+## só executa se x = TRUE
+if (x) {
+  a &lt;- 1
+}
+
+## só executa se cria_y = TRUE
+if (y) {
+  b &lt;- 1
+}
+## note que a foi criado
+exists(&quot;a&quot;)</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre class="r"><code>exists(&quot;b&quot;)</code></pre>
+<pre><code>[1] FALSE</code></pre>
+<p>Diversas vezes em programação queremos apenas que a ação descrita no
+código ocorra caso ela satisfaça uma condição pré-estabelecida. Para
+isso existem os operadores lógicos e as expressões apresentadas
+abaixo:</p>
+<pre><code>![](tabela_1-8.png)</code></pre>
+<div id="expressões-lógicas-if-else-e-ifelse." class="section level3">
+<h3>Expressões lógicas <code>if()</code>, <code>else()</code> e
+<code>ifelse()</code>.</h3>
+<p>Para utilizá-las, além dos operadores acima, é importante saber o
+comando de E e OU em programação, que são respectivamente:
+<code>&amp;</code> e <code>|</code>. Veja os exemplos abaixo:</p>
+<pre class="r"><code>m &lt;- 5
+if (m == 5) {
+  print(&quot;sim&quot;)
+} else{
+  print(&quot;não&quot;)
+}</code></pre>
+<pre><code>[1] &quot;sim&quot;</code></pre>
+<p><em>Aqui o valor retornado da função foi <code>sim</code> pois
+<code>m</code> é igual a 5 na condição.</em></p>
+<pre class="r"><code>if(m == 4) {
+  print(&quot;sim&quot;)
+} else {
+  print(&quot;não&quot;)
+}</code></pre>
+<pre><code>[1] &quot;não&quot;</code></pre>
+<p><em>Aqui o valor retornado da função foi <code>não</code> pois
+<code>m</code> é igual a 4 na condição.</em></p>
+<pre class="r"><code>if(m &gt;= 4) {
+  print(&quot;sim&quot;)
+} else{
+  print(&quot;não&quot;)
+}</code></pre>
+<pre><code>[1] &quot;sim&quot;</code></pre>
+<p><em>Aqui o valor retornado da função foi <code>sim</code> pois
+<code>m</code> é maior do que 4 na condição.</em></p>
+<pre class="r"><code>if(m &gt; 4) {
+  print(&quot;sim&quot;)
+} else{
+  print(&quot;não&quot;)
+}</code></pre>
+<pre><code>[1] &quot;sim&quot;</code></pre>
+<p><em>Por fim, aqui o valor retornado da função foi <code>sim</code>
+pois <code>m</code> é diferente de 4 na condição.</em></p>
+<pre class="r"><code>if(m != 4) {
+  print(&quot;sim&quot;)
+} else{
+  print(&quot;não&quot;)
+}</code></pre>
+<pre><code>[1] &quot;sim&quot;</code></pre>
+<p>Alternativamente, pode-se usar o comando <code>ifelse()</code>. Veja
+os exemplos abaixo.</p>
+<pre class="r"><code>n &lt;- 6
+
+ifelse(n == 6, &quot;sim&quot;, &quot;não&quot;)</code></pre>
+<pre><code>[1] &quot;sim&quot;</code></pre>
+<pre class="r"><code>ifelse(n != 6, &quot;sim&quot;, &quot;não&quot;)</code></pre>
+<pre><code>[1] &quot;não&quot;</code></pre>
+<pre class="r"><code>ifelse(n &gt;= 6, &quot;sim&quot;, &quot;não&quot;)</code></pre>
+<pre><code>[1] &quot;sim&quot;</code></pre>
+<pre class="r"><code>ifelse(n %% 2 == 0, &quot;par&quot;, &quot;impar&quot;)</code></pre>
+<pre><code>[1] &quot;par&quot;</code></pre>
+<p><em>O símbolo %% refere-se a uma divisão onde o resultado retornado é
+inteiro.</em></p>
+</div>
+<div id="utilizando-os-operadores-lógicos-e-." class="section level3">
+<h3>Utilizando os operadores lógicos <code>&amp;</code> e
+<code>|</code>.</h3>
+<p>Para utilizar esses operadores lógicos dependemos de no mínimo duas
+condições. Como exemplo, criamos um programa que identifica se os
+objetos são positivos ou negativos.</p>
+<pre class="r"><code>a &lt;- -5
+b &lt;- 0
+
+if (a &gt;= 0 &amp; b &gt;= 0) {
+  print(&quot;a e b são números positivos&quot;)
+} else{
+  if (a &gt;= 0 &amp; b &lt; 0) {
+    print(&quot;a é positivo e b é negativo&quot;)
+  } else{
+    if (a &lt; 0 &amp; b &gt;= 0) {
+      print(&quot;a é negativo e b é positivo&quot;)
+    } else{
+      if (a &lt; 0 &amp; b &lt; 0) {
+        print(&quot;a e b são negativos&quot;)
+      }
+    }
+  }
+}</code></pre>
+<pre><code>[1] &quot;a é negativo e b é positivo&quot;</code></pre>
+<p>Outro exemplo, podemos criar um programa que identifica se existe ao
+menos um objeto positivo ou negativo.</p>
+<pre class="r"><code>a &lt;- 2
+b &lt;- -5
+
+if (a &lt; 0 | b &lt; 0) {
+  print(&quot;Existe pelo menos uma variável negativa&quot;)
+} else{
+  print(&quot;Todas as variáveis do conjunto de dados são positivas&quot;)
+}</code></pre>
+<pre><code>[1] &quot;Existe pelo menos uma variável negativa&quot;</code></pre>
+<ul>
+<li>ATIVIDADES</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>Crie um vetor contendo 10 valores e em seguida crie um programa
+que identifique qual o maior valor desta lista.</p></li>
+<li><p>Crie um programa que identifique se um valor é par ou
+ímpar.</p></li>
+</ol>
+</div>
+</div>
+<div id="criando-funções-no-r" class="section level2">
+<h2>Criando funções no R</h2>
+<p>Uma das maiores vantagens do R é a possibilidade e a facilidade de se
+criar novas funções. Como vimos, já existem várias funções nativas do R
+e também disponíveis em diversos pacotes, além do fato que novos pacotes
+e novas funções surgem a cada dia. Desta forma, apesar de ser fácil
+criar uma função, não se deve descartar a possibilidade de elas já
+existirem, com o mesmo propósito e terem sido disponibilizadas por
+outros autores, o que nos economiza muito tempo em nossos trabalhos.
+Desta forma, não queira reinventar a roda. Será mostrado aqui como criar
+algumas funções simples, visando apenas ao entendimento de como elas
+podem ser desenvolvidas.</p>
+<p>As funções nada mais são que objetos do R da classe
+<code>function</code>. Como todo objeto, as funções podem ter quaisquer
+nomes, desde que iniciados com uma letra (maiúscula ou minúscula).</p>
+<p><em>Observação: evite criar objetos com nomes de funções já
+existentes no R, por exemplo: sum, mean, sd, t, c, etc.</em></p>
+<p>Como exemplo vamos criar uma função de <code>soma</code></p>
+<pre class="r"><code>soma &lt;- function(a, b) {
+  soma &lt;- a + b
+  return(soma)
+}
+class(soma)</code></pre>
+<pre><code>[1] &quot;function&quot;</code></pre>
+<p>Aplicando a função <code>soma()</code> em dois objetos numéricos.</p>
+<pre class="r"><code>x &lt;- 6
+y &lt;- 10
+soma(x, y)</code></pre>
+<pre><code>[1] 16</code></pre>
+<p>Podemos também somar vetores por meio dessa função:</p>
+<pre class="r"><code>x &lt;- c(2, 4, 6)
+y &lt;- c(6, 8, 10)
+soma(x, y)</code></pre>
+<pre><code>[1]  8 12 16</code></pre>
+</div>
+<div id="valores-ausentes" class="section level2">
+<h2>Valores ausentes</h2>
+<p>Valores ausentes (missing values) são denotados por <code>NA</code>
+ou <code>NaN</code>. Um valor <code>NaN</code> também é <code>NA</code>,
+mas a recíproca não é verdadeira. As funções <code>is.na()</code> e
+<code>is.nan()</code> são usadas para testar se um objeto é
+<code>NA</code> ou <code>NaN</code>, respectivamente.</p>
+<pre class="r"><code>x &lt;- c(1, 2, NA, 10, 3) # vetor com um elemento NA</code></pre>
+<pre class="r"><code>is.na(x) # retorna um  vetor lógico indicando que elementos são NA</code></pre>
+<pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.3 (2022-03-10)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=Portuguese_Brazil.1252  LC_CTYPE=Portuguese_Brazil.1252   
+[3] LC_MONETARY=Portuguese_Brazil.1252 LC_NUMERIC=C                      
+[5] LC_TIME=Portuguese_Brazil.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.9       rstudioapi_0.13  knitr_1.39       magrittr_2.0.3  
+ [5] workflowr_1.7.0  R6_2.5.1         rlang_1.0.4      fastmap_1.1.0   
+ [9] fansi_1.0.3      stringr_1.4.1    tools_4.1.3      xfun_0.32       
+[13] utf8_1.2.2       cli_3.3.0        git2r_0.30.1     jquerylib_0.1.4 
+[17] htmltools_0.5.3  rprojroot_2.0.3  yaml_2.3.5       digest_0.6.29   
+[21] tibble_3.1.8     lifecycle_1.0.1  later_1.3.0      sass_0.4.2      
+[25] vctrs_0.4.1      promises_1.2.0.1 fs_1.5.2         cachem_1.0.6    
+[29] glue_1.6.2       evaluate_0.16    rmarkdown_2.15   stringi_1.7.6   
+[33] bslib_0.4.0      compiler_4.1.3   pillar_1.8.1     jsonlite_1.8.0  
+[37] httpuv_1.6.5     pkgconfig_2.0.3 </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

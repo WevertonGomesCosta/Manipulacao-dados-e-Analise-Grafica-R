@@ -1,10 +1,20 @@
 ---
-title: "About"
+title: "Sobre"
+author: "Costa, W. G."
+date: "`r Sys.Date()`"
+site: workflowr::wflow_site
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/
 output:
   workflowr::wflow_html:
-    toc: false
+    toc: yes
+  highlight: github
 editor_options:
   chunk_output_type: console
+github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 ---
 
-Describe your project.
+Curso: Análise Gráfica no R.
+
+Bem-vindo! Neste curso você vai aprender a manipular bancos de dados e gerar incríveis gráficos 📊📈 oferecidos pela linguagem R.
+
+Esse curso foi desenvolvido pelo [prof. Weverton Costa](https://github.com/wevertongomescosta/) para o curso Análise Gráfica no R oferecido pela [Conecta GEM](https://www.conectagem.com/).

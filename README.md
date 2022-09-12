@@ -1,5 +1,6 @@
-# Introdu-o-ao-R
+# Curso: Análise Gráfica no R.
 
-A [workflowr][] project.
+Bem-vindo! Neste curso você vai aprender a manipular bancos de dados e gerar incríveis gráficos 📊📈 oferecidos pela linguagem R.
 
-[workflowr]: https://github.com/workflowr/workflowr
+Esse curso foi desenvolvido pelo [prof. Weverton Costa](https://github.com/wevertongomescosta/) para o curso Análise Gráfica no R oferecido pela [Conecta GEM](https://www.conectagem.com/).
+

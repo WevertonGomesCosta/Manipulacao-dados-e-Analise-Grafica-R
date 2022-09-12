@@ -1,0 +1,510 @@
+---
+title: | 
+  Manipulação de dados no R
+  ![](images/logo.jpg){width=100px style="display:block; margin:0 auto"}
+author: "Costa, W. G."
+date: "`r Sys.Date()`"
+site: workflowr::wflow_site
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/
+output:
+  workflowr::wflow_html:
+    toc: yes
+  highlight: github
+editor_options:
+  chunk_output_type: console
+github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, cache.lazy = FALSE, fig.width = 8, fig.height = 7, warning = FALSE, autodep = TRUE)
+```
+
+## Introdução à manipulação de dados
+
+Vamos utilizar o framework `tidyverse` para já importar todas as bibliotecas presentes nele, para facilitar.
+
+```{r}
+#install.packages("tidyverse") # Instala o tidyverse
+library(tidyverse)
+```
+
+O dplyr é a biblioteca que iremos utilizar para manipulação de dados. A biblioteca dplyr faz parte do framework `tidyverse` Saiba mais em: https://www.tidyverse.org/.
+
+Esse pacote permite a organização por operador pipe (`%>%`), facilitando a organização do script e permitindo ser mais simples e rápido.
+
+Essa biblioteca possui um conjunto de funções que auxiliando na manipulação de dados:
+
+  -   Verbos: `mutate()`, `select()`, `filter()`, `arrange()`, `summarise()`, `slice()`, `rename()`, etc.
+  
+  -   Sufixos: `_at()`, `_if()`, `_all()`, etc.
+  
+  -   Agrupamento: `group_by()` e `ungroup()`.
+  
+  -   Junções: `inner_join()`, `full_join()`, `left_join()` e
+`right_join()`.
+
+  -   Funções resumo: `n()`, `n_distinct()`, `first()`, `last()`, `nth()`, etc.
+
+## Importando dados
+
+Os dados podem ser importados para o R em diversos formatos (tipos de arquivos). Alguns dos formatos mais usados são mostrados a seguir:
+
+-   Planilha eletrônica (.xls, .xlsx, .ods)
+-   Bloco de notas (.txt)
+-   Valores separados por vírgulas (.csv)
+-   Dbase (.dbf)
+-   Diversos Pacotes estatísticos: (.Rdata - R), (.sav - SPSS), etc
+
+É possível importar os dados pela própria interface do RStudio. Para isso, vamos em `Import Dataset` e selecionamos o formato dos dados.
+
+![](images/importdataset.png)
+![](images/optionimportdata.png)
+
+Durante o curso iremos utilizar várias funções para importação de dados, para que você possa se ambientar melhor com as funções. De início vamos usar a função `read_csv()` do pacote `readr`, já incluso no framework `tidyverse`. Essa função importa tanto dados em formato .csv quanto .txt.
+
+```{r}
+dados <- read_csv("data/dados.csv")       # Função para importar os dados
+
+dados
+```
+
+Leitura dos 6 primeiros observações
+
+```{r}
+head(dados)
+```
+
+## Análise descritiva dos dados
+
+```{r}
+summary(dados)
+```
+
+## Manipulação de dados com `dplyr`
+
+### Operador pipe `%>%`
+
+- O pipe `%>%` é um operador que permite "ligar" um conjunto de dados a uma determinada função.
+
+Apenas para comparação vamos visualizar como é realizada o cálculo da média de uma das variáveis do nosso conjunto de dados por meio da função `mean()`.
+
+```{r}
+mean(dados$sev1)
+```
+
+Com o operador pipe `%>%` podemos realizar o cálculo da média do seguinte modo:
+
+```{r}
+#Operador pipe
+dados$sev1 %>%
+  mean()
+```
+
+Veja que o resultado é semelhante, mas nesse caso utilizamos o `%>%` para indicar qual os dados queremos calcular a média. Nos tópicos seguintes iremos utilizar o `%>%` para vários comandos, e assim você poderá visualizar a facilidade que esse operador fornece.
+
+
+### `arrange()`
+
+A função `arrange()` permite realizar o ordenamento dos dados. Veja alguns exemplos?
+
+- Ordenando pela `area` 
+
+Ordenando pela menor área (crescente)
+
+```{r}
+dados %>%
+  arrange(area)
+```
+Ordenando pela maior área (descendente)
+
+```{r}
+dados %>%
+  arrange(desc(area))
+```
+
+Ordenando por gen e area
+
+```{r}
+
+dados %>%
+  arrange(gen, desc(area))
+```
+
+### `filter()` 
+  -   A função `filter()` retorna as linhas (observações) que satisfaçam as condições estabelecidas
+
+Filtrar apenas os genótipos `Predileta`
+
+```{r}
+dados %>%
+  filter(gen == "Predileta")
+```
+
+Filtrar os genótipos `Predileta` com área maior do que 100
+
+```{r}
+dados %>%
+  filter(gen == "Predileta" & area >= 100)
+```
+Filtrar os tratamentos `UFV 02` OU `UFV 04`
+
+```{r}
+dados %>%
+  filter(trat == "UFV 02" | trat == "UFV 04")
+```
+
+- Funções e condições úteis para se combinar com a função filter:
+
+  -	`==` - filtrar os valores iguais a …
+  -	ex: `>`,`>=`,`<` ou `<=` - filtrar valores maiores, maiores ou iguais, menores ou menores ou iguais
+  -	`&`, `|`, `!` ou `xor()` - “e”, “ou”, “diferente”, “ou exclusivo”.
+  -	`is.na()` - verifica se o valor é NA
+  -	`between()` - entre os valores
+  -	`near()` - valores próximos, você define a tolerância
+
+### `slice()`
+
+- Retorna as linhas (observações) determinadas 
+
+Filtrar as observações 1 até 5
+
+```{r}
+dados %>%
+  slice(1:5)
+```
+
+Filtrar todas observações menos a número 1 até a 5
+
+```{r}
+dados %>%
+  slice(-(1:5))
+```
+Filtrar as 4 observações com maior área
+
+```{r}
+dados %>%
+  slice_max(area, n = 4)
+```
+
+Filtrar as 4 observações com menor area
+
+```{r}
+dados %>%
+  slice_min(area, n = 4)
+```
+
+### `select()`
+- Retorna as colunas (variáveis) determinadas 
+
+Selecionar as colunas 3 (gen) e 8 (area)
+Método 1 - indicando o número da coluna no conjunto de dados
+
+```{r}
+dados %>%
+  select(gen, area)
+```
+
+Método 2 - indicando o nome da coluna no conjunto de dados
+
+```{r}
+dados %>%
+  select(3, 8)
+```
+
+Excluir a variável 2 (id)
+
+```{r}
+dados %>%
+  select(-id)
+```
+
+Selecionar um intervalo de variáveis
+
+```{r}
+dados %>%
+  select(c(1:4, 8))
+```
+
+Selecionar colunas pela classe
+Método 1 - Usando `where`
+
+```{r}
+dados %>%
+  select(where(is.numeric))
+```
+
+Método 1 - Usando `select_if`
+
+```{r}
+dados %>%
+  select(where(is.numeric))
+```
+Escolha as colunas que possuem um determinado texto
+
+```{r}
+dados %>%
+  select(contains("area"))
+```
+
+### `mutate()`
+- Transforma variáveis existentes ou adiciona novas variáveis. 
+
+Criando uma variável que é a soma das variáveis de severidade
+
+```{r}
+dados <- dados %>%
+  mutate(soma_sev = sev1 + sev2 + sev3)
+```
+Convertendo em fator as variáveis trat e gen
+
+```{r}
+dados <- dados %>%
+  mutate(trat = as.factor(trat), gen = as.factor(gen))
+```
+
+### `trasmute()`
+- Adiciona novas variáveis e exclui as outras
+
+Criando uma variável da interação entre trat e gen
+
+```{r}
+dados %>%
+  transmute(soma_sev = sev1 + sev2 + sev3)
+```
+
+### `rename()` 
+- Altera os nomes das variáveis
+
+Renomear trat e gen por tratamento e genótipo, respectivamente.
+
+```{r}
+dados %>%
+  rename(tratamento = trat , genotipo = gen)
+```
+Renomeia sev por severidade
+
+```{r}
+dados %>%
+  rename_with(~ gsub("sev", "severidade", .x))
+```
+
+### `summarise()`
+
+- A Função `summarise()` retorna a estatística determinada pelo usurário do conjunto de dados
+
+  -   Funções úteis: 
+    - Média: `mean()`, 
+    - Mediana: `median()`,
+    - Desvio: `sd()`, 
+    - Variância: `var()`,
+    - Mínimo e máximo: `min()`, `max()`,
+    - Quantils: `quantile()`.
+    - Posição: `first()`, `last()`, `nth()`, 
+    - Frequência: `n()`, `n_distinct()`,
+    - Lógicas: `any()`, `all()`
+
+Média e mediana da area
+
+```{r}
+dados %>%
+  summarise(area_mean = mean(area),
+            area_median = median(area)) 
+```
+
+Calcula a média para todas as variáveis numéricas
+
+```{r}
+dados %>%
+  summarise_if(.predicate = is.numeric, .funs = mean)
+```
+
+### `group_by()`
+
+- A Função `group_by()` agrupa os dados para a variável determinada.
+Sempre é utilizada com outra função.
+
+Filtrando os genótipos pela area menor que 100
+
+```{r}
+dados %>%
+  group_by(trat, gen) %>%
+  filter(area < 100)
+```
+
+Estatísticas da área por tratamento por genótipo
+
+```{r}
+dados %>%
+  group_by(trat, gen) %>%
+  summarise(
+    area_mean = mean(area),
+    area_range = max(area) - min(area),
+    area_desv = sd(area)
+  ) 
+```
+
+#Contagem de tratamentos com área maior que 100
+
+```{r}
+dados %>%
+  filter(area > 100) %>%
+  group_by(trat) %>%
+  summarise(cont_trat = n())
+```
+
+### Junções
+
+- A função mais utilizada para fazer junções de conjunto de dados é a `join()`.
+
+Fazer um `join` nada mais é do que juntar dois conjuntos de dados por meio de um ou mais variáveis em comum.
+
+
+#### Tipos de Join
+  - Podemos dividir as funções do tipo `join` em 2 tipos:
+
+    - Mutating joins: `left_join()`, `right_join()`,`inner_join()`, `full_join()`.
+
+    - Filtering joins: `semi_join()`, `anti_join()`.
+
+Temos ainda, no pacote dplyr, as funções `union()`, `intersect()`, `setdiff()`, `setequal()` que também são úteis para unir e comparar conjuntos de dados.
+
+#### `inner_join()`
+
+- Retorna todas as linhas de x onde existem valores correspondentes em y e todas as colunas de x e y.
+
+Criando dois conjuntos de dados
+
+```{r}
+dados1 <- dados %>%
+  mutate(soma_sev = sev1 + sev2 + sev3) %>%
+  select(trat:blocos, soma_sev) %>%
+  filter(soma_sev > 50)
+
+head(dados1)
+```
+
+```{r}
+dados2 <- dados %>%
+  mutate(mult_sev = sev1 * sev2 * sev3) %>%
+  select(trat:blocos, mult_sev) %>%
+  filter(mult_sev > mean(mult_sev))
+
+head(dados2)
+```
+
+```{r}
+inner <- inner_join(dados1, dados2, by = "trat")
+inner
+```
+
+#### `anti_join()`
+
+  - Retorna todas as linhas de x para as quais não existem valores correspondente em y, mantendo apenas as colunas de x. É considerado um “filtering join”.
+
+```{r}
+anti <- anti_join(dados1, dados2, by = "trat")
+anti
+```
+
+#### `semi_join()`
+
+  - Retorna todas as linhas de x para as quais existem valores correspondente em y, mantendo apenas as x. O `semi_join` difere do `inner_join` porque o `inner_join` irá retornar uma linha de x para cada valor correspondente de y, enquanto um `semi_join` nunca irá duplicar valores x.
+
+```{r}
+semi <- semi_join(dados1, dados2, by = "trat")
+semi
+```
+
+#### `full_join()`
+
+  - Retorna todas as linhas e todas as colunas tanto de x quanto de y. Returno `NA` no caso de não haver valor correspondente.
+
+```{r}
+full <- full_join(dados1, dados2, by = "trat")
+full
+```
+
+#### `left_join()`
+
+  - Retorna todas as linhas de x, e todas as colunas tanto de x quanto de y. Se houver múltiplas correspondências entre x e y, todas as combinações de correspondências serão retornadas.
+
+```{r}
+left <- left_join(dados1, dados2, by = "trat")
+left
+```
+
+#### `right_join()`
+
+  - Retorna todas as linhas de y, e todas as colunas tanto de x quanto de y. Se houver múltiplas correspondências entre x e y, todas as combinações de correspondências serão retornadas.
+
+```{r}
+right <- right_join(dados1, dados2, by = "trat")
+right
+```
+
+## Formatos de banco de dados
+
+- Podemos remodelar nossos dados para formatos longo, conjuntos de dados onde temos uma linha por observação, ou amplo, cada tipo de observação tenha sua própria coluna e as linhas sejam grupos mais agregados.
+
+### Formato 'longo':
+
+  - Cada coluna é uma variável
+  - Cada linha é uma observação
+  - No formato ‘longo’, normalmente você tem 1 coluna para a variável observada e as demais colunas são variáveis de ID.
+  
+### Formato 'amplo':
+  - Uma linha corresponde a um indivíduo 
+  - As variáveis de observação são dispostas em colunas
+
+### Funções `pivot_wider()` e `pivot_longer()`
+
+#### `pivot_longer()`
+
+  - Para passar de um formato amplo para longo, que aumentará o número de linhas e diminuirá o número de colunas. Fornecemos três argumentos: `cols` que são as colunas que queremos dinamizar no formato longo, `names_to`, que é uma `string` especificando o nome da coluna a ser criada a partir dos dados armazenados nos nomes das colunas e `values_to`, que é também uma `string`, especificando o nome da coluna a ser criada a partir dos dados armazenados nos valores das células.
+
+```{r}
+dados2 <- dados %>%
+  pivot_longer(
+    cols = c(sev1, sev2, sev3),
+    names_to = "Sev",
+    values_to = "Value"
+  )
+dados2
+```
+
+#### `pivot_wider()`
+
+  -   Permite converter um banco de dados no formato longo para amplo, providenciando dois argumentos: `names_from` descreve qual coluna usar para o nome da coluna de saída e `values_from` informa a coluna para obter os valores das células.
+
+```{r}
+dados3 <- dados2 %>%
+  pivot_wider(names_from = Sev,
+              values_from = Value)
+dados3
+```
+
+### Exportando dados:
+
+```{r}
+write_csv(dados2, file = "dados2.csv")
+```
+
+- ATIVIDADES
+
+1. Ordene os `dados1` e `dados2` pelo `trat`, `gen` e `bloco`. 
+
+2. Filtre os `dados1` e `dados2` apenas para o tratamento UFV72 e genótipo Predileta.
+
+3. Filtre os dados para área menor do que 50, em ordem decrescente para a variável área.
+
+4. Selecione os 2 tratamentos que apresentaram menor área.
+
+5. Crie um conjunto de dados sem as variáveis `sev`, do arquivo dados.
+
+6. Agrupe os dados usando funções resumos para calcular o mínimo, media, mediana, desvio e para todas as variáveis numéricas, com a exceção de blocos, para cada genótipo.
+
+7. Adicione no conjunto de dados uma variável que seja a interação entre tratamentos, genótipos e blocos.
+
+8. Faça as junções dos dois conjuntos de dados `dados1` e `dados2`, com o conjunto de dados `dados`.
+
+9. Pesquise sobre a função `gather()`, veja quais as suas funcinalidades e teste nos seus dados.

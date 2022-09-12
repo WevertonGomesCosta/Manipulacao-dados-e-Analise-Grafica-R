@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Costa, W. G." />
+
+<meta name="date" content="2022-09-12" />
+
+<title>Como Usar este Material </title>
+
+<script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Curso Análise Gráfica no R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Tutorial.html">Tutorial</a>
+</li>
+<li>
+  <a href="introducao-r.html">Introdução ao R</a>
+</li>
+<li>
+  <a href="manipulacaodedados.html">Manipulação de dados</a>
+</li>
+<li>
+  <a href="analise-grafica.html">Análise Gráfica</a>
+</li>
+<li>
+  <a href="about.html">Sobre</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/wevertongomescosta/">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"><p>Como Usar este Material <img
+src="images/logo.jpg" style="display:block; margin:0 auto"
+width="100" /></p></h1>
+<h4 class="author">Costa, W. G.</h4>
+<h4 class="date">2022-09-12</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-09-12
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 2
+</p>
+<p>
+<strong>Knit directory:</strong>
+<code>Manipulacao-dados-e-Analise-Grafica-R/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20220826code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20220826)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20220826code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20220826)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+</p>
+</div>
+<div id="strongCachestrongdetected" class="panel-collapse collapse">
+<div class="panel-body">
+The following chunks had caches available:
+<ul>
+<li>
+session-info-chunk-inserted-by-workflowr
+</li>
+<li>
+unnamed-chunk-1
+</li>
+<li>
+unnamed-chunk-10
+</li>
+<li>
+unnamed-chunk-11
+</li>
+<li>
+unnamed-chunk-12
+</li>
+<li>
+unnamed-chunk-13
+</li>
+<li>
+unnamed-chunk-14
+</li>
+<li>
+unnamed-chunk-15
+</li>
+<li>
+unnamed-chunk-16
+</li>
+<li>
+unnamed-chunk-17
+</li>
+<li>
+unnamed-chunk-18
+</li>
+<li>
+unnamed-chunk-19
+</li>
+<li>
+unnamed-chunk-2
+</li>
+<li>
+unnamed-chunk-20
+</li>
+<li>
+unnamed-chunk-21
+</li>
+<li>
+unnamed-chunk-22
+</li>
+<li>
+unnamed-chunk-23
+</li>
+<li>
+unnamed-chunk-24
+</li>
+<li>
+unnamed-chunk-25
+</li>
+<li>
+unnamed-chunk-26
+</li>
+<li>
+unnamed-chunk-27
+</li>
+<li>
+unnamed-chunk-28
+</li>
+<li>
+unnamed-chunk-29
+</li>
+<li>
+unnamed-chunk-3
+</li>
+<li>
+unnamed-chunk-30
+</li>
+<li>
+unnamed-chunk-31
+</li>
+<li>
+unnamed-chunk-32
+</li>
+<li>
+unnamed-chunk-33
+</li>
+<li>
+unnamed-chunk-34
+</li>
+<li>
+unnamed-chunk-35
+</li>
+<li>
+unnamed-chunk-36
+</li>
+<li>
+unnamed-chunk-37
+</li>
+<li>
+unnamed-chunk-38
+</li>
+<li>
+unnamed-chunk-39
+</li>
+<li>
+unnamed-chunk-4
+</li>
+<li>
+unnamed-chunk-40
+</li>
+<li>
+unnamed-chunk-41
+</li>
+<li>
+unnamed-chunk-42
+</li>
+<li>
+unnamed-chunk-43
+</li>
+<li>
+unnamed-chunk-44
+</li>
+<li>
+unnamed-chunk-45
+</li>
+<li>
+unnamed-chunk-46
+</li>
+<li>
+unnamed-chunk-5
+</li>
+<li>
+unnamed-chunk-6
+</li>
+<li>
+unnamed-chunk-7
+</li>
+<li>
+unnamed-chunk-8
+</li>
+<li>
+unnamed-chunk-9
+</li>
+</ul>
+<p>To ensure reproducibility of the results, delete the cache directory
+<code>Tutorial_cache</code> and re-run the analysis. To have workflowr
+automatically delete the cache directory prior to building the file, set
+<code>delete_cache = TRUE</code> when running <code>wflow_build()</code>
+or <code>wflow_publish()</code>.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreed849dda6bf5276aa4c9b3d223449bda82e7dd234targetblankd849ddaa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/d849dda6bf5276aa4c9b3d223449bda82e7dd234" target="_blank">d849dda</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreed849dda6bf5276aa4c9b3d223449bda82e7dd234targetblankd849ddaa"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/d849dda6bf5276aa4c9b3d223449bda82e7dd234" target="_blank">d849dda</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  Manipulacao-dados-e-Analise-Grafica-R.Rproj
+    Untracked:  analysis/Tutorial.Rmd
+    Untracked:  analysis/Tutorial_cache/
+    Untracked:  analysis/index_cache/
+    Untracked:  analysis/introducao-r.Rmd
+    Untracked:  analysis/manipulacaodedados_cache/
+    Untracked:  dados2.csv
+    Untracked:  data/dados2.csv
+
+Unstaged changes:
+    Deleted:    Introdu-o-ao-R.Rproj
+    Modified:   README.md
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/analise-grafica.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
+    Modified:   analysis/manipulacaodedados.Rmd
+    Deleted:    data/Blocos_Aumentados.csv
+    Deleted:    data/CV_prod.txt
+    Deleted:    data/DadosReg.csv
+    Deleted:    data/Dados_tabulados.xlsx
+    Deleted:    data/README.md
+    Deleted:    data/aula10.csv
+    Modified:   data/dados.csv
+    Deleted:    data/dados1.xlsx
+    Deleted:    data/dados2.xlsx
+    Deleted:    data/dados_aula7.csv
+    Deleted:    data/dados_cafe.xlsx
+    Deleted:    data/dados_cor.csv
+    Deleted:    data/data.xlsx
+    Deleted:    data/data2.xlsx
+    Deleted:    data/eig_val.xlsx
+    Deleted:    data/face.txt
+    Deleted:    data/imp.xlsx
+    Deleted:    data/medias.xlsx
+    Deleted:    data/prod.txt
+    Deleted:    data/prod_cv.txt
+    Deleted:    data/prod_herd.txt
+    Deleted:    data/prod_med.txt
+    Deleted:    data/progress.xlsx
+    Deleted:    data/reg.xlsx
+    Deleted:    data/yield.xlsx
+
+Staged changes:
+    Modified:   analysis/_site.yml
+    New:        analysis/analise-grafica.Rmd
+    Modified:   analysis/index.Rmd
+    New:        analysis/manipulacaodedados.Rmd
+    New:        data/CV_prod.txt
+    New:        data/Dados_tabulados.xlsx
+    New:        data/dados_cafe.xlsx
+    New:        data/data.xlsx
+    New:        data/data2.xlsx
+    New:        data/eig_val.xlsx
+    New:        data/face.txt
+    New:        data/imp.xlsx
+    New:        data/medias.xlsx
+    New:        data/prod.txt
+    New:        data/prod_cv.txt
+    New:        data/prod_herd.txt
+    New:        data/prod_med.txt
+    New:        data/progress.xlsx
+    New:        data/reg.xlsx
+    New:        data/yield.xlsx
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<p>Primeiro será necessário a instalação dos softwares R e RStudio. Você
+encontrará as informações de como realizar o download na seção
+seguinte.</p>
+<div id="instalações-de-softwares" class="section level2">
+<h2>Instalações de softwares</h2>
+<ul>
+<li><p>Para realizar as instalações dos softwares, você pode acessar
+nosso site e procurar pelos softwares R e RStudio: <a
+href="https://www.conectagem.com/softwares">Conecta GEM - Softwares</a>.
+<em>No site você também irá encontrar duas apostilas preparadas pela
+Conecta GEM para te auxliar durante a instalação e ambientação com os
+Softwares.</em></p></li>
+<li><p>Ou você pode ir direto para as páginas dos softwares:</p></li>
+<li><p>Instalação do <a href="https://cran.r-project.org/">software
+R</a>.</p></li>
+<li><p>Instalação do <a
+href="https://www.rstudio.com/products/rstudio/download/#download">software
+RStudio</a>.</p></li>
+</ul>
+<p><em>Se você já possuir os softwares em seu computador não há
+necessidade de nova instalação</em></p>
+</div>
+<div id="instalação-e-carregar-de-pacotes" class="section level2">
+<h2>Instalação e carregar de pacotes</h2>
+<p>O R é composto por vários pacotes (<em>packages</em>), também
+chamados de bibliotecas (<em>libraries</em>). Os comandos básicos do R
+estão agrupados em um pacote chamado <em>base</em>. Existem inúmeros
+pacotes, alguns já incluídos na instalação padrão do R e vários foram
+desenvolvidos por usuários do R que, em certo momento, julgaram
+importante criar comandos que suprissem suas necessidades. Depois, esses
+usuários disponibilizaram esses comandos na forma de um pacote com
+determinado nome, para que outras pessoas que necessitem usar os mesmos
+comandos não precisem implementá-los novamente. É essa colaboração mútua
+que faz do R um programa amplo, interdisciplinar e em constante
+evolução.</p>
+<ul>
+<li>Para saber quais os pacotes já instalados em seu computador utilize
+a função <code>installed.packages()</code>:</li>
+</ul>
+<pre class="r"><code>installed.packages() </code></pre>
+<ul>
+<li>Para instalar um pacote utilizamos a função
+<code>install.packages("")</code>, e dentro das aspas adicionamos o nome
+do pacote desejado. Nesse curso iremos utilizar o framework
+<code>tidyverse</code> que já possui vários pacotes instalados como o
+<code>ggplot2</code>, <code>purrr</code>, <code>tibble</code>,
+<code>dplyr</code>, <code>tidyr</code>, <code>stringr</code>, entre
+outros. Para instalar o framework com todos os pacotes incluso basta
+escrever o comando:</li>
+</ul>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;) # Lembre-se sempre de adicionar as aspas para instalar pacotes</code></pre>
+<ul>
+<li>Para atualizar um pacote para a versão mais recente use a função
+<code>update.packages("")</code> com o nome do pacote específico entre
+“aspas”, ou digite o argumento <code>ask=FALSE</code>, para atualizar
+todos de uma vez:</li>
+</ul>
+<pre class="r"><code>update.packages(&quot;tidyverse&quot;) 
+# update.packages(ask = FALSE) </code></pre>
+<ul>
+<li>Para carregar um pacote utilizamos a função <code>library()</code>
+ou <code>require()</code>, dentro do parênteses colocamos o nome do
+pacote a ser carregado.</li>
+</ul>
+<pre class="r"><code>library(tidyverse) 
+require(tidyverse)</code></pre>
+<ul>
+<li>Para obter ajuda e descrição do pacote usamos adicionamos o
+argumento <code>help=</code> dentro da função
+<code>library()</code>:</li>
+</ul>
+<pre class="r"><code>library(help=tidyverse) ## exemplo para o pacote *tidyverse*</code></pre>
+<ul>
+<li>Para visualizar os pacotes carregados na memória use a função
+<code>search()</code>:</li>
+</ul>
+<pre class="r"><code>search()</code></pre>
+<pre><code> [1] &quot;.GlobalEnv&quot;        &quot;package:forcats&quot;   &quot;package:stringr&quot;  
+ [4] &quot;package:purrr&quot;     &quot;package:readr&quot;     &quot;package:tidyr&quot;    
+ [7] &quot;package:tibble&quot;    &quot;package:ggplot2&quot;   &quot;package:tidyverse&quot;
+[10] &quot;package:dplyr&quot;     &quot;package:stats&quot;     &quot;package:graphics&quot; 
+[13] &quot;package:grDevices&quot; &quot;package:utils&quot;     &quot;package:datasets&quot; 
+[16] &quot;package:workflowr&quot; &quot;package:methods&quot;   &quot;Autoloads&quot;        
+[19] &quot;package:base&quot;     </code></pre>
+<p>Agora já podemos utilizar qualquer função de um dos pacotes já
+carregados e começar o nosso curso. Na próxima seção <a
+href="#introducao-r">Introdução ao R</a> você irá aprender um pouco
+sobre o R e alguns recursos realmente úteis para sintaxe R.</p>
+<p>Além desse material, você também pode consultar as referências a
+seguir:</p>
+</div>
+<div id="aprendendo-r-e-mais" class="section level2">
+<h2>Aprendendo R e mais</h2>
+<ul>
+<li><p><strong>R for Data Science (<a href="https://r4ds.had.co.nz/"
+class="uri">https://r4ds.had.co.nz/</a>)</strong>:<br />
+Como a equipe do Rstudio/Tidyverse recomenda (<a
+href="https://www.tidyverse.org/learn/"
+class="uri">https://www.tidyverse.org/learn/</a>), este livro é “o
+melhor lugar para começar a aprender o tidyverse”.</p></li>
+<li><p><strong>Laboratório de desafio de dados (<a
+href="https://datalab.stanford.edu/challenge-lab"
+class="uri">https://datalab.stanford.edu/challenge-lab</a>)</strong><br />
+Onde os alunos desenvolvem suas habilidades de dados resolvendo uma
+progressão de desafios cada vez mais difíceis.</p></li>
+<li><p><strong>Aprenda o tidyverse (<a
+href="https://www.tidyverse.org/learn/"
+class="uri">https://www.tidyverse.org/learn/</a>)</strong><br />
+Pcaotes disponíveis no tidyverse <a
+href="https://www.tidyverse.org/packages/"
+class="uri">https://www.tidyverse.org/packages/</a></p></li>
+<li><p><strong>APS 135: Introdução à Análise Exploratória de Dados com
+R (<a href="https://dzchilds.github.io/eda-for-bio/"
+class="uri">https://dzchilds.github.io/eda-for-bio/</a>)</strong><br />
+Possui algumas seções de introdução úteis sobre o básico do R e do
+RStudio, parece ter saído de um departamento de ciência de plantas,
+então existe isso.</p></li>
+<li><p><strong>Stat545: organização, exploração e análise de dados com
+R</strong><br />
+<a href="https://stat545.com/"
+class="uri">https://stat545.com/</a></p></li>
+</ul>
+<div id="teclas-de-atalho" class="section level3">
+<h3>Teclas de atalho</h3>
+<p>Muito importante aprender alguns deles, especialmente estes:</p>
+<ul>
+<li><code>ctrl+alt+I</code> = criar chunk ou blocos de código</li>
+<li><code>Shift+ctrl+M</code> = operador pipe <code>%&gt;%</code></li>
+<li><code>ctrl+Enter</code> = enviar (executar) linhas de código em seu
+script Rmd ou R para o console.</li>
+<li><code>Shift+ctrl+A</code> = Identação do script</li>
+</ul>
+<p>Nesse curso iremos usar <strong>MUITO</strong> o pipe
+<code>%&gt;%</code>, então achei melhor já deixar algum material
+auxiliar aqui caso seja necessário a consulta futura:</p>
+<ul>
+<li><a
+href="https://www.youtube.com/watch?v=KO35_7arizY&amp;ab_channel=RsquaredAcademy">Introdução
+ao vídeo do YouTube</a></li>
+<li><a href="https://magrittr.tidyverse.org/">Página do pacote
+magrittr</a></li>
+</ul>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.3 (2022-03-10)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=Portuguese_Brazil.1252  LC_CTYPE=Portuguese_Brazil.1252   
+[3] LC_MONETARY=Portuguese_Brazil.1252 LC_NUMERIC=C                      
+[5] LC_TIME=Portuguese_Brazil.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] forcats_0.5.2   stringr_1.4.1   purrr_0.3.4     readr_2.1.2    
+ [5] tidyr_1.2.0     tibble_3.1.8    ggplot2_3.3.6   tidyverse_1.3.2
+ [9] dplyr_1.0.9     workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.9          lubridate_1.8.0     getPass_0.2-2      
+ [4] ps_1.7.1            assertthat_0.2.1    rprojroot_2.0.3    
+ [7] digest_0.6.29       utf8_1.2.2          R6_2.5.1           
+[10] cellranger_1.1.0    backports_1.4.1     reprex_2.0.2       
+[13] evaluate_0.16       highr_0.9           httr_1.4.4         
+[16] pillar_1.8.1        rlang_1.0.4         readxl_1.4.1       
+[19] googlesheets4_1.0.1 rstudioapi_0.13     whisker_0.4        
+[22] callr_3.7.1         jquerylib_0.1.4     rmarkdown_2.15     
+[25] googledrive_2.0.0   munsell_0.5.0       broom_1.0.0        
+[28] compiler_4.1.3      httpuv_1.6.5        modelr_0.1.9       
+[31] xfun_0.32           pkgconfig_2.0.3     htmltools_0.5.3    
+[34] tidyselect_1.1.2    codetools_0.2-18    fansi_1.0.3        
+[37] crayon_1.5.1        withr_2.5.0         tzdb_0.3.0         
+[40] dbplyr_2.2.1        later_1.3.0         grid_4.1.3         
+[43] jsonlite_1.8.0      gtable_0.3.0        lifecycle_1.0.1    
+[46] DBI_1.1.3           git2r_0.30.1        magrittr_2.0.3     
+[49] scales_1.2.1        cli_3.3.0           stringi_1.7.6      
+[52] cachem_1.0.6        fs_1.5.2            promises_1.2.0.1   
+[55] xml2_1.3.3          bslib_0.4.0         ellipsis_0.3.2     
+[58] generics_0.1.3      vctrs_0.4.1         tools_4.1.3        
+[61] glue_1.6.2          hms_1.1.2           processx_3.7.0     
+[64] fastmap_1.1.0       yaml_2.3.5          colorspace_2.0-3   
+[67] gargle_1.2.0        rvest_1.0.3         knitr_1.39         
+[70] haven_2.5.0         sass_0.4.2         </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

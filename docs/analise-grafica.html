@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Costa, W. G." />
+
+<meta name="date" content="2022-09-12" />
+
+<title>Análise Gráfica no R </title>
+
+<script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Curso Análise Gráfica no R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Tutorial.html">Tutorial</a>
+</li>
+<li>
+  <a href="introducao-r.html">Introdução ao R</a>
+</li>
+<li>
+  <a href="manipulacaodedados.html">Manipulação de dados</a>
+</li>
+<li>
+  <a href="analise-grafica.html">Análise Gráfica</a>
+</li>
+<li>
+  <a href="about.html">Sobre</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/wevertongomescosta/">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"><p>Análise Gráfica no R <img
+src="images/logo.jpg" style="display:block; margin:0 auto"
+width="100" /></p></h1>
+<h4 class="author">Costa, W. G.</h4>
+<h4 class="date">2022-09-12</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-09-12
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 2
+</p>
+<p>
+<strong>Knit directory:</strong>
+<code>Manipulacao-dados-e-Analise-Grafica-R/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown file has staged changes. To know which version of the
+R Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20220826code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20220826)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20220826code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20220826)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+</p>
+</div>
+<div id="strongCachestrongdetected" class="panel-collapse collapse">
+<div class="panel-body">
+The following chunks had caches available:
+<ul>
+<li>
+session-info-chunk-inserted-by-workflowr
+</li>
+<li>
+unnamed-chunk-1
+</li>
+<li>
+unnamed-chunk-10
+</li>
+<li>
+unnamed-chunk-11
+</li>
+<li>
+unnamed-chunk-12
+</li>
+<li>
+unnamed-chunk-13
+</li>
+<li>
+unnamed-chunk-14
+</li>
+<li>
+unnamed-chunk-15
+</li>
+<li>
+unnamed-chunk-16
+</li>
+<li>
+unnamed-chunk-17
+</li>
+<li>
+unnamed-chunk-18
+</li>
+<li>
+unnamed-chunk-19
+</li>
+<li>
+unnamed-chunk-2
+</li>
+<li>
+unnamed-chunk-20
+</li>
+<li>
+unnamed-chunk-21
+</li>
+<li>
+unnamed-chunk-22
+</li>
+<li>
+unnamed-chunk-23
+</li>
+<li>
+unnamed-chunk-24
+</li>
+<li>
+unnamed-chunk-25
+</li>
+<li>
+unnamed-chunk-26
+</li>
+<li>
+unnamed-chunk-27
+</li>
+<li>
+unnamed-chunk-28
+</li>
+<li>
+unnamed-chunk-29
+</li>
+<li>
+unnamed-chunk-3
+</li>
+<li>
+unnamed-chunk-30
+</li>
+<li>
+unnamed-chunk-31
+</li>
+<li>
+unnamed-chunk-32
+</li>
+<li>
+unnamed-chunk-33
+</li>
+<li>
+unnamed-chunk-34
+</li>
+<li>
+unnamed-chunk-35
+</li>
+<li>
+unnamed-chunk-36
+</li>
+<li>
+unnamed-chunk-37
+</li>
+<li>
+unnamed-chunk-38
+</li>
+<li>
+unnamed-chunk-39
+</li>
+<li>
+unnamed-chunk-4
+</li>
+<li>
+unnamed-chunk-40
+</li>
+<li>
+unnamed-chunk-41
+</li>
+<li>
+unnamed-chunk-42
+</li>
+<li>
+unnamed-chunk-43
+</li>
+<li>
+unnamed-chunk-5
+</li>
+<li>
+unnamed-chunk-6
+</li>
+<li>
+unnamed-chunk-7
+</li>
+<li>
+unnamed-chunk-8
+</li>
+<li>
+unnamed-chunk-9
+</li>
+</ul>
+<p>To ensure reproducibility of the results, delete the cache directory
+<code>analise-grafica_cache</code> and re-run the analysis. To have
+workflowr automatically delete the cache directory prior to building the
+file, set <code>delete_cache = TRUE</code> when running
+<code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreed849dda6bf5276aa4c9b3d223449bda82e7dd234targetblankd849ddaa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/d849dda6bf5276aa4c9b3d223449bda82e7dd234" target="_blank">d849dda</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreed849dda6bf5276aa4c9b3d223449bda82e7dd234targetblankd849ddaa"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/d849dda6bf5276aa4c9b3d223449bda82e7dd234" target="_blank">d849dda</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  Manipulacao-dados-e-Analise-Grafica-R.Rproj
+    Untracked:  analysis/Tutorial.Rmd
+    Untracked:  analysis/Tutorial_cache/
+    Untracked:  analysis/analise-grafica_cache/
+    Untracked:  analysis/index_cache/
+    Untracked:  analysis/introducao-r.Rmd
+    Untracked:  analysis/manipulacaodedados_cache/
+    Untracked:  data/dados2.csv
+
+Unstaged changes:
+    Deleted:    Introdu-o-ao-R.Rproj
+    Modified:   README.md
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/analise-grafica.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
+    Modified:   analysis/manipulacaodedados.Rmd
+    Deleted:    data/Blocos_Aumentados.csv
+    Deleted:    data/DadosReg.csv
+    Deleted:    data/Dados_tabulados.xlsx
+    Deleted:    data/README.md
+    Deleted:    data/aula10.csv
+    Modified:   data/dados.csv
+    Deleted:    data/dados1.xlsx
+    Deleted:    data/dados2.xlsx
+    Deleted:    data/dados_aula7.csv
+    Deleted:    data/dados_cafe.xlsx
+    Deleted:    data/dados_cor.csv
+    Modified:   data/data.xlsx
+    Deleted:    data/data2.xlsx
+    Deleted:    data/eig_val.xlsx
+    Modified:   data/imp.xlsx
+    Modified:   data/medias.xlsx
+    Deleted:    data/prod.txt
+    Modified:   data/progress.xlsx
+    Deleted:    data/reg.xlsx
+
+Staged changes:
+    Modified:   analysis/_site.yml
+    New:        analysis/analise-grafica.Rmd
+    Modified:   analysis/index.Rmd
+    New:        analysis/manipulacaodedados.Rmd
+    New:        data/CV_prod.txt
+    New:        data/Dados_tabulados.xlsx
+    New:        data/dados_cafe.xlsx
+    New:        data/data.xlsx
+    New:        data/data2.xlsx
+    New:        data/eig_val.xlsx
+    New:        data/face.txt
+    New:        data/imp.xlsx
+    New:        data/medias.xlsx
+    New:        data/prod.txt
+    New:        data/prod_cv.txt
+    New:        data/prod_herd.txt
+    New:        data/prod_med.txt
+    New:        data/progress.xlsx
+    New:        data/reg.xlsx
+    New:        data/yield.xlsx
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="sintaxe-básica-do-ggplot2" class="section level2">
+<h2>Sintaxe básica do <code>ggplot2</code></h2>
+<p>A função <code>ggplot()</code> necessita de no mínimo 3 elementos
+para a produção dos gráficos:</p>
+<ul>
+<li>DADOS &lt;- Objeto principal</li>
+<li>ESTÉTICA <code>aes()</code> -&gt; Variáveis de cada eixo</li>
+<li>OBJETO GEOMÉTRICO <code>geom_***()</code>- Geometria que irão
+representar os dados no gráfico, pontos, boxplot, linha, etc.</li>
+</ul>
+<p>Recomendo a leitura do material <a
+href="https://ggplot2.tidyverse.org/reference/">Function reference do
+ggplot</a></p>
+<p>Novamente, vamos utilizar o framework <code>tidyverse</code> para já
+importar todas as bibliotecas presentes nele, incluindo o
+<code>ggplot2</code>.</p>
+<pre class="r"><code>#install.packages(&quot;tidyverse&quot;) # Instalar o tidyverse
+library(tidyverse)</code></pre>
+<pre><code>-- Attaching packages --------------------------------------- tidyverse 1.3.2 --
+v ggplot2 3.3.6     v purrr   0.3.4
+v tibble  3.1.8     v dplyr   1.0.9
+v tidyr   1.2.0     v stringr 1.4.1
+v readr   2.1.2     v forcats 0.5.2
+-- Conflicts ------------------------------------------ tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()</code></pre>
+<p>Importar os dados exemplos</p>
+<pre class="r"><code>dados &lt;- read_csv(&quot;data/dados.csv&quot;)       # Função para importar os dados</code></pre>
+<pre><code>Rows: 96 Columns: 9
+-- Column specification --------------------------------------------------------
+Delimiter: &quot;,&quot;
+chr (2): trat, gen
+dbl (7): id, blocos, sev1, sev2, sev3, area, areat
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>dados</code></pre>
+<pre><code># A tibble: 96 x 9
+   trat               id gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Testemunha 6165     1 Predileta      1  0.97   1.9    12  58.7  14.7
+ 2 Testemunha 6165     2 Predileta      2  1.9    1.9     8  48.0  13.0
+ 3 Testemunha 6165     3 Predileta      3  3.3    3.3    12  76.6  17.2
+ 4 Testemunha 6165     4 Predileta      4  1.9    3.3    12  71.8  16.5
+ 5 Testemunha 6165     5 Inca           1  1.9   12      31 199.   29.9
+ 6 Testemunha 6165     6 Inca           2  1.9   12      31 199.   29.9
+ 7 Testemunha 6165     7 Inca           3  1.9    8      22 140.   24.4
+ 8 Testemunha 6165     8 Inca           4  0.97  12      31 196.   29.6
+ 9 UFV 02              9 Predileta      1  0.97   8       8  87.4  18.6
+10 UFV 02             10 Predileta      2  1.9   12      12 133.   23.7
+# ... with 86 more rows</code></pre>
+</div>
+<div id="construção-dos-gráficos" class="section level2">
+<h2>Construção dos gráficos</h2>
+<p>Primeiro, iremos praticar sobre como é feito os gráficos básicos e
+abordar a maioria das geometrias existentes no <code>ggplot2</code>.</p>
+<p>Após isso iremos refinar a estética do nosso gráfico com temas,
+cores, alteração de texto e disposição das variáveis, legendas, etc.</p>
+<div id="primeiro-gráfico" class="section level3">
+<h3>Primeiro gráfico</h3>
+<p>Como já mencionado, o gráfico necessita de 3 informações básica, os
+dados (<code>dados</code>), a estética (<code>aes()</code>)e a forma
+geométrica de representação (<code>geom_***()</code>).</p>
+</div>
+<div id="gráfico-de-dispersão" class="section level3">
+<h3>Gráfico de dispersão</h3>
+<p>Aqui vamos utilizar os nossos <code>dados</code> para representar uma
+dispersão (<code>geom_point()</code>) da variável <code>id</code> eixo x
+e <code>area</code> no eixo y.</p>
+<p>A codificação para a construção de gráficos pode ser feita de duas
+formas.</p>
+<p>1 - Inserindo o banco de dados dentro da função
+<code>ggplot()</code>.</p>
+<pre class="r"><code>ggplot(dados, aes(x = id, y = area)) +
+  geom_point()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>2 - Utilizando o pipe <code>%&gt;%</code>. Nesse caso, não há
+necessidade de inserir o banco de dados dentro da função
+<code>ggplot()</code>.</p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = id, y = area)) +
+  geom_point()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Como visto no código acima, ao usar a função <code>ggplot()</code>,
+usamos o símbolo <code>+</code> para adicionar ou alterar o gráfico.
+Aqui adicionamos a dispersão dos dados, mas poderíamos adicionar
+qualquer outra forma geométrica.</p>
+</div>
+<div id="gráfico-de-linhas" class="section level3">
+<h3>Gráfico de linhas</h3>
+<p>Por exemplo, podemos criar um gráfico de linhas alterando a forma
+geométrica para <code>geom_line()</code></p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = id, y = area)) +
+  geom_line()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-barras-e-colunas" class="section level3">
+<h3>Gráfico de barras e colunas</h3>
+<p>Para criar um gráfico de colunas usamos a função
+<code>geom_col()</code>.</p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = id, y = area)) +
+  geom_col()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>E para o gráfico de barras usamos a função <code>geom_bar()</code>,
+mas aqui a função cria uma contagem dos dados, então devemos atribuir
+apenas uma estética <code>x</code> ou <code>y</code>.</p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = area)) +
+  geom_bar()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-7-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Para que o gráfico de barras seja equivalente ao gráfico de colunas,
+atribuímos o argumento <code>stat="identity"</code> dentro da função
+<code>geom_bar()</code>. Aqui devemos especificar tanto o <code>x</code>
+ou <code>y</code>.</p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = id, y = area)) +
+  geom_bar(stat = &quot;identity&quot;) </code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-8-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histograma" class="section level3">
+<h3>Histograma</h3>
+<p>Para gráficos de histogramas ou frequência a função utilizada é
+<code>geom_histogram()</code>. Novamente, essa forma cria uma contagem
+dos dados, então devemos atribuir apenas uma estética <code>x</code> ou
+<code>y</code></p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = area)) +
+  geom_histogram()</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Esse gráfico é muito utilizado para comparar a frequência de dados
+contínuos como <code>area</code> com dados categóricos como
+<code>gen</code>. Veja um exemplo:</p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = area, fill = gen)) +
+  geom_histogram() +
+  geom_vline(aes(xintercept = 300)) +
+  geom_hline(aes(yintercept = 10))</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-10-1.png" width="768" style="display: block; margin: auto;" />
+Para plotar uma reta no gráfico, podemos utilizar a função
+<code>geom_vline()</code> para linhas verticais ou
+<code>geom_hline()</code> para linhas horizontais.</p>
+<p>No exemplo abaixo vamos calcular a média da área por <code>gen</code>
+e vamos plotar a reta média para cada <code>gen</code> no
+histograma.</p>
+<pre class="r"><code>mean_area &lt;- dados %&gt;%
+  group_by(gen) %&gt;%
+  summarise(mean_area = mean(area))
+
+dados %&gt;%
+  ggplot(aes(x = area, fill = gen)) +
+  geom_histogram(bins = 10) +
+  geom_vline(aes(xintercept = mean_area$mean_area[1])) +
+  geom_vline(aes(xintercept = mean_area$mean_area[2]))</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boxplot" class="section level3">
+<h3>Boxplot</h3>
+<p>Para construção de boxplots a forma geométrica é
+<code>geom_boxplot()</code>. Nesse tipo de gráfico também é necessário
+combinar dados contínuos <code>area</code> com dados categóricos
+<code>gen</code>.</p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(y = area, x = gen)) +
+  geom_boxplot()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-12-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="correlação" class="section level3">
+<h3>Correlação</h3>
+<p>Para gráficos de correlação precisamos antes de plotar o gráfico
+calcular a correlação entre as variáveis. Vamos estimar a correlação das
+variaveis <code>sev1</code>, <code>sev2</code>, <code>sev3</code>,
+<code>area</code> e <code>areat</code>. Usaremos a função
+<code>corr_coef()</code>, do pacote <code>metan</code> <a
+href="https://tiagoolivoto.github.io/metan/index.html">(mais informações
+sobre esse pacote)</a> para retornar uma matriz de correlação das nossas
+variáveis e a função <code>plot()</code> para plotar o gráfico.</p>
+<pre class="r"><code>#install.packages(metan)
+library(metan)</code></pre>
+<pre><code>Registered S3 method overwritten by &#39;GGally&#39;:
+  method from   
+  +.gg   ggplot2</code></pre>
+<pre><code>|=========================================================|</code></pre>
+<pre><code>| Multi-Environment Trial Analysis (metan) v1.17.0        |</code></pre>
+<pre><code>| Author: Tiago Olivoto                                   |</code></pre>
+<pre><code>| Type &#39;citation(&#39;metan&#39;)&#39; to know how to cite metan      |</code></pre>
+<pre><code>| Type &#39;vignette(&#39;metan_start&#39;)&#39; for a short tutorial     |</code></pre>
+<pre><code>| Visit &#39;https://bit.ly/pkgmetan&#39; for a complete tutorial |</code></pre>
+<pre><code>|=========================================================|</code></pre>
+<pre><code>
+Attaching package: &#39;metan&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:forcats&#39;:
+
+    as_factor</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    recode_factor</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    replace_na</code></pre>
+<pre><code>The following objects are masked from &#39;package:tibble&#39;:
+
+    column_to_rownames, remove_rownames, rownames_to_column</code></pre>
+<pre class="r"><code>coef_cor &lt;- corr_coef(dados %&gt;%
+                        select(sev1:areat))
+coef_cor</code></pre>
+<pre><code>---------------------------------------------------------------------------
+Pearson&#39;s correlation coefficient
+---------------------------------------------------------------------------
+       sev1  sev2  sev3  area areat
+sev1  1.000 0.355 0.354 0.431 0.439
+sev2  0.355 1.000 0.671 0.951 0.925
+sev3  0.354 0.671 1.000 0.864 0.880
+area  0.431 0.951 0.864 1.000 0.989
+areat 0.439 0.925 0.880 0.989 1.000
+---------------------------------------------------------------------------
+p-values for the correlation coefficients
+---------------------------------------------------------------------------
+          sev1     sev2     sev3     area    areat
+sev1  0.00e+00 3.82e-04 3.98e-04 1.18e-05 7.58e-06
+sev2  3.82e-04 0.00e+00 7.75e-14 1.16e-49 3.16e-41
+sev3  3.98e-04 7.75e-14 0.00e+00 8.05e-30 4.29e-32
+area  1.18e-05 1.16e-49 8.05e-30 0.00e+00 2.75e-80
+areat 7.58e-06 3.16e-41 4.29e-32 2.75e-80 0.00e+00</code></pre>
+<p>Veja mais sobre as particularidades da função <code>plot()</code> <a
+href="https://tiagoolivoto.github.io/metan/reference/plot.corr_coef.html">aqui</a>.</p>
+<pre class="r"><code>plot(coef_cor)</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-14-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Se quisermos alterar o tipo de disposição das variáveis para parte
+superior podemos usar o argumento <code>type = "upper"</code>, para que
+não ocorra a ordenação de acordo com o valor da correlação usamos
+<code>reorder = FALSE</code>, e para alterar os textos dos eixos e do
+plot podemos usar <code>size.text.lab = 14</code> e
+<code>size.text.cor = 5</code>, os números representam o tamanho da
+letra.</p>
+<pre class="r"><code>plot(
+  coef_cor,
+  type = &quot;upper&quot;,
+  reorder = FALSE,
+  size.text.lab = 14,
+  size.text.cor = 5
+)</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-15-1.png" width="768" style="display: block; margin: auto;" />
+Outra forma de visualizar a correlação entre as variáveis é pela função
+<code>corr_plot()</code>. Essa função permite a visualização gráfica e
+numérica de uma matriz de correlação.</p>
+<pre class="r"><code>corr_plot(dados %&gt;%
+            select(sev1:areat))</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="regressão" class="section level3">
+<h3>Regressão</h3>
+<p>Para produzir um gráfico de regressão utilizamos a função
+<code>geom_smooth()</code>. O <em>default</em> dessa função é usar os
+argumentos <code>method = 'loess'</code>, método não-parámetrico e
+definido por curvas, e a <code>formula 'y ~ x'</code>.</p>
+<p>Nesse gráfico, podemos definir os argumentos <code>method =</code>,
+que define qual método iremos utilizar, por exemplo
+<code>method =lm</code> para definir uma regressão linear entre
+<code>x</code> e <code>y</code>, <code>se=</code> que é um argumento
+lógico (ou seja, recebe <code>TRUE</code> ou <code>FALSE</code>) e
+indica se será representado o desvio da reta.</p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth()</code></pre>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-17-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Agora vamos plotar uma regressão linear entre <code>area</code> e
+<code>id</code>.</p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth(method = lm, se = FALSE)</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-18-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Se quisermos inserir a fórmula no gráfico, utilizamos a
+<code>stat_poly_eq</code> função do pacote <code>ggpmisc</code>,
+indicando que a estética da equação é <code>..eq.label..</code> e/ ou da
+correlação <code>..rr.label..</code>.</p>
+<pre class="r"><code>library(ggpmisc)</code></pre>
+<pre><code>Carregando pacotes exigidos: ggpp</code></pre>
+<pre><code>
+Attaching package: &#39;ggpp&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    annotate</code></pre>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point() +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;)))</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-19-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="estética" class="section level2">
+<h2>Estética</h2>
+<div id="facetas" class="section level3">
+<h3>Facetas</h3>
+<p>Temos duas formas de facetas no R <code>facet_grid()</code> e
+<code>facet_wrap()</code>. Utilizamos as facetas para criar gráficos
+para cada categoria de uma variável</p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point() +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;))) +
+  facet_grid( ~ gen)</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-20-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Também é possível criar facetas para combinação de varáveis.</p>
+<pre class="r"><code>dados %&gt;%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point() +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;))) +
+  facet_grid(gen ~ as.factor(blocos))</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-21-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="escala" class="section level3">
+<h3>Escala</h3>
+<p>Para alterar a escala dos eixos definimos <code>xlim</code> e/ou
+<code>ylim</code></p>
+<pre class="r"><code>p &lt;- dados %&gt;%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point(aes(colour = gen)) +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;))) +
+  # garantir que o gráfico tem o ponto (0,0)
+  expand_limits(x = 0, y = 0) +
+  # escolhendo as amplitudes dos eixos
+  xlim(0, 100) +
+  ylim(0, 600)
+p</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-22-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="coordenadas" class="section level3">
+<h3>Coordenadas</h3>
+<pre class="r"><code># Girar o gráfico
+p + coord_flip()</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-23-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="temas" class="section level3">
+<h3>Temas</h3>
+<p>Vários temas</p>
+<pre class="r"><code>p + theme_bw()</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + theme_linedraw()</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-2.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + theme_dark()</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-3.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + theme_minimal()</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-4.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + theme_classic()</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-5.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="texto-e-eixos" class="section level3">
+<h3>Texto e eixos</h3>
+<ul>
+<li>Textos</li>
+</ul>
+<p>Para inserir textos no gráfico utilizamos o função
+<code>geom_text)</code>, indicando a posição no gráfico (x e y) e o
+texto (label) a ser inserido.</p>
+<pre class="r"><code>p+geom_text(x = 30, y = 450, label = &quot;texto que você quiser escrever&quot;)</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-25-1.png" width="768" style="display: block; margin: auto;" />
+- Títulos</p>
+<p>Para inserir títulos no gráfico usamos a função <code>labs()</code>.
+Para alterar a posição do título usamos o argumento
+`<code>plot.title()</code> dentro da função <code>theme()</code>. Para
+alteração no texto sempre devemos especificar
+<code>element_text()</code>. <em>Isso vale para qualquer parte do
+gráfico, não apenas para o título.</em></p>
+<pre class="r"><code>p +
+  labs(title = &quot;Aqui o seu título&quot;, subtitle = &quot;Aqui o seu subtítulo&quot;) +
+  theme(plot.title = element_text(hjust = 0.5)) +             #centralizando o subtítulo
+  theme(plot.subtitle = element_text(hjust = 0.5)) +          #centralizando o subtítulo
+  theme(plot.title = element_text(color = &quot;blue&quot;)) #mudando a cor do título</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-26-1.png" width="768" style="display: block; margin: auto;" />
+- Nome dos eixos</p>
+<p>Para alterar o nomes dos eixos podemos usar as funções
+<code>ylab()</code> e <code>xlab()</code>.</p>
+<pre class="r"><code>p + ylab(label = bquote(&quot;Produção (kg&quot; ~ ha ^ -1 ~ &quot;)&quot;)) +
+  #título do eixo y
+  xlab(label = &quot;Individuo&quot;) #título do eixo x</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-27-1.png" width="768" style="display: block; margin: auto;" />
+<strong>Para adicionar equações em texto de qualquer parte do gráfico
+usamos a função <code>bquote()</code>. Para valores subescritos
+indicamos entre colchetes entre <code>~</code> : CO[2], por exemplo.
+Para valores superescritos indicamos o acento circunflexo entre
+<code>~</code>: ha ^ -1, por exemplo.</strong></p>
+</div>
+<div id="legendas" class="section level3">
+<h3>Legendas</h3>
+<p>-Posição</p>
+<p>Para mudar a posição da legenda usamos o argumento
+<code>legend.position =</code> dentro da função <code>theme()</code>. As
+posições podem ser <code>bottom</code> (inferior), <code>top</code>
+(superior), <code>left</code> (esquerda) e <code>right</code>
+(direita).</p>
+<pre class="r"><code>p + theme(legend.position = &quot;top&quot;)</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-28-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>PAra inserir a legenda dentro do gráfico temos que atribuir valores
+de posição de x e y dentro do gráfico. x vale de 0 (esquerda) a 1
+(direita) e y vale de 0 (inferior) a 1 (superior). Assim se quisermos
+que a legenda fique na esquerda da parte superior podemos, por exemplo,
+especificar <code>legend.position = c(0.2, 0.8)</code>.</p>
+<pre class="r"><code>p + theme(
+  legend.position = c(0.2, 0.8),
+  legend.background = element_rect(fill = &quot;white&quot;, colour = &quot;black&quot;)
+)</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-29-1.png" width="768" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Remover legendas</li>
+</ul>
+<p>Para remover legendas basta indicar o atributo indicador da legenda
+como <code>FALSE</code> dentro da função <code>guides()</code>. No nosso
+caso, atribuímos <code>colour</code> para <code>geom_point()</code>,
+assim devemos especificar <code>guides(colour = FALSE)</code>.</p>
+<pre class="r"><code>p + guides(color = FALSE)</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-30-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="escalas-de-cores" class="section level1">
+<h1>Escalas de cores</h1>
+<p>A indicação de cores pode ser feita de forma manual utilizando a
+função <code>scale_color_manual()</code>, dentro da função atribuímos
+valores ou nome das cores, para conhecer lagumas cores disponeis acesse
+<a
+href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">aqui</a></p>
+<pre class="r"><code>p + scale_color_manual(values = c(&quot;#999999&quot;, &quot;#E69F00&quot;))</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-31-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Também podemos especificar por paletas de cores já existentes em
+pacotes. <a
+href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html">Aqui</a>
+você pode visualizar algumas paletas de cores.</p>
+<pre class="r"><code>p + scale_color_brewer()</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-1.png" width="768" style="display: block; margin: auto;" />
+O pacote <a
+href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">ggthemes</a>
+também possui vários temas e paletas que podem ser do seu interesse.</p>
+<pre class="r"><code>library(ggthemes)
+p + scale_color_gdocs() +
+  theme_classic()</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-33-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div id="exportar-o-gráfico" class="section level2">
+<h2>Exportar o gráfico</h2>
+<p>Para exportar gráficos usamos a função <code>ggsave()</code>. Se o
+gráfico não foi salvo em um objeto como feito anteriormente como objeto
+<code>p</code>, a função <code>ggsave()</code> irá salvar o último
+gráfico em <code>Plots</code>. Os argumentos presentes são
+<code>filename</code> é o nome da imagem que irá ser salva,
+<code>units</code> é a unidade, se não especificado é salvo em pixel,
+<code>width</code> e <code>height</code> é a largura e altura da imagem,
+respectivamente; <code>dpi</code> é a resolução em pixel, por default é
+300.</p>
+<pre class="r"><code>ggsave(
+  filename = &quot;gráfico.tiff&quot;,
+  units = &quot;cm&quot;,
+  width = 30,
+  height = 20,
+  dpi = 300
+)</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p>Para salvar um gráfico salvo em um objeto você deve especificar o
+argumento <code>plot</code> na função <code>ggsave()</code>.</p>
+<pre class="r"><code>ggsave(
+  filename = &quot;gráfico.tiff&quot;,
+  plo = p,
+  units = &quot;cm&quot;,
+  width = 30,
+  height = 20,
+  dpi = 300
+)</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+</div>
+<div id="gráficos-extras" class="section level2">
+<h2>Gráficos Extras</h2>
+<div id="histograma-com-alteração-da-posição-da-legenda"
+class="section level3">
+<h3>Histograma com alteração da posição da legenda</h3>
+<pre class="r"><code>library(readxl)                   # Ler aquivos em .xls e .xlsx
+library(tidyverse)                # Framework para manipulação e visualização de dados
+
+yield &lt;- read_excel(&quot;data/yield.xlsx&quot;)
+data &lt;- read_excel(&quot;data/data.xlsx&quot;)
+
+# Count graph relating Growth type to year
+
+data %&gt;%
+  ggplot() +
+  geom_bar(aes(Year, fill = Growth_type)) +
+  theme_bw() +
+  xlab(&quot;Year&quot;) +
+  ylab(&quot;Count&quot;) +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  labs(fill = &quot;Growth type&quot;) +
+  theme(
+    legend.position = c(0.3, 0.8),
+    legend.background = element_rect(fill = &quot;white&quot;, colour = &quot;black&quot;)
+  )</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-36-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histograma-e-linha-em-um-só-gráfico-3-eixos"
+class="section level3">
+<h3>Histograma e linha em um só gráfico (3 eixos)</h3>
+<pre class="r"><code>library(readxl)                   # Ler aquivos em .xls e .xlsx
+library(tidyverse)                # Framework para manipulação e visualização de dados
+
+#Transforming variables into factors
+yield$Year &lt;- as.factor(yield$Year)
+
+ggplot() +
+  geom_bar(data = data, aes(as.factor(Year), fill = Growth_type)) +
+  geom_point(data = yield,
+             aes(x = Year, y = (Yield * (175 / 125000))),
+             group = 1,
+             color = &quot;#a50026&quot;) +
+  geom_line(
+    data = yield,
+    aes(x = Year, y = Yield * (175 / 125000)),
+    group = 1,
+    color = &quot;#a50026&quot;
+  ) +
+  scale_y_continuous(name = &quot;Count&quot;,
+                     sec.axis = sec_axis( ~ . * 125000 / 175, name = &quot;Yield (Thousand Tons)&quot;)) +
+  theme_bw() +
+  xlab(&quot;Year&quot;) +
+  scale_fill_brewer(palette = &quot;Dark2&quot;) +
+  labs(fill = &quot;Event Type&quot;) +
+  theme(
+    legend.position = c(0.3, 0.8),
+    legend.title = element_blank(),
+    legend.background = element_rect(fill = &quot;white&quot;, colour = &quot;black&quot;),
+    legend.key.size = unit(0.5, &quot;cm&quot;),
+    axis.text.y = element_text(
+      angle = 15,
+      vjust = 0.5,
+      hjust = 1
+    )
+  )</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-37-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-colunas-com-texto" class="section level3">
+<h3>Gráfico de colunas com texto</h3>
+<pre class="r"><code>library(readxl)                   # Ler aquivos em .xls e .xlsx
+library(tidyverse)                # Framework para manipulação e visualização de dados
+
+dados &lt;- read_excel(&quot;data/medias.xlsx&quot;)
+
+## Plotando o teste
+dados %&gt;%
+  ggplot() +
+  geom_col(
+    aes(x = TRAT, y = mean,
+        fill = TRAT),
+    position = &quot;dodge&quot;,
+    colour = &#39;black&#39;,
+    alpha = 0.8,
+    width = 0.85
+  ) +
+  geom_errorbar(aes(
+    ymin = mean - sd,
+    ymax = mean + sd,
+    x = TRAT
+  ), width = .3) +
+  geom_text(aes(y = mean + sd, x = TRAT, label = group),
+            position = position_dodge(0.9),
+            vjust = -0.5) +
+  theme_classic() +
+  scale_fill_brewer(palette = &quot;Paired&quot;) +
+  labs(y = &quot;Produtividade do cafeeiro&quot;, x = &quot;&quot;) +
+  theme(axis.text.x = element_blank(),
+        legend.title = element_text()) +
+  guides(fill = guide_legend(title = &quot;Tratamentos&quot;))</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-38-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-segmentos-e-pontos" class="section level3">
+<h3>Gráfico de segmentos e pontos</h3>
+<pre class="r"><code>library(readxl)                   # Ler aquivos em .xls e .xlsx
+library(tidyverse)                # Framework para manipulação e visualização de dados
+
+imp_trait &lt;- read_excel(&quot;data/imp.xlsx&quot;)
+
+imp_trait %&gt;%
+  pivot_longer(1:2,
+               names_to = &quot;variable&quot;) %&gt;% 
+  mutate(traitnames = fct_reorder(traitnames, value)) %&gt;%
+  ggplot(aes(x = traitnames, y = value)) +
+  geom_point(aes(colour = variable, shape = variable), size = 4) +
+  scale_colour_discrete(labels = c(&quot;Accuracy&quot;, &quot;Gini Indice&quot;)) +
+  scale_shape_discrete(labels = c(&quot;Accuracy&quot;, &quot;Gini Indice&quot;)) +
+  geom_segment(aes(
+    x = traitnames,
+    xend = traitnames,
+    y = 0,
+    yend = value
+  )) +
+  ylab(&quot;Increase in node purity&quot;) +
+  xlab(&quot;&quot;) +
+  theme_minimal() +
+  theme(
+    legend.position = c(0.8, 0.15),
+    legend.title = element_blank(),
+    legend.background = element_rect(fill = &quot;white&quot;, colour = &quot;black&quot;),
+    legend.key.size = unit(0.5, &quot;cm&quot;),
+    axis.text.y = element_text(
+      angle = 15,
+      vjust = 0.5,
+      hjust = 1
+    )
+  ) +
+  coord_flip()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-39-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-linhas-e-regressão-não-linear"
+class="section level3">
+<h3>Gráfico de linhas e regressão não-linear</h3>
+<pre class="r"><code>library(readxl)                   # Ler aquivos em .xls e .xlsx
+library(tidyverse)                # Framework para manipulação e visualização de dados
+
+progress &lt;- read_excel(&quot;data/progress.xlsx&quot;)
+
+ggplot(progress, aes(Iteration, progress[[1]])) +
+  geom_line(color = &quot;#00AFBB&quot;, size = 1) +
+  stat_smooth(color = &quot;#FC4E07&quot;,
+              fill = &quot;#FC4E07&quot;,
+              method = &quot;loess&quot;) +
+  theme_minimal() +
+  labs(y = colnames(progress[1]))</code></pre>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-40-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="agrupando-gráficos-de-boxplot" class="section level3">
+<h3>Agrupando gráficos de boxplot</h3>
+<pre class="r"><code>library(gridExtra)                # Agrupar gráficos em um só</code></pre>
+<pre><code>
+Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    combine</code></pre>
+<pre class="r"><code>library(extrafont)               # Pacote para alterar a fonte do texto</code></pre>
+<pre><code>Registering fonts with R</code></pre>
+<pre class="r"><code>library(ggpubr)                   # fornece algumas funções fáceis de usar para criar e personalizar gráficos
+
+
+herd_prod &lt;- read.table(&quot;data/prod_herd.txt&quot;, header = T)
+cv_prod1 &lt;- read.table(&quot;data/prod_cv.txt&quot;, header = T)
+cv_prod &lt;- read.table(&quot;data/cv_prod.txt&quot;, header = T)
+media_prod &lt;- read.table(&quot;data/prod_med.txt&quot;, header = T)
+
+h_p &lt;- ggplot(data = herd_prod, mapping = aes(x = 1, y = h²)) +
+  geom_boxplot(
+    fill = &quot;gold1&quot;,
+    outlier.colour = &quot;tomato3&quot;,
+    outlier.shape = 19,
+    outlier.size = 1.5
+  ) +
+  geom_jitter(width = 0.01,
+              alpha = 0.2,
+              height = 0.05) +
+  xlab(&quot;h²&quot;) +
+  xlim(0, 2) +
+  ylim(0, 100) +
+  ylab(NULL) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks = element_blank(),
+    panel.ontop = FALSE,
+    text = element_text(family = &quot;Times New Roman&quot;, size = 14)
+  )
+
+cv_p &lt;- ggplot(data = cv_prod, aes(x = 1, y = CV)) +
+  geom_boxplot(
+    fill = &quot;#4271AE&quot;,
+    outlier.colour = &quot;red&quot;,
+    outlier.shape = 19,
+    outlier.size = 1.5
+  ) +
+  geom_jitter(width = 0.001, alpha = 0.2) +
+  xlab(&quot;CV&quot;) +
+  xlim(0, 2) +
+  ylim(0, 60) +
+  ylab(NULL) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks = element_blank(),
+    text = element_text(family = &quot;Times New Roman&quot;, size = 14)
+  )
+
+m_p &lt;- ggplot(data = media_prod, aes(x = 1, y = med)) +
+  geom_boxplot(
+    fill = &quot;seagreen1&quot;,
+    outlier.colour = &quot;tomato3&quot;,
+    outlier.shape = 19,
+    outlier.size = 1.5
+  ) +
+  geom_jitter(width = 0.01, alpha = 0.2) +
+  xlab(&quot;μ&quot;) +
+  xlim(0, 2) +
+  ylim(0, 10) +
+  ylab(NULL) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks = element_blank(),
+    text = element_text(family = &quot;Times New Roman&quot;, size = 14)
+  )
+
+prod &lt;- ggarrange(h_p, cv_p, m_p, ncol = 3, nrow = 1)
+
+p &lt;- annotate_figure(prod,
+                     top = text_grob(
+                       bquote(underline(.(&quot;            Grain yield               &quot;))),
+                       face = &quot;bold&quot;,
+                       family = &quot;Times New Roman&quot;,
+                       size = 14
+                     ))
+p</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-41-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="dispersão-e-regressão-com-abline" class="section level3">
+<h3>Dispersão e regressão com abline</h3>
+<pre class="r"><code>graf &lt;- read.table(&quot;data/face.txt&quot;, header = T)
+graf$Variable &lt;- as.factor(graf$Variable)
+
+a &lt;- c(
+  &quot;Coeficient_of_Variation&quot; = &quot;Coef. of Variation (%)&quot;,
+  &quot;Grain_yield&quot; = bquote(&quot;Grain yield (kg&quot; ~ ha ^ -1 ~ &quot;)&quot;),
+  &quot;Heritability&quot; = &quot;Heritability (%)&quot;
+)
+
+facet_labeller &lt;- function(variable, value) {
+  return(a[value])
+}
+
+ggplot(graf, aes(
+  x = Year,
+  y = Average,
+  color = as.factor(Study)
+)) +
+  geom_point() +
+  geom_line() +
+  facet_grid(Variable ~ ., scales = &quot;free_y&quot;, labeller = facet_labeller) +
+  scale_colour_discrete(name = &quot;Environment&quot;,
+                        labels = c(&quot;CELP&quot;, &quot;CELB&quot;, &quot;CEGR&quot;)) +
+  scale_x_continuous(breaks = c(2000:2020)) +
+  scale_y_continuous(expand = expansion(mult = 0.5, add = 0.5)) +
+  geom_abline(
+    data = graf,
+    mapping = aes(slope = Slope, intercept = Intercept),
+    color = &quot;red&quot;
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 45),
+    strip.text.y = element_text(size = 8),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    legend.position = &quot;bottom&quot;,
+    text = element_text(family = &quot;Times New Roman&quot;, size = 12)
+  )</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-42-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="dispersão-com-regressão-linear-e-equação"
+class="section level3">
+<h3>Dispersão com regressão linear e equação</h3>
+<pre class="r"><code>library(ggpmisc)                  # Adiconar resta e equação no gráfico
+library(ggthemes)                 # Diversos temas para os gráficos
+
+graf %&gt;%
+  filter(Variable != &quot;Coefficient_of_variation&quot;) %&gt;% 
+  mutate(
+    Study = as.factor(Study)
+  ) %&gt;%
+  ggplot(aes(x = as.numeric(Year), y = Average, colour = Study)) +
+  geom_point() +
+  stat_poly_line(se = FALSE) +
+  stat_poly_eq(aes(label = after_stat(eq.label)),
+               label.y = c(0.95, 0.9, 0.85),
+               label.x = c(1, 1, 1)) +
+  facet_wrap(~ Variable, ncol = 3, scales=&quot;free_y&quot;) +
+  scale_x_continuous(breaks = c(2004:2017))+
+  theme_bw() +
+  theme(plot.title = element_text(size = 16, face = &quot;bold&quot;),
+        axis.text.x = element_text(angle = 45)) +
+  scale_color_gdocs() +
+  labs(x = &quot;Year&quot;,
+       colour = &quot;Study&quot;)</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-43-1.png" width="768" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.3 (2022-03-10)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=Portuguese_Brazil.1252  LC_CTYPE=Portuguese_Brazil.1252   
+[3] LC_MONETARY=Portuguese_Brazil.1252 LC_NUMERIC=C                      
+[5] LC_TIME=Portuguese_Brazil.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] ggpubr_0.4.0    extrafont_0.18  gridExtra_2.3   readxl_1.4.1   
+ [5] ggthemes_4.2.4  ggpmisc_0.5.0   ggpp_0.4.4      metan_1.17.0   
+ [9] forcats_0.5.2   stringr_1.4.1   dplyr_1.0.9     purrr_0.3.4    
+[13] readr_2.1.2     tidyr_1.2.0     tibble_3.1.8    ggplot2_3.3.6  
+[17] tidyverse_1.3.2
+
+loaded via a namespace (and not attached):
+  [1] googledrive_2.0.0   minqa_1.2.4         colorspace_2.0-3   
+  [4] ggsignif_0.6.3      ellipsis_0.3.2      rprojroot_2.0.3    
+  [7] fs_1.5.2            rstudioapi_0.13     farver_2.1.1       
+ [10] MatrixModels_0.5-0  ggrepel_0.9.1       bit64_4.0.5        
+ [13] fansi_1.0.3         lubridate_1.8.0     mathjaxr_1.6-0     
+ [16] xml2_1.3.3          codetools_0.2-18    splines_4.1.3      
+ [19] cachem_1.0.6        knitr_1.39          confintr_0.1.2     
+ [22] polyclip_1.10-0     polynom_1.4-1       jsonlite_1.8.0     
+ [25] workflowr_1.7.0     nloptr_2.0.3        Rttf2pt1_1.3.10    
+ [28] broom_1.0.0         dbplyr_2.2.1        ggforce_0.3.4      
+ [31] compiler_4.1.3      httr_1.4.4          backports_1.4.1    
+ [34] assertthat_0.2.1    Matrix_1.4-1        fastmap_1.1.0      
+ [37] gargle_1.2.0        cli_3.3.0           later_1.3.0        
+ [40] tweenr_2.0.0        htmltools_0.5.3     quantreg_5.94      
+ [43] tools_4.1.3         lmerTest_3.1-3      gtable_0.3.0       
+ [46] glue_1.6.2          Rcpp_1.0.9          carData_3.0-5      
+ [49] cellranger_1.1.0    jquerylib_0.1.4     vctrs_0.4.1        
+ [52] nlme_3.1-159        extrafontdb_1.0     xfun_0.32          
+ [55] lme4_1.1-30         rvest_1.0.3         lifecycle_1.0.1    
+ [58] rstatix_0.7.0       googlesheets4_1.0.1 MASS_7.3-58.1      
+ [61] scales_1.2.1        vroom_1.5.7         ragg_1.2.2         
+ [64] hms_1.1.2           promises_1.2.0.1    parallel_4.1.3     
+ [67] SparseM_1.81        RColorBrewer_1.1-3  yaml_2.3.5         
+ [70] sass_0.4.2          reshape_0.8.9       stringi_1.7.6      
+ [73] highr_0.9           boot_1.3-28         rlang_1.0.4        
+ [76] pkgconfig_2.0.3     systemfonts_1.0.4   evaluate_0.16      
+ [79] lattice_0.20-45     patchwork_1.1.2     labeling_0.4.2     
+ [82] cowplot_1.1.1       bit_4.0.4           tidyselect_1.1.2   
+ [85] GGally_2.1.2        plyr_1.8.7          magrittr_2.0.3     
+ [88] R6_2.5.1            generics_0.1.3      DBI_1.1.3          
+ [91] pillar_1.8.1        haven_2.5.0         withr_2.5.0        
+ [94] mgcv_1.8-40         abind_1.4-5         survival_3.4-0     
+ [97] car_3.1-0           modelr_0.1.9        crayon_1.5.1       
+[100] utf8_1.2.2          tzdb_0.3.0          rmarkdown_2.15     
+[103] grid_4.1.3          git2r_0.30.1        reprex_2.0.2       
+[106] digest_0.6.29       httpuv_1.6.5        numDeriv_2016.8-1.1
+[109] textshaping_0.3.6   munsell_0.5.0       bslib_0.4.0        </code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

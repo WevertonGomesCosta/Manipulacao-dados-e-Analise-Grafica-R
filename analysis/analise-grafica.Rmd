@@ -1,0 +1,717 @@
+---
+title: | 
+  Análise Gráfica no R
+  ![](images/logo.jpg){width=100px style="display:block; margin:0 auto"}
+author: "Costa, W. G."
+date: "`r Sys.Date()`"
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/
+output:
+  workflowr::wflow_html:
+    toc: yes
+  highlight: github
+editor_options:
+  chunk_output_type: console
+github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, cache.lazy = FALSE, fig.width = 8, fig.height = 7, warning = FALSE, autodep = TRUE)
+```
+
+## Sintaxe básica do `ggplot2`
+
+A função `ggplot()` necessita de no mínimo 3 elementos para a produção dos gráficos:
+
+-   DADOS <- Objeto principal
+-   ESTÉTICA `aes()` -> Variáveis de cada eixo
+-   OBJETO GEOMÉTRICO `geom_***()`- Geometria que irão representar os dados no gráfico, pontos, boxplot, linha, etc.
+
+Recomendo a leitura do material [Function reference do ggplot](https://ggplot2.tidyverse.org/reference/)
+
+Novamente, vamos utilizar o framework `tidyverse` para já importar todas as bibliotecas presentes nele, incluindo o `ggplot2`.
+
+```{r}
+#install.packages("tidyverse") # Instalar o tidyverse
+library(tidyverse)
+```
+
+Importar os dados exemplos
+
+```{r}
+dados <- read_csv("data/dados.csv")       # Função para importar os dados
+
+dados
+```
+
+## Construção dos gráficos
+
+Primeiro, iremos praticar sobre como é feito os gráficos básicos e abordar a maioria das geometrias existentes no `ggplot2`. 
+
+Após isso iremos refinar a estética do nosso gráfico com temas, cores, alteração de texto e disposição das variáveis, legendas, etc.
+
+### Primeiro gráfico
+
+Como já mencionado, o gráfico necessita de 3 informações básica, os dados (`dados`), a estética (`aes()`)e a forma geométrica de representação (`geom_***()`).
+
+### Gráfico de dispersão
+
+Aqui vamos utilizar os nossos `dados` para representar uma dispersão (`geom_point()`) da variável `id` eixo x e `area` no eixo y.
+
+A codificação para a construção de gráficos pode ser feita de duas formas.
+
+1 - Inserindo o banco de dados dentro da função `ggplot()`.
+
+```{r}
+ggplot(dados, aes(x = id, y = area)) +
+  geom_point()
+```
+
+2 - Utilizando o pipe `%>%`. Nesse caso, não há necessidade de inserir o banco de dados dentro da função `ggplot()`.
+
+```{r}
+dados %>%
+  ggplot(aes(x = id, y = area)) +
+  geom_point()
+```
+
+Como visto no código acima, ao usar a função `ggplot()`, usamos o símbolo `+` para adicionar ou alterar o gráfico. Aqui adicionamos a dispersão dos dados, mas poderíamos adicionar qualquer outra forma geométrica.
+
+### Gráfico de linhas
+
+Por exemplo, podemos criar um gráfico de linhas alterando a forma geométrica para `geom_line()`
+
+```{r}
+dados %>%
+  ggplot(aes(x = id, y = area)) +
+  geom_line()
+```
+
+### Gráfico de barras e colunas
+
+Para criar um gráfico de colunas usamos a função `geom_col()`.
+
+```{r}
+dados %>%
+  ggplot(aes(x = id, y = area)) +
+  geom_col()
+```
+
+E para o gráfico de barras usamos a função `geom_bar()`, mas aqui a função cria uma contagem dos dados, então devemos atribuir apenas uma estética `x` ou `y`.
+
+```{r}
+dados %>%
+  ggplot(aes(x = area)) +
+  geom_bar()
+```
+
+Para que o gráfico de barras seja equivalente ao gráfico de colunas, atribuímos o argumento `stat="identity"` dentro da função `geom_bar()`. Aqui devemos especificar tanto o `x` ou `y`.
+
+```{r}
+dados %>%
+  ggplot(aes(x = id, y = area)) +
+  geom_bar(stat = "identity") 
+```
+
+### Histograma
+
+Para gráficos de histogramas ou frequência a função utilizada é `geom_histogram()`. Novamente, essa forma cria uma contagem dos dados, então devemos atribuir apenas uma estética `x` ou `y`
+
+```{r}
+dados %>%
+  ggplot(aes(x = area)) +
+  geom_histogram()
+```
+
+Esse gráfico é muito utilizado para comparar a frequência de dados contínuos como `area` com dados categóricos como `gen`. Veja um exemplo:
+
+```{r}
+dados %>%
+  ggplot(aes(x = area, fill = gen)) +
+  geom_histogram() +
+  geom_vline(aes(xintercept = 300)) +
+  geom_hline(aes(yintercept = 10))
+```
+Para plotar uma reta no gráfico, podemos utilizar a função `geom_vline()` para linhas verticais ou `geom_hline()` para linhas horizontais. 
+
+No exemplo abaixo vamos calcular a média da área por `gen` e vamos plotar a reta média para cada `gen` no histograma.
+
+```{r}
+mean_area <- dados %>%
+  group_by(gen) %>%
+  summarise(mean_area = mean(area))
+
+dados %>%
+  ggplot(aes(x = area, fill = gen)) +
+  geom_histogram(bins = 10) +
+  geom_vline(aes(xintercept = mean_area$mean_area[1])) +
+  geom_vline(aes(xintercept = mean_area$mean_area[2]))
+```
+
+### Boxplot
+
+Para construção de boxplots a forma geométrica é `geom_boxplot()`. Nesse tipo de gráfico também é necessário combinar dados contínuos `area` com dados categóricos `gen`.
+
+```{r}
+dados %>%
+  ggplot(aes(y = area, x = gen)) +
+  geom_boxplot()
+```
+
+
+### Correlação
+
+Para gráficos de correlação precisamos antes de plotar o gráfico calcular a correlação entre as variáveis. Vamos estimar a correlação das variaveis `sev1`, `sev2`, `sev3`, `area` e `areat`. Usaremos a função `corr_coef()`, do pacote `metan` [(mais informações sobre esse pacote)](https://tiagoolivoto.github.io/metan/index.html) para retornar uma matriz de correlação das nossas variáveis e a função `plot()` para plotar o gráfico. 
+
+```{r}
+#install.packages(metan)
+library(metan)
+coef_cor <- corr_coef(dados %>%
+                        select(sev1:areat))
+coef_cor
+```
+Veja mais sobre as particularidades da função `plot()` [aqui](https://tiagoolivoto.github.io/metan/reference/plot.corr_coef.html).
+
+```{r}
+plot(coef_cor)
+```
+
+Se quisermos alterar o tipo de disposição das variáveis para parte superior podemos usar o argumento `type = "upper"`, para que não ocorra a ordenação de acordo com o valor da correlação usamos `reorder = FALSE`, e para alterar os textos dos eixos e do plot podemos usar `size.text.lab = 14` e `size.text.cor = 5`, os números representam o tamanho da letra.
+
+```{r}
+plot(
+  coef_cor,
+  type = "upper",
+  reorder = FALSE,
+  size.text.lab = 14,
+  size.text.cor = 5
+)
+```
+Outra forma de visualizar a correlação entre as variáveis é pela função `corr_plot()`. Essa função permite a visualização gráfica e numérica de uma matriz de correlação.
+
+```{r}
+corr_plot(dados %>%
+            select(sev1:areat))
+```
+
+### Regressão
+
+Para produzir um gráfico de regressão utilizamos a função `geom_smooth()`. O *default* dessa função é usar os argumentos `method = 'loess'`, método não-parámetrico e definido por curvas, e a `formula 'y ~ x'`.
+
+Nesse gráfico, podemos definir os argumentos `method =`, que define qual método iremos utilizar, por exemplo `method =lm` para definir uma regressão linear entre `x` e `y`, `se=` que é um argumento lógico (ou seja, recebe `TRUE` ou `FALSE`) e indica se será representado o desvio da reta. 
+
+```{r}
+dados %>%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth()
+```
+
+Agora vamos plotar uma regressão linear entre `area` e `id`.
+
+```{r}
+dados %>%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth(method = lm, se = FALSE)
+```
+
+Se quisermos inserir a fórmula no gráfico, utilizamos a `stat_poly_eq` função do pacote `ggpmisc`, indicando que a estética da equação é `..eq.label..` e/ ou da correlação `..rr.label..`.
+
+```{r}
+library(ggpmisc)
+dados %>%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point() +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")))
+```
+
+
+## Estética
+
+### Facetas
+
+Temos duas formas de facetas no R `facet_grid()` e `facet_wrap()`. Utilizamos as facetas para criar gráficos para cada categoria de uma variável
+
+```{r}
+dados %>%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point() +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
+  facet_grid( ~ gen)
+```
+
+Também é possível criar facetas para combinação de varáveis.
+
+```{r}
+dados %>%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point() +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
+  facet_grid(gen ~ as.factor(blocos))
+```
+
+
+### Escala
+
+Para alterar a escala dos eixos definimos `xlim` e/ou `ylim`
+
+```{r}
+p <- dados %>%
+  ggplot(aes(x = id, y = area)) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point(aes(colour = gen)) +
+  stat_poly_eq(formula = y ~ x,
+               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
+  # garantir que o gráfico tem o ponto (0,0)
+  expand_limits(x = 0, y = 0) +
+  # escolhendo as amplitudes dos eixos
+  xlim(0, 100) +
+  ylim(0, 600)
+p
+```
+
+### Coordenadas 
+
+```{r}
+# Girar o gráfico
+p + coord_flip()
+```
+
+### Temas
+
+Vários temas
+
+```{r}
+p + theme_bw()
+p + theme_linedraw()
+p + theme_dark()
+p + theme_minimal()
+p + theme_classic()
+```
+
+### Texto e eixos
+
+- Textos
+
+Para inserir textos no gráfico utilizamos o função `geom_text)`, indicando a posição no gráfico (x e y) e o texto (label) a ser inserido.
+
+```{r}
+p+geom_text(x = 30, y = 450, label = "texto que você quiser escrever")
+```
+- Títulos
+
+Para inserir títulos no gráfico usamos a função `labs()`. Para alterar a posição do título usamos o argumento ``plot.title()` dentro da função `theme()`. Para alteração no texto sempre devemos especificar `element_text()`. *Isso vale para qualquer parte do gráfico, não apenas para o título.*
+
+```{r}
+p +
+  labs(title = "Aqui o seu título", subtitle = "Aqui o seu subtítulo") +
+  theme(plot.title = element_text(hjust = 0.5)) +             #centralizando o subtítulo
+  theme(plot.subtitle = element_text(hjust = 0.5)) +          #centralizando o subtítulo
+  theme(plot.title = element_text(color = "blue")) #mudando a cor do título
+```
+- Nome dos eixos
+
+Para alterar o nomes dos eixos podemos usar as funções `ylab()` e `xlab()`.
+
+```{r}
+p + ylab(label = bquote("Produção (kg" ~ ha ^ -1 ~ ")")) +
+  #título do eixo y
+  xlab(label = "Individuo") #título do eixo x
+
+```
+**Para adicionar equações em texto de qualquer parte do gráfico usamos a função `bquote()`. Para valores subescritos indicamos entre colchetes entre `~` : CO[2], por exemplo. Para valores superescritos indicamos o acento circunflexo entre `~`: ha ^ -1, por exemplo.**
+
+### Legendas
+
+-Posição
+
+Para mudar a posição da legenda usamos o argumento `legend.position =` dentro da função `theme()`. As posições podem ser `bottom` (inferior), `top` (superior), `left` (esquerda) e `right` (direita). 
+
+```{r}
+p + theme(legend.position = "top")
+```
+
+PAra inserir a legenda dentro do gráfico temos que atribuir valores de posição de x e y dentro do gráfico. x vale de 0 (esquerda) a 1 (direita) e y vale de 0 (inferior) a 1 (superior). Assim se quisermos que a legenda fique na esquerda da parte superior podemos, por exemplo, especificar `legend.position = c(0.2, 0.8)`.
+
+```{r}
+p + theme(
+  legend.position = c(0.2, 0.8),
+  legend.background = element_rect(fill = "white", colour = "black")
+)
+```
+
+- Remover legendas
+
+Para remover legendas basta indicar o atributo indicador da legenda como `FALSE` dentro da função `guides()`. No nosso caso, atribuímos `colour` para `geom_point()`, assim devemos especificar `guides(colour = FALSE)`.
+
+```{r}
+p + guides(color = FALSE)
+```
+
+# Escalas de cores
+
+A indicação de cores pode ser feita de forma manual utilizando a função `scale_color_manual()`, dentro da função atribuímos valores ou nome das cores, para conhecer lagumas cores disponeis acesse [aqui](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+```{r}
+p + scale_color_manual(values = c("#999999", "#E69F00"))
+```
+
+Também podemos especificar por paletas de cores já existentes em pacotes. [Aqui](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html) você pode visualizar algumas paletas de cores.
+
+```{r}
+p + scale_color_brewer()
+```
+O pacote [ggthemes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) também possui vários temas e paletas que podem ser do seu interesse.
+
+```{r}
+library(ggthemes)
+p + scale_color_gdocs() +
+  theme_classic()
+```
+
+## Exportar o gráfico
+
+Para exportar gráficos usamos a função `ggsave()`. Se o gráfico não foi salvo em um objeto como feito anteriormente como objeto `p`, a função `ggsave()` irá salvar o último gráfico em `Plots`. Os argumentos presentes são `filename` é o nome da imagem que irá ser salva, `units` é a unidade, se não especificado é salvo em pixel, `width` e `height` é a largura e altura da imagem, respectivamente; `dpi` é a resolução em pixel, por default é 300.
+
+```{r}
+ggsave(
+  filename = "gráfico.tiff",
+  units = "cm",
+  width = 30,
+  height = 20,
+  dpi = 300
+)
+```
+
+Para salvar um gráfico salvo em um objeto você deve especificar o argumento `plot` na função `ggsave()`.
+
+```{r}
+ggsave(
+  filename = "gráfico.tiff",
+  plo = p,
+  units = "cm",
+  width = 30,
+  height = 20,
+  dpi = 300
+)
+```
+
+
+## Gráficos Extras
+
+### Histograma com alteração da posição da legenda
+
+```{r}
+library(readxl)                   # Ler aquivos em .xls e .xlsx
+library(tidyverse)                # Framework para manipulação e visualização de dados
+
+yield <- read_excel("data/yield.xlsx")
+data <- read_excel("data/data.xlsx")
+
+# Count graph relating Growth type to year
+
+data %>%
+  ggplot() +
+  geom_bar(aes(Year, fill = Growth_type)) +
+  theme_bw() +
+  xlab("Year") +
+  ylab("Count") +
+  scale_fill_brewer(palette = "Set1") +
+  labs(fill = "Growth type") +
+  theme(
+    legend.position = c(0.3, 0.8),
+    legend.background = element_rect(fill = "white", colour = "black")
+  )
+```
+
+### Histograma e linha em um só gráfico (3 eixos)
+
+```{r}
+library(readxl)                   # Ler aquivos em .xls e .xlsx
+library(tidyverse)                # Framework para manipulação e visualização de dados
+
+#Transforming variables into factors
+yield$Year <- as.factor(yield$Year)
+
+ggplot() +
+  geom_bar(data = data, aes(as.factor(Year), fill = Growth_type)) +
+  geom_point(data = yield,
+             aes(x = Year, y = (Yield * (175 / 125000))),
+             group = 1,
+             color = "#a50026") +
+  geom_line(
+    data = yield,
+    aes(x = Year, y = Yield * (175 / 125000)),
+    group = 1,
+    color = "#a50026"
+  ) +
+  scale_y_continuous(name = "Count",
+                     sec.axis = sec_axis( ~ . * 125000 / 175, name = "Yield (Thousand Tons)")) +
+  theme_bw() +
+  xlab("Year") +
+  scale_fill_brewer(palette = "Dark2") +
+  labs(fill = "Event Type") +
+  theme(
+    legend.position = c(0.3, 0.8),
+    legend.title = element_blank(),
+    legend.background = element_rect(fill = "white", colour = "black"),
+    legend.key.size = unit(0.5, "cm"),
+    axis.text.y = element_text(
+      angle = 15,
+      vjust = 0.5,
+      hjust = 1
+    )
+  )
+```
+
+### Gráfico de colunas com texto 
+
+```{r}
+library(readxl)                   # Ler aquivos em .xls e .xlsx
+library(tidyverse)                # Framework para manipulação e visualização de dados
+
+dados <- read_excel("data/medias.xlsx")
+
+## Plotando o teste
+dados %>%
+  ggplot() +
+  geom_col(
+    aes(x = TRAT, y = mean,
+        fill = TRAT),
+    position = "dodge",
+    colour = 'black',
+    alpha = 0.8,
+    width = 0.85
+  ) +
+  geom_errorbar(aes(
+    ymin = mean - sd,
+    ymax = mean + sd,
+    x = TRAT
+  ), width = .3) +
+  geom_text(aes(y = mean + sd, x = TRAT, label = group),
+            position = position_dodge(0.9),
+            vjust = -0.5) +
+  theme_classic() +
+  scale_fill_brewer(palette = "Paired") +
+  labs(y = "Produtividade do cafeeiro", x = "") +
+  theme(axis.text.x = element_blank(),
+        legend.title = element_text()) +
+  guides(fill = guide_legend(title = "Tratamentos"))
+```
+
+### Gráfico de segmentos e pontos
+
+```{r}
+library(readxl)                   # Ler aquivos em .xls e .xlsx
+library(tidyverse)                # Framework para manipulação e visualização de dados
+
+imp_trait <- read_excel("data/imp.xlsx")
+
+imp_trait %>%
+  pivot_longer(1:2,
+               names_to = "variable") %>% 
+  mutate(traitnames = fct_reorder(traitnames, value)) %>%
+  ggplot(aes(x = traitnames, y = value)) +
+  geom_point(aes(colour = variable, shape = variable), size = 4) +
+  scale_colour_discrete(labels = c("Accuracy", "Gini Indice")) +
+  scale_shape_discrete(labels = c("Accuracy", "Gini Indice")) +
+  geom_segment(aes(
+    x = traitnames,
+    xend = traitnames,
+    y = 0,
+    yend = value
+  )) +
+  ylab("Increase in node purity") +
+  xlab("") +
+  theme_minimal() +
+  theme(
+    legend.position = c(0.8, 0.15),
+    legend.title = element_blank(),
+    legend.background = element_rect(fill = "white", colour = "black"),
+    legend.key.size = unit(0.5, "cm"),
+    axis.text.y = element_text(
+      angle = 15,
+      vjust = 0.5,
+      hjust = 1
+    )
+  ) +
+  coord_flip()
+```
+
+### Gráfico de linhas e regressão não-linear
+
+```{r}
+
+library(readxl)                   # Ler aquivos em .xls e .xlsx
+library(tidyverse)                # Framework para manipulação e visualização de dados
+
+progress <- read_excel("data/progress.xlsx")
+
+ggplot(progress, aes(Iteration, progress[[1]])) +
+  geom_line(color = "#00AFBB", size = 1) +
+  stat_smooth(color = "#FC4E07",
+              fill = "#FC4E07",
+              method = "loess") +
+  theme_minimal() +
+  labs(y = colnames(progress[1]))
+```
+
+### Agrupando gráficos de boxplot
+
+```{r}
+library(gridExtra)                # Agrupar gráficos em um só
+library(extrafont)               # Pacote para alterar a fonte do texto
+library(ggpubr)                   # fornece algumas funções fáceis de usar para criar e personalizar gráficos
+
+
+herd_prod <- read.table("data/prod_herd.txt", header = T)
+cv_prod1 <- read.table("data/prod_cv.txt", header = T)
+cv_prod <- read.table("data/cv_prod.txt", header = T)
+media_prod <- read.table("data/prod_med.txt", header = T)
+
+h_p <- ggplot(data = herd_prod, mapping = aes(x = 1, y = h²)) +
+  geom_boxplot(
+    fill = "gold1",
+    outlier.colour = "tomato3",
+    outlier.shape = 19,
+    outlier.size = 1.5
+  ) +
+  geom_jitter(width = 0.01,
+              alpha = 0.2,
+              height = 0.05) +
+  xlab("h²") +
+  xlim(0, 2) +
+  ylim(0, 100) +
+  ylab(NULL) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks = element_blank(),
+    panel.ontop = FALSE,
+    text = element_text(family = "Times New Roman", size = 14)
+  )
+
+cv_p <- ggplot(data = cv_prod, aes(x = 1, y = CV)) +
+  geom_boxplot(
+    fill = "#4271AE",
+    outlier.colour = "red",
+    outlier.shape = 19,
+    outlier.size = 1.5
+  ) +
+  geom_jitter(width = 0.001, alpha = 0.2) +
+  xlab("CV") +
+  xlim(0, 2) +
+  ylim(0, 60) +
+  ylab(NULL) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks = element_blank(),
+    text = element_text(family = "Times New Roman", size = 14)
+  )
+
+m_p <- ggplot(data = media_prod, aes(x = 1, y = med)) +
+  geom_boxplot(
+    fill = "seagreen1",
+    outlier.colour = "tomato3",
+    outlier.shape = 19,
+    outlier.size = 1.5
+  ) +
+  geom_jitter(width = 0.01, alpha = 0.2) +
+  xlab("μ") +
+  xlim(0, 2) +
+  ylim(0, 10) +
+  ylab(NULL) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks = element_blank(),
+    text = element_text(family = "Times New Roman", size = 14)
+  )
+
+prod <- ggarrange(h_p, cv_p, m_p, ncol = 3, nrow = 1)
+
+p <- annotate_figure(prod,
+                     top = text_grob(
+                       bquote(underline(.("            Grain yield               "))),
+                       face = "bold",
+                       family = "Times New Roman",
+                       size = 14
+                     ))
+p
+```
+
+### Dispersão e regressão com abline 
+
+```{r}
+graf <- read.table("data/face.txt", header = T)
+graf$Variable <- as.factor(graf$Variable)
+
+a <- c(
+  "Coeficient_of_Variation" = "Coef. of Variation (%)",
+  "Grain_yield" = bquote("Grain yield (kg" ~ ha ^ -1 ~ ")"),
+  "Heritability" = "Heritability (%)"
+)
+
+facet_labeller <- function(variable, value) {
+  return(a[value])
+}
+
+ggplot(graf, aes(
+  x = Year,
+  y = Average,
+  color = as.factor(Study)
+)) +
+  geom_point() +
+  geom_line() +
+  facet_grid(Variable ~ ., scales = "free_y", labeller = facet_labeller) +
+  scale_colour_discrete(name = "Environment",
+                        labels = c("CELP", "CELB", "CEGR")) +
+  scale_x_continuous(breaks = c(2000:2020)) +
+  scale_y_continuous(expand = expansion(mult = 0.5, add = 0.5)) +
+  geom_abline(
+    data = graf,
+    mapping = aes(slope = Slope, intercept = Intercept),
+    color = "red"
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 45),
+    strip.text.y = element_text(size = 8),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    legend.position = "bottom",
+    text = element_text(family = "Times New Roman", size = 12)
+  )
+```
+
+### Dispersão com regressão linear e equação
+
+```{r}
+library(ggpmisc)                  # Adiconar resta e equação no gráfico
+library(ggthemes)                 # Diversos temas para os gráficos
+
+graf %>%
+  filter(Variable != "Coefficient_of_variation") %>% 
+  mutate(
+    Study = as.factor(Study)
+  ) %>%
+  ggplot(aes(x = as.numeric(Year), y = Average, colour = Study)) +
+  geom_point() +
+  stat_poly_line(se = FALSE) +
+  stat_poly_eq(aes(label = after_stat(eq.label)),
+               label.y = c(0.95, 0.9, 0.85),
+               label.x = c(1, 1, 1)) +
+  facet_wrap(~ Variable, ncol = 3, scales="free_y") +
+  scale_x_continuous(breaks = c(2004:2017))+
+  theme_bw() +
+  theme(plot.title = element_text(size = 16, face = "bold"),
+        axis.text.x = element_text(angle = 45)) +
+  scale_color_gdocs() +
+  labs(x = "Year",
+       colour = "Study")
+```
+

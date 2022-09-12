@@ -1,0 +1,112 @@
+---
+title: | 
+  Como Usar este Material
+  ![](images/logo.jpg){width=100px style="display:block; margin:0 auto"}
+author: "Costa, W. G."
+date: "`r Sys.Date()`"
+site: workflowr::wflow_site
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/
+output:
+  workflowr::wflow_html:
+    toc: yes
+  highlight: github
+editor_options:
+  chunk_output_type: inline
+github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, cache.lazy = FALSE, fig.width = 8, fig.height = 7, warning = FALSE, autodep = TRUE)
+```
+
+Primeiro será necessário a instalação dos softwares R e RStudio. Você encontrará as informações de como realizar o download na seção seguinte.
+
+## Instalações de softwares
+
+-   Para realizar as instalações dos softwares, você pode acessar nosso site e procurar pelos softwares R e RStudio: [Conecta GEM - Softwares](https://www.conectagem.com/softwares). *No site você também irá encontrar duas apostilas preparadas pela Conecta GEM para te auxliar durante a instalação e ambientação com os Softwares.*
+
+-   Ou você pode ir direto para as páginas dos softwares:
+
+  -   Instalação do [software R](https://cran.r-project.org/).
+  
+  -   Instalação do [software RStudio](https://www.rstudio.com/products/rstudio/download/#download).
+
+*Se você já possuir os softwares em seu computador não há necessidade de nova instalação*
+
+## Instalação e carregar de pacotes
+
+O R é composto por vários pacotes (*packages*), também chamados de bibliotecas (*libraries*). Os comandos básicos do R estão agrupados em um pacote chamado *base*. Existem inúmeros pacotes, alguns já incluídos na instalação padrão do R e vários foram desenvolvidos por usuários do R que, em certo momento, julgaram importante criar comandos que suprissem suas necessidades. 
+Depois, esses usuários disponibilizaram esses comandos na forma de um pacote com determinado nome, para que outras pessoas que necessitem usar os mesmos comandos não precisem implementá-los novamente. É essa colaboração mútua que faz do R um programa amplo, interdisciplinar e em constante evolução.
+
+- Para saber quais os pacotes já instalados em seu computador utilize a função `installed.packages()`:
+
+```{r, eval=FALSE}
+installed.packages() 
+```
+
+- Para instalar um pacote utilizamos a função `install.packages("")`, e dentro das aspas adicionamos o nome do pacote desejado. Nesse curso iremos utilizar o framework `tidyverse` que já possui vários pacotes instalados como o `ggplot2`, `purrr`, `tibble`, `dplyr`, `tidyr`, `stringr`, entre outros. Para instalar o framework com todos os pacotes incluso basta escrever o comando:
+
+```{r, eval=FALSE}
+install.packages("tidyverse") # Lembre-se sempre de adicionar as aspas para instalar pacotes
+```
+
+- Para atualizar um pacote para a versão mais recente use a função `update.packages("")` com o nome do pacote específico entre "aspas", ou digite o argumento `ask=FALSE`, para atualizar todos de uma vez:
+
+```{r, eval=FALSE}
+update.packages("tidyverse") 
+# update.packages(ask = FALSE) 
+```
+
+- Para carregar um pacote utilizamos a função `library()` ou `require()`, dentro do parênteses colocamos o nome do pacote a ser carregado. 
+
+```{r, eval = FALSE}
+library(tidyverse) 
+require(tidyverse)
+```
+    
+- Para obter ajuda e descrição do pacote usamos adicionamos o argumento `help=` dentro da função `library()`:
+
+```{r}
+library(help=tidyverse) ## exemplo para o pacote *tidyverse*
+```
+
+- Para visualizar os pacotes carregados na memória use a função `search()`:
+
+```{r}
+search()
+```
+
+Agora já podemos utilizar qualquer função de um dos pacotes já carregados e começar o nosso curso. Na próxima seção [Introdução ao R](#introducao-r) você irá aprender um pouco sobre o R e alguns recursos realmente úteis para sintaxe R. 
+
+Além desse material, você também pode consultar as referências a seguir:
+
+## Aprendendo R e mais
+
+- **R for Data Science (<https://r4ds.had.co.nz/>)**:\
+Como a equipe do Rstudio/Tidyverse recomenda (<https://www.tidyverse.org/learn/>), este livro é "o melhor lugar para começar a aprender o tidyverse". 
+
+- **Laboratório de desafio de dados (<https://datalab.stanford.edu/challenge-lab>)**\
+Onde os alunos desenvolvem suas habilidades de dados resolvendo uma progressão de desafios cada vez mais difíceis.
+
+- **Aprenda o tidyverse (<https://www.tidyverse.org/learn/>)**\
+Pcaotes disponíveis no tidyverse <https://www.tidyverse.org/packages/>
+
+- **APS 135: Introdução à Análise Exploratória de Dados com R\ (<https://dzchilds.github.io/eda-for-bio/>)**\
+Possui algumas seções de introdução úteis sobre o básico do R e do RStudio, parece ter saído de um departamento de ciência de plantas, então existe isso.
+
+- **Stat545: organização, exploração e análise de dados com R**\
+<https://stat545.com/>
+
+### Teclas de atalho
+
+Muito importante aprender alguns deles, especialmente estes:
+
+- `ctrl+alt+I` = criar chunk ou blocos de código
+- `Shift+ctrl+M` = operador pipe `%>%`
+- `ctrl+Enter` = enviar (executar) linhas de código em seu script Rmd ou R para o console.
+- `Shift+ctrl+A` = Identação do script
+
+Nesse curso iremos usar **MUITO** o pipe `%>%`, então achei melhor já deixar algum material auxiliar aqui caso seja necessário a consulta futura:
+
+- [Introdução ao vídeo do YouTube](https://www.youtube.com/watch?v=KO35_7arizY&ab_channel=RsquaredAcademy)
+- [Página do pacote magrittr](https://magrittr.tidyverse.org/)

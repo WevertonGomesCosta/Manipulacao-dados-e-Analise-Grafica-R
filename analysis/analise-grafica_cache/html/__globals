@@ -1,0 +1,44 @@
+unnamed-chunk-1	library
+unnamed-chunk-2	read_csv
+unnamed-chunk-3	aes	area	dados	geom_point	ggplot	id
+unnamed-chunk-4	%>%	aes	area	dados	geom_point	ggplot	id
+unnamed-chunk-5	%>%	aes	area	dados	geom_line	ggplot	id
+unnamed-chunk-6	%>%	aes	area	dados	geom_col	ggplot	id
+unnamed-chunk-7	%>%	aes	area	dados	geom_bar	ggplot
+unnamed-chunk-8	%>%	aes	area	dados	geom_bar	ggplot	id
+unnamed-chunk-9	%>%	aes	area	dados	geom_histogram	ggplot
+unnamed-chunk-10	%>%	aes	area	dados	gen	geom_histogram	geom_hline	geom_vline	ggplot
+unnamed-chunk-11	$	%>%	aes	area	dados	gen	geom_histogram	geom_vline	ggplot	group_by	mean	summarise
+unnamed-chunk-12	%>%	aes	area	dados	gen	geom_boxplot	ggplot
+unnamed-chunk-13	%>%	areat	corr_coef	dados	library	select	sev1
+unnamed-chunk-14	coef_cor	plot
+unnamed-chunk-15	coef_cor	plot
+unnamed-chunk-16	%>%	areat	corr_plot	dados	select	sev1
+unnamed-chunk-17	%>%	aes	area	dados	geom_smooth	ggplot	id
+unnamed-chunk-18	%>%	aes	area	dados	geom_smooth	ggplot	id	lm
+unnamed-chunk-19	%>%	..eq.label..	..rr.label..	~	aes	area	dados	geom_point	geom_smooth	ggplot	id	library	lm	paste	stat_poly_eq
+unnamed-chunk-20	%>%	..eq.label..	..rr.label..	~	aes	area	dados	facet_grid	geom_point	geom_smooth	ggplot	id	lm	paste	stat_poly_eq
+unnamed-chunk-21	%>%	..eq.label..	..rr.label..	~	aes	area	dados	facet_grid	geom_point	geom_smooth	ggplot	id	lm	paste	stat_poly_eq
+unnamed-chunk-22	%>%	..eq.label..	..rr.label..	~	aes	area	dados	expand_limits	gen	geom_point	geom_smooth	ggplot	id	lm	paste	stat_poly_eq	xlim	ylim
+unnamed-chunk-23	coord_flip	p
+unnamed-chunk-24	p	theme_bw	theme_classic	theme_dark	theme_linedraw	theme_minimal
+unnamed-chunk-25	geom_text	p
+unnamed-chunk-26	element_text	labs	p	theme
+unnamed-chunk-27	bquote	p	xlab	ylab
+unnamed-chunk-28	p	theme
+unnamed-chunk-29	c	element_rect	p	theme
+unnamed-chunk-30	guides	p
+unnamed-chunk-31	c	p	scale_color_manual
+unnamed-chunk-32	p	scale_color_brewer
+unnamed-chunk-33	library	p	scale_color_gdocs	theme_classic
+unnamed-chunk-34	ggsave
+unnamed-chunk-35	ggsave	p
+unnamed-chunk-36	%>%	aes	c	element_rect	geom_bar	ggplot	Growth_type	labs	library	read_excel	scale_fill_brewer	theme	theme_bw	xlab	Year	ylab
+unnamed-chunk-37	$	$<-	~	aes	as.factor	c	data	element_blank	element_rect	element_text	geom_bar	geom_line	geom_point	ggplot	Growth_type	labs	library	scale_fill_brewer	scale_y_continuous	sec_axis	theme	theme_bw	unit	xlab	Year	Yield
+unnamed-chunk-38	%>%	aes	element_blank	element_text	geom_col	geom_errorbar	geom_text	ggplot	group	guide_legend	guides	labs	library	mean	position_dodge	read_excel	scale_fill_brewer	sd	theme	theme_classic	TRAT
+unnamed-chunk-39	%>%	aes	c	coord_flip	element_blank	element_rect	element_text	fct_reorder	geom_point	geom_segment	ggplot	library	mutate	pivot_longer	read_excel	scale_colour_discrete	scale_shape_discrete	theme	theme_minimal	traitnames	unit	value	variable	xlab	ylab
+unnamed-chunk-40	[[	aes	colnames	geom_line	ggplot	Iteration	labs	library	read_excel	stat_smooth	theme_minimal
+unnamed-chunk-41	aes	annotate_figure	bquote	CV	element_blank	element_text	geom_boxplot	geom_jitter	ggarrange	ggplot	h²	library	med	read.table	T	text_grob	theme	theme_bw	xlab	xlim	ylab	ylim
+unnamed-chunk-42	$	$<-	~	aes	as.factor	Average	bquote	c	element_blank	element_text	expansion	facet_grid	geom_abline	geom_line	geom_point	ggplot	Intercept	read.table	return	scale_colour_discrete	scale_x_continuous	scale_y_continuous	Slope	Study	T	theme	theme_bw	Year
+unnamed-chunk-43	!=	%>%	~	aes	after_stat	as.factor	as.numeric	Average	c	element_text	eq.label	facet_wrap	filter	geom_point	ggplot	graf	labs	library	mutate	scale_color_gdocs	scale_x_continuous	stat_poly_eq	stat_poly_line	Study	theme	theme_bw	Variable	Year
+session-info-chunk-inserted-by-workflowr	sessionInfo

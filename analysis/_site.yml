@@ -1,14 +1,26 @@
-name: "Introdu-o-ao-R"
+name: "Curso Análise Gráfica no R"
 output_dir: ../docs
 navbar:
-  title: "Introdu-o-ao-R"
+  title: "Curso Análise Gráfica no R"
   left:
   - text: Home
     href: index.html
-  - text: About
+  - text: Tutorial
+    href: Tutorial.html
+  - text: Introdução ao R
+    href: introducao-r.html
+  - text: Manipulação de dados
+    href: manipulacaodedados.html
+  - text: Análise Gráfica
+    href: analise-grafica.html
+  - text: Sobre
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/wevertongomescosta/
 output:
   workflowr::wflow_html:
     toc: yes

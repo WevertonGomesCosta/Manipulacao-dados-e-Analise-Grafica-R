@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Costa, W. G." />
+
+<meta name="date" content="2022-09-12" />
+
+<title>Manipulação de dados no R </title>
+
+<script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Curso Análise Gráfica no R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Tutorial.html">Tutorial</a>
+</li>
+<li>
+  <a href="introducao-r.html">Introdução ao R</a>
+</li>
+<li>
+  <a href="manipulacaodedados.html">Manipulação de dados</a>
+</li>
+<li>
+  <a href="analise-grafica.html">Análise Gráfica</a>
+</li>
+<li>
+  <a href="about.html">Sobre</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/wevertongomescosta/">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"><p>Manipulação de dados no R <img
+src="images/logo.jpg" style="display:block; margin:0 auto"
+width="100" /></p></h1>
+<h4 class="author">Costa, W. G.</h4>
+<h4 class="date">2022-09-12</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-09-12
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 2
+</p>
+<p>
+<strong>Knit directory:</strong>
+<code>Manipulacao-dados-e-Analise-Grafica-R/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown file has staged changes. To know which version of the
+R Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20220826code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20220826)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20220826code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20220826)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+</p>
+</div>
+<div id="strongCachestrongdetected" class="panel-collapse collapse">
+<div class="panel-body">
+The following chunks had caches available:
+<ul>
+<li>
+session-info-chunk-inserted-by-workflowr
+</li>
+<li>
+unnamed-chunk-1
+</li>
+<li>
+unnamed-chunk-10
+</li>
+<li>
+unnamed-chunk-11
+</li>
+<li>
+unnamed-chunk-12
+</li>
+<li>
+unnamed-chunk-13
+</li>
+<li>
+unnamed-chunk-14
+</li>
+<li>
+unnamed-chunk-15
+</li>
+<li>
+unnamed-chunk-16
+</li>
+<li>
+unnamed-chunk-17
+</li>
+<li>
+unnamed-chunk-18
+</li>
+<li>
+unnamed-chunk-19
+</li>
+<li>
+unnamed-chunk-2
+</li>
+<li>
+unnamed-chunk-20
+</li>
+<li>
+unnamed-chunk-21
+</li>
+<li>
+unnamed-chunk-22
+</li>
+<li>
+unnamed-chunk-23
+</li>
+<li>
+unnamed-chunk-24
+</li>
+<li>
+unnamed-chunk-25
+</li>
+<li>
+unnamed-chunk-26
+</li>
+<li>
+unnamed-chunk-27
+</li>
+<li>
+unnamed-chunk-28
+</li>
+<li>
+unnamed-chunk-29
+</li>
+<li>
+unnamed-chunk-3
+</li>
+<li>
+unnamed-chunk-30
+</li>
+<li>
+unnamed-chunk-31
+</li>
+<li>
+unnamed-chunk-32
+</li>
+<li>
+unnamed-chunk-33
+</li>
+<li>
+unnamed-chunk-34
+</li>
+<li>
+unnamed-chunk-35
+</li>
+<li>
+unnamed-chunk-36
+</li>
+<li>
+unnamed-chunk-37
+</li>
+<li>
+unnamed-chunk-38
+</li>
+<li>
+unnamed-chunk-39
+</li>
+<li>
+unnamed-chunk-4
+</li>
+<li>
+unnamed-chunk-40
+</li>
+<li>
+unnamed-chunk-41
+</li>
+<li>
+unnamed-chunk-42
+</li>
+<li>
+unnamed-chunk-43
+</li>
+<li>
+unnamed-chunk-44
+</li>
+<li>
+unnamed-chunk-5
+</li>
+<li>
+unnamed-chunk-6
+</li>
+<li>
+unnamed-chunk-7
+</li>
+<li>
+unnamed-chunk-8
+</li>
+<li>
+unnamed-chunk-9
+</li>
+</ul>
+<p>To ensure reproducibility of the results, delete the cache directory
+<code>manipulacaodedados_cache</code> and re-run the analysis. To have
+workflowr automatically delete the cache directory prior to building the
+file, set <code>delete_cache = TRUE</code> when running
+<code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreed849dda6bf5276aa4c9b3d223449bda82e7dd234targetblankd849ddaa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/d849dda6bf5276aa4c9b3d223449bda82e7dd234" target="_blank">d849dda</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreed849dda6bf5276aa4c9b3d223449bda82e7dd234targetblankd849ddaa"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/d849dda6bf5276aa4c9b3d223449bda82e7dd234" target="_blank">d849dda</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  Manipulacao-dados-e-Analise-Grafica-R.Rproj
+    Untracked:  analysis/Tutorial.Rmd
+    Untracked:  analysis/Tutorial_cache/
+    Untracked:  analysis/index_cache/
+    Untracked:  analysis/introducao-r.Rmd
+    Untracked:  analysis/manipulacaodedados_cache/
+    Untracked:  dados2.csv
+    Untracked:  data/dados2.csv
+
+Unstaged changes:
+    Deleted:    Introdu-o-ao-R.Rproj
+    Modified:   README.md
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/analise-grafica.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
+    Modified:   analysis/manipulacaodedados.Rmd
+    Deleted:    data/Blocos_Aumentados.csv
+    Deleted:    data/CV_prod.txt
+    Deleted:    data/DadosReg.csv
+    Deleted:    data/Dados_tabulados.xlsx
+    Deleted:    data/README.md
+    Deleted:    data/aula10.csv
+    Modified:   data/dados.csv
+    Deleted:    data/dados1.xlsx
+    Deleted:    data/dados2.xlsx
+    Deleted:    data/dados_aula7.csv
+    Deleted:    data/dados_cafe.xlsx
+    Deleted:    data/dados_cor.csv
+    Deleted:    data/data.xlsx
+    Deleted:    data/data2.xlsx
+    Deleted:    data/eig_val.xlsx
+    Deleted:    data/face.txt
+    Deleted:    data/imp.xlsx
+    Deleted:    data/medias.xlsx
+    Deleted:    data/prod.txt
+    Deleted:    data/prod_cv.txt
+    Deleted:    data/prod_herd.txt
+    Deleted:    data/prod_med.txt
+    Deleted:    data/progress.xlsx
+    Deleted:    data/reg.xlsx
+    Deleted:    data/yield.xlsx
+
+Staged changes:
+    Modified:   analysis/_site.yml
+    New:        analysis/analise-grafica.Rmd
+    Modified:   analysis/index.Rmd
+    New:        analysis/manipulacaodedados.Rmd
+    New:        data/CV_prod.txt
+    New:        data/Dados_tabulados.xlsx
+    New:        data/dados_cafe.xlsx
+    New:        data/data.xlsx
+    New:        data/data2.xlsx
+    New:        data/eig_val.xlsx
+    New:        data/face.txt
+    New:        data/imp.xlsx
+    New:        data/medias.xlsx
+    New:        data/prod.txt
+    New:        data/prod_cv.txt
+    New:        data/prod_herd.txt
+    New:        data/prod_med.txt
+    New:        data/progress.xlsx
+    New:        data/reg.xlsx
+    New:        data/yield.xlsx
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="introdução-à-manipulação-de-dados" class="section level2">
+<h2>Introdução à manipulação de dados</h2>
+<p>Vamos utilizar o framework <code>tidyverse</code> para já importar
+todas as bibliotecas presentes nele, para facilitar.</p>
+<pre class="r"><code>#install.packages(&quot;tidyverse&quot;) # Instala o tidyverse
+library(tidyverse)</code></pre>
+<p>O dplyr é a biblioteca que iremos utilizar para manipulação de dados.
+A biblioteca dplyr faz parte do framework <code>tidyverse</code> Saiba
+mais em: <a href="https://www.tidyverse.org/"
+class="uri">https://www.tidyverse.org/</a>.</p>
+<p>Esse pacote permite a organização por operador pipe
+(<code>%&gt;%</code>), facilitando a organização do script e permitindo
+ser mais simples e rápido.</p>
+<p>Essa biblioteca possui um conjunto de funções que auxiliando na
+manipulação de dados:</p>
+<ul>
+<li><p>Verbos: <code>mutate()</code>, <code>select()</code>,
+<code>filter()</code>, <code>arrange()</code>, <code>summarise()</code>,
+<code>slice()</code>, <code>rename()</code>, etc.</p></li>
+<li><p>Sufixos: <code>_at()</code>, <code>_if()</code>,
+<code>_all()</code>, etc.</p></li>
+<li><p>Agrupamento: <code>group_by()</code> e
+<code>ungroup()</code>.</p></li>
+<li><p>Junções: <code>inner_join()</code>, <code>full_join()</code>,
+<code>left_join()</code> e <code>right_join()</code>.</p></li>
+<li><p>Funções resumo: <code>n()</code>, <code>n_distinct()</code>,
+<code>first()</code>, <code>last()</code>, <code>nth()</code>,
+etc.</p></li>
+</ul>
+</div>
+<div id="importando-dados" class="section level2">
+<h2>Importando dados</h2>
+<p>Os dados podem ser importados para o R em diversos formatos (tipos de
+arquivos). Alguns dos formatos mais usados são mostrados a seguir:</p>
+<ul>
+<li>Planilha eletrônica (.xls, .xlsx, .ods)</li>
+<li>Bloco de notas (.txt)</li>
+<li>Valores separados por vírgulas (.csv)</li>
+<li>Dbase (.dbf)</li>
+<li>Diversos Pacotes estatísticos: (.Rdata - R), (.sav - SPSS), etc</li>
+</ul>
+<p>É possível importar os dados pela própria interface do RStudio. Para
+isso, vamos em <code>Import Dataset</code> e selecionamos o formato dos
+dados.</p>
+<p><img src="images/importdataset.png" /> <img
+src="images/optionimportdata.png" /></p>
+<p>Durante o curso iremos utilizar várias funções para importação de
+dados, para que você possa se ambientar melhor com as funções. De início
+vamos usar a função <code>read_csv()</code> do pacote
+<code>readr</code>, já incluso no framework <code>tidyverse</code>. Essa
+função importa tanto dados em formato .csv quanto .txt.</p>
+<pre class="r"><code>dados &lt;- read_csv(&quot;data/dados.csv&quot;)       # Função para importar os dados</code></pre>
+<pre><code>Rows: 96 Columns: 9
+-- Column specification --------------------------------------------------------
+Delimiter: &quot;,&quot;
+chr (2): trat, gen
+dbl (7): id, blocos, sev1, sev2, sev3, area, areat
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>dados</code></pre>
+<pre><code># A tibble: 96 x 9
+   trat               id gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Testemunha 6165     1 Predileta      1  0.97   1.9    12  58.7  14.7
+ 2 Testemunha 6165     2 Predileta      2  1.9    1.9     8  48.0  13.0
+ 3 Testemunha 6165     3 Predileta      3  3.3    3.3    12  76.6  17.2
+ 4 Testemunha 6165     4 Predileta      4  1.9    3.3    12  71.8  16.5
+ 5 Testemunha 6165     5 Inca           1  1.9   12      31 199.   29.9
+ 6 Testemunha 6165     6 Inca           2  1.9   12      31 199.   29.9
+ 7 Testemunha 6165     7 Inca           3  1.9    8      22 140.   24.4
+ 8 Testemunha 6165     8 Inca           4  0.97  12      31 196.   29.6
+ 9 UFV 02              9 Predileta      1  0.97   8       8  87.4  18.6
+10 UFV 02             10 Predileta      2  1.9   12      12 133.   23.7
+# ... with 86 more rows</code></pre>
+<p>Leitura dos 6 primeiros observações</p>
+<pre class="r"><code>head(dados)</code></pre>
+<pre><code># A tibble: 6 x 9
+  trat               id gen       blocos  sev1  sev2  sev3  area areat
+  &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Testemunha 6165     1 Predileta      1  0.97   1.9    12  58.7  14.7
+2 Testemunha 6165     2 Predileta      2  1.9    1.9     8  48.0  13.0
+3 Testemunha 6165     3 Predileta      3  3.3    3.3    12  76.6  17.2
+4 Testemunha 6165     4 Predileta      4  1.9    3.3    12  71.8  16.5
+5 Testemunha 6165     5 Inca           1  1.9   12      31 199.   29.9
+6 Testemunha 6165     6 Inca           2  1.9   12      31 199.   29.9</code></pre>
+</div>
+<div id="análise-descritiva-dos-dados" class="section level2">
+<h2>Análise descritiva dos dados</h2>
+<pre class="r"><code>summary(dados)</code></pre>
+<pre><code>     trat                 id            gen                blocos    
+ Length:96          Min.   : 1.00   Length:96          Min.   :1.00  
+ Class :character   1st Qu.:24.75   Class :character   1st Qu.:1.75  
+ Mode  :character   Median :48.50   Mode  :character   Median :2.50  
+                    Mean   :48.50                      Mean   :2.50  
+                    3rd Qu.:72.25                      3rd Qu.:3.25  
+                    Max.   :96.00                      Max.   :4.00  
+      sev1            sev2            sev3            area       
+ Min.   :0.970   Min.   : 1.90   Min.   : 8.00   Min.   : 47.95  
+ 1st Qu.:1.900   1st Qu.: 8.00   1st Qu.:22.00   1st Qu.:138.84  
+ Median :1.900   Median :12.00   Median :31.00   Median :204.05  
+ Mean   :2.715   Mean   :17.54   Mean   :28.61   Mean   :232.47  
+ 3rd Qu.:3.300   3rd Qu.:22.00   3rd Qu.:31.00   3rd Qu.:332.15  
+ Max.   :8.000   Max.   :51.00   Max.   :51.00   Max.   :563.50  
+     areat      
+ Min.   :12.96  
+ 1st Qu.:24.34  
+ Median :30.33  
+ Mean   :31.52  
+ 3rd Qu.:39.93  
+ Max.   :53.60  </code></pre>
+</div>
+<div id="manipulação-de-dados-com-dplyr" class="section level2">
+<h2>Manipulação de dados com <code>dplyr</code></h2>
+<div id="operador-pipe" class="section level3">
+<h3>Operador pipe <code>%&gt;%</code></h3>
+<ul>
+<li>O pipe <code>%&gt;%</code> é um operador que permite “ligar” um
+conjunto de dados a uma determinada função.</li>
+</ul>
+<p>Apenas para comparação vamos visualizar como é realizada o cálculo da
+média de uma das variáveis do nosso conjunto de dados por meio da função
+<code>mean()</code>.</p>
+<pre class="r"><code>mean(dados$sev1)</code></pre>
+<pre><code>[1] 2.715208</code></pre>
+<p>Com o operador pipe <code>%&gt;%</code> podemos realizar o cálculo da
+média do seguinte modo:</p>
+<pre class="r"><code>#Operador pipe
+dados$sev1 %&gt;%
+  mean()</code></pre>
+<pre><code>[1] 2.715208</code></pre>
+<p>Veja que o resultado é semelhante, mas nesse caso utilizamos o
+<code>%&gt;%</code> para indicar qual os dados queremos calcular a
+média. Nos tópicos seguintes iremos utilizar o <code>%&gt;%</code> para
+vários comandos, e assim você poderá visualizar a facilidade que esse
+operador fornece.</p>
+</div>
+<div id="arrange" class="section level3">
+<h3><code>arrange()</code></h3>
+<p>A função <code>arrange()</code> permite realizar o ordenamento dos
+dados. Veja alguns exemplos?</p>
+<ul>
+<li>Ordenando pela <code>area</code></li>
+</ul>
+<p>Ordenando pela menor área (crescente)</p>
+<pre class="r"><code>dados %&gt;%
+  arrange(area)</code></pre>
+<pre><code># A tibble: 96 x 9
+   trat               id gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Testemunha 6165     2 Predileta      2  1.9    1.9     8  48.0  13.0
+ 2 UFV 02             13 Inca           1  0.97   3.3     8  54.5  14.0
+ 3 UFV 02             15 Inca           3  0.97   3.3     8  54.5  14.0
+ 4 UFV 02             16 Inca           4  1.9    3.3     8  57.8  14.5
+ 5 Testemunha 6165     1 Predileta      1  0.97   1.9    12  58.7  14.7
+ 6 Testemunha 6165     4 Predileta      4  1.9    3.3    12  71.8  16.5
+ 7 Testemunha 6165     3 Predileta      3  3.3    3.3    12  76.6  17.2
+ 8 UFV 02              9 Predileta      1  0.97   8       8  87.4  18.6
+ 9 UFV 02             11 Predileta      3  0.97   8       8  87.4  18.6
+10 UFV 02             12 Predileta      4  0.97   8       8  87.4  18.6
+# ... with 86 more rows</code></pre>
+<p>Ordenando pela maior área (descendente)</p>
+<pre class="r"><code>dados %&gt;%
+  arrange(desc(area))</code></pre>
+<pre><code># A tibble: 96 x 9
+   trat        id gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 M 354       92 Predileta      4   8      51    51  564.  53.6
+ 2 M 354       89 Predileta      1   3.3    51    51  547.  52.7
+ 3 M 354       90 Predileta      2   3.3    51    51  547.  52.7
+ 4 M 354       96 Inca           4   3.3    51    51  547.  52.7
+ 5 PROG 125    41 Predileta      1   3.3    31    51  407.  44.7
+ 6 PROG 125    44 Predileta      4   3.3    31    51  407.  44.7
+ 7 M 373       75 Predileta      3   3.3    31    51  407.  44.7
+ 8 RIL 18      83 Predileta      3   3.3    31    51  407.  44.7
+ 9 RIL 18      84 Predileta      4   3.3    31    51  407.  44.7
+10 RIL 18      85 Inca           1   3.3    31    51  407.  44.7
+# ... with 86 more rows</code></pre>
+<p>Ordenando por gen e area</p>
+<pre class="r"><code>dados %&gt;%
+  arrange(gen, desc(area))</code></pre>
+<pre><code># A tibble: 96 x 9
+   trat      id gen   blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 M 354     96 Inca       4   3.3    51    51  547.  52.7
+ 2 RIL 18    85 Inca       1   3.3    31    51  407.  44.7
+ 3 M 354     95 Inca       3   3.3    31    51  407.  44.7
+ 4 M 354     93 Inca       1   1.9    31    51  402.  44.4
+ 5 M 373     77 Inca       1   1.9    22    51  339.  40.4
+ 6 M 373     79 Inca       3   3.3    31    31  337.  40.3
+ 7 RIL 18    88 Inca       4   3.3    31    31  337.  40.3
+ 8 M 354     94 Inca       2   3.3    31    31  337.  40.3
+ 9 M 373     80 Inca       4   1.9    31    31  332.  39.9
+10 RIL 18    87 Inca       3   1.9    31    31  332.  39.9
+# ... with 86 more rows</code></pre>
+</div>
+<div id="filter" class="section level3">
+<h3><code>filter()</code></h3>
+<ul>
+<li>A função <code>filter()</code> retorna as linhas (observações) que
+satisfaçam as condições estabelecidas</li>
+</ul>
+<p>Filtrar apenas os genótipos <code>Predileta</code></p>
+<pre class="r"><code>dados %&gt;%
+  filter(gen == &quot;Predileta&quot;)</code></pre>
+<pre><code># A tibble: 48 x 9
+   trat               id gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Testemunha 6165     1 Predileta      1  0.97   1.9    12  58.7  14.7
+ 2 Testemunha 6165     2 Predileta      2  1.9    1.9     8  48.0  13.0
+ 3 Testemunha 6165     3 Predileta      3  3.3    3.3    12  76.6  17.2
+ 4 Testemunha 6165     4 Predileta      4  1.9    3.3    12  71.8  16.5
+ 5 UFV 02              9 Predileta      1  0.97   8       8  87.4  18.6
+ 6 UFV 02             10 Predileta      2  1.9   12      12 133.   23.7
+ 7 UFV 02             11 Predileta      3  0.97   8       8  87.4  18.6
+ 8 UFV 02             12 Predileta      4  0.97   8       8  87.4  18.6
+ 9 UFV 04             17 Predileta      1  0.97  12      12 129.   23.4
+10 UFV 04             18 Predileta      2  1.9   12      12 133.   23.7
+# ... with 38 more rows</code></pre>
+<p>Filtrar os genótipos <code>Predileta</code> com área maior do que
+100</p>
+<pre class="r"><code>dados %&gt;%
+  filter(gen == &quot;Predileta&quot; &amp; area &gt;= 100)</code></pre>
+<pre><code># A tibble: 41 x 9
+   trat            id gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 &quot;UFV 02&quot;        10 Predileta      2  1.9     12    12  133.  23.7
+ 2 &quot;UFV 04&quot;        17 Predileta      1  0.97    12    12  129.  23.4
+ 3 &quot;UFV 04&quot;        18 Predileta      2  1.9     12    12  133.  23.7
+ 4 &quot;UFV 04&quot;        19 Predileta      3  1.9     22    31  269.  35.5
+ 5 &quot;UFV 04&quot;        20 Predileta      4  1.9     12    12  133.  23.7
+ 6 &quot;Guaxup\xe9&quot;    25 Predileta      1  0.97    12    12  129.  23.4
+ 7 &quot;Guaxup\xe9&quot;    26 Predileta      2  0.97    12    22  164.  26.8
+ 8 &quot;Guaxup\xe9&quot;    27 Predileta      3  0.97    12    12  129.  23.4
+ 9 &quot;Guaxup\xe9&quot;    28 Predileta      4  1.9     22    22  238.  33.1
+10 &quot;UFV 72&quot;        33 Predileta      1  1.9     22    31  269.  35.5
+# ... with 31 more rows</code></pre>
+<p>Filtrar os tratamentos <code>UFV 02</code> OU <code>UFV 04</code></p>
+<pre class="r"><code>dados %&gt;%
+  filter(trat == &quot;UFV 02&quot; | trat == &quot;UFV 04&quot;)</code></pre>
+<pre><code># A tibble: 16 x 9
+   trat      id gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 UFV 02     9 Predileta      1  0.97   8       8  87.4  18.6
+ 2 UFV 02    10 Predileta      2  1.9   12      12 133.   23.7
+ 3 UFV 02    11 Predileta      3  0.97   8       8  87.4  18.6
+ 4 UFV 02    12 Predileta      4  0.97   8       8  87.4  18.6
+ 5 UFV 02    13 Inca           1  0.97   3.3     8  54.5  14.0
+ 6 UFV 02    14 Inca           2  1.9    8      12 105.   20.7
+ 7 UFV 02    15 Inca           3  0.97   3.3     8  54.5  14.0
+ 8 UFV 02    16 Inca           4  1.9    3.3     8  57.8  14.5
+ 9 UFV 04    17 Predileta      1  0.97  12      12 129.   23.4
+10 UFV 04    18 Predileta      2  1.9   12      12 133.   23.7
+11 UFV 04    19 Predileta      3  1.9   22      31 269.   35.5
+12 UFV 04    20 Predileta      4  1.9   12      12 133.   23.7
+13 UFV 04    21 Inca           1  3.3   12      31 204.   30.3
+14 UFV 04    22 Inca           2  8      8      22 161    26.5
+15 UFV 04    23 Inca           3  8     12      31 220.   31.7
+16 UFV 04    24 Inca           4  3.3   12      31 204.   30.3</code></pre>
+<ul>
+<li><p>Funções e condições úteis para se combinar com a função
+filter:</p>
+<ul>
+<li><code>==</code> - filtrar os valores iguais a …</li>
+<li>ex: <code>&gt;</code>,<code>&gt;=</code>,<code>&lt;</code> ou
+<code>&lt;=</code> - filtrar valores maiores, maiores ou iguais, menores
+ou menores ou iguais</li>
+<li><code>&amp;</code>, <code>|</code>, <code>!</code> ou
+<code>xor()</code> - “e”, “ou”, “diferente”, “ou exclusivo”.</li>
+<li><code>is.na()</code> - verifica se o valor é NA</li>
+<li><code>between()</code> - entre os valores</li>
+<li><code>near()</code> - valores próximos, você define a
+tolerância</li>
+</ul></li>
+</ul>
+</div>
+<div id="slice" class="section level3">
+<h3><code>slice()</code></h3>
+<ul>
+<li>Retorna as linhas (observações) determinadas</li>
+</ul>
+<p>Filtrar as observações 1 até 5</p>
+<pre class="r"><code>dados %&gt;%
+  slice(1:5)</code></pre>
+<pre><code># A tibble: 5 x 9
+  trat               id gen       blocos  sev1  sev2  sev3  area areat
+  &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Testemunha 6165     1 Predileta      1  0.97   1.9    12  58.7  14.7
+2 Testemunha 6165     2 Predileta      2  1.9    1.9     8  48.0  13.0
+3 Testemunha 6165     3 Predileta      3  3.3    3.3    12  76.6  17.2
+4 Testemunha 6165     4 Predileta      4  1.9    3.3    12  71.8  16.5
+5 Testemunha 6165     5 Inca           1  1.9   12      31 199.   29.9</code></pre>
+<p>Filtrar todas observações menos a número 1 até a 5</p>
+<pre class="r"><code>dados %&gt;%
+  slice(-(1:5))</code></pre>
+<pre><code># A tibble: 91 x 9
+   trat               id gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Testemunha 6165     6 Inca           2  1.9   12      31 199.   29.9
+ 2 Testemunha 6165     7 Inca           3  1.9    8      22 140.   24.4
+ 3 Testemunha 6165     8 Inca           4  0.97  12      31 196.   29.6
+ 4 UFV 02              9 Predileta      1  0.97   8       8  87.4  18.6
+ 5 UFV 02             10 Predileta      2  1.9   12      12 133.   23.7
+ 6 UFV 02             11 Predileta      3  0.97   8       8  87.4  18.6
+ 7 UFV 02             12 Predileta      4  0.97   8       8  87.4  18.6
+ 8 UFV 02             13 Inca           1  0.97   3.3     8  54.5  14.0
+ 9 UFV 02             14 Inca           2  1.9    8      12 105.   20.7
+10 UFV 02             15 Inca           3  0.97   3.3     8  54.5  14.0
+# ... with 81 more rows</code></pre>
+<p>Filtrar as 4 observações com maior área</p>
+<pre class="r"><code>dados %&gt;%
+  slice_max(area, n = 4)</code></pre>
+<pre><code># A tibble: 4 x 9
+  trat     id gen       blocos  sev1  sev2  sev3  area areat
+  &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 M 354    92 Predileta      4   8      51    51  564.  53.6
+2 M 354    89 Predileta      1   3.3    51    51  547.  52.7
+3 M 354    90 Predileta      2   3.3    51    51  547.  52.7
+4 M 354    96 Inca           4   3.3    51    51  547.  52.7</code></pre>
+<p>Filtrar as 4 observações com menor area</p>
+<pre class="r"><code>dados %&gt;%
+  slice_min(area, n = 4)</code></pre>
+<pre><code># A tibble: 4 x 9
+  trat               id gen       blocos  sev1  sev2  sev3  area areat
+  &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Testemunha 6165     2 Predileta      2  1.9    1.9     8  48.0  13.0
+2 UFV 02             13 Inca           1  0.97   3.3     8  54.5  14.0
+3 UFV 02             15 Inca           3  0.97   3.3     8  54.5  14.0
+4 UFV 02             16 Inca           4  1.9    3.3     8  57.8  14.5</code></pre>
+</div>
+<div id="select" class="section level3">
+<h3><code>select()</code></h3>
+<ul>
+<li>Retorna as colunas (variáveis) determinadas</li>
+</ul>
+<p>Selecionar as colunas 3 (gen) e 8 (area) Método 1 - indicando o
+número da coluna no conjunto de dados</p>
+<pre class="r"><code>dados %&gt;%
+  select(gen, area)</code></pre>
+<pre><code># A tibble: 96 x 2
+   gen        area
+   &lt;chr&gt;     &lt;dbl&gt;
+ 1 Predileta  58.7
+ 2 Predileta  48.0
+ 3 Predileta  76.6
+ 4 Predileta  71.8
+ 5 Inca      199. 
+ 6 Inca      199. 
+ 7 Inca      140. 
+ 8 Inca      196. 
+ 9 Predileta  87.4
+10 Predileta 133. 
+# ... with 86 more rows</code></pre>
+<p>Método 2 - indicando o nome da coluna no conjunto de dados</p>
+<pre class="r"><code>dados %&gt;%
+  select(3, 8)</code></pre>
+<pre><code># A tibble: 96 x 2
+   gen        area
+   &lt;chr&gt;     &lt;dbl&gt;
+ 1 Predileta  58.7
+ 2 Predileta  48.0
+ 3 Predileta  76.6
+ 4 Predileta  71.8
+ 5 Inca      199. 
+ 6 Inca      199. 
+ 7 Inca      140. 
+ 8 Inca      196. 
+ 9 Predileta  87.4
+10 Predileta 133. 
+# ... with 86 more rows</code></pre>
+<p>Excluir a variável 2 (id)</p>
+<pre class="r"><code>dados %&gt;%
+  select(-id)</code></pre>
+<pre><code># A tibble: 96 x 8
+   trat            gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;           &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Testemunha 6165 Predileta      1  0.97   1.9    12  58.7  14.7
+ 2 Testemunha 6165 Predileta      2  1.9    1.9     8  48.0  13.0
+ 3 Testemunha 6165 Predileta      3  3.3    3.3    12  76.6  17.2
+ 4 Testemunha 6165 Predileta      4  1.9    3.3    12  71.8  16.5
+ 5 Testemunha 6165 Inca           1  1.9   12      31 199.   29.9
+ 6 Testemunha 6165 Inca           2  1.9   12      31 199.   29.9
+ 7 Testemunha 6165 Inca           3  1.9    8      22 140.   24.4
+ 8 Testemunha 6165 Inca           4  0.97  12      31 196.   29.6
+ 9 UFV 02          Predileta      1  0.97   8       8  87.4  18.6
+10 UFV 02          Predileta      2  1.9   12      12 133.   23.7
+# ... with 86 more rows</code></pre>
+<p>Selecionar um intervalo de variáveis</p>
+<pre class="r"><code>dados %&gt;%
+  select(c(1:4, 8))</code></pre>
+<pre><code># A tibble: 96 x 5
+   trat               id gen       blocos  area
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;
+ 1 Testemunha 6165     1 Predileta      1  58.7
+ 2 Testemunha 6165     2 Predileta      2  48.0
+ 3 Testemunha 6165     3 Predileta      3  76.6
+ 4 Testemunha 6165     4 Predileta      4  71.8
+ 5 Testemunha 6165     5 Inca           1 199. 
+ 6 Testemunha 6165     6 Inca           2 199. 
+ 7 Testemunha 6165     7 Inca           3 140. 
+ 8 Testemunha 6165     8 Inca           4 196. 
+ 9 UFV 02              9 Predileta      1  87.4
+10 UFV 02             10 Predileta      2 133. 
+# ... with 86 more rows</code></pre>
+<p>Selecionar colunas pela classe Método 1 - Usando
+<code>where</code></p>
+<pre class="r"><code>dados %&gt;%
+  select(where(is.numeric))</code></pre>
+<pre><code># A tibble: 96 x 7
+      id blocos  sev1  sev2  sev3  area areat
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1     1      1  0.97   1.9    12  58.7  14.7
+ 2     2      2  1.9    1.9     8  48.0  13.0
+ 3     3      3  3.3    3.3    12  76.6  17.2
+ 4     4      4  1.9    3.3    12  71.8  16.5
+ 5     5      1  1.9   12      31 199.   29.9
+ 6     6      2  1.9   12      31 199.   29.9
+ 7     7      3  1.9    8      22 140.   24.4
+ 8     8      4  0.97  12      31 196.   29.6
+ 9     9      1  0.97   8       8  87.4  18.6
+10    10      2  1.9   12      12 133.   23.7
+# ... with 86 more rows</code></pre>
+<p>Método 1 - Usando <code>select_if</code></p>
+<pre class="r"><code>dados %&gt;%
+  select(where(is.numeric))</code></pre>
+<pre><code># A tibble: 96 x 7
+      id blocos  sev1  sev2  sev3  area areat
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1     1      1  0.97   1.9    12  58.7  14.7
+ 2     2      2  1.9    1.9     8  48.0  13.0
+ 3     3      3  3.3    3.3    12  76.6  17.2
+ 4     4      4  1.9    3.3    12  71.8  16.5
+ 5     5      1  1.9   12      31 199.   29.9
+ 6     6      2  1.9   12      31 199.   29.9
+ 7     7      3  1.9    8      22 140.   24.4
+ 8     8      4  0.97  12      31 196.   29.6
+ 9     9      1  0.97   8       8  87.4  18.6
+10    10      2  1.9   12      12 133.   23.7
+# ... with 86 more rows</code></pre>
+<p>Escolha as colunas que possuem um determinado texto</p>
+<pre class="r"><code>dados %&gt;%
+  select(contains(&quot;area&quot;))</code></pre>
+<pre><code># A tibble: 96 x 2
+    area areat
+   &lt;dbl&gt; &lt;dbl&gt;
+ 1  58.7  14.7
+ 2  48.0  13.0
+ 3  76.6  17.2
+ 4  71.8  16.5
+ 5 199.   29.9
+ 6 199.   29.9
+ 7 140.   24.4
+ 8 196.   29.6
+ 9  87.4  18.6
+10 133.   23.7
+# ... with 86 more rows</code></pre>
+</div>
+<div id="mutate" class="section level3">
+<h3><code>mutate()</code></h3>
+<ul>
+<li>Transforma variáveis existentes ou adiciona novas variáveis.</li>
+</ul>
+<p>Criando uma variável que é a soma das variáveis de severidade</p>
+<pre class="r"><code>dados &lt;- dados %&gt;%
+  mutate(soma_sev = sev1 + sev2 + sev3)</code></pre>
+<p>Convertendo em fator as variáveis trat e gen</p>
+<pre class="r"><code>dados &lt;- dados %&gt;%
+  mutate(trat = as.factor(trat), gen = as.factor(gen))</code></pre>
+</div>
+<div id="trasmute" class="section level3">
+<h3><code>trasmute()</code></h3>
+<ul>
+<li>Adiciona novas variáveis e exclui as outras</li>
+</ul>
+<p>Criando uma variável da interação entre trat e gen</p>
+<pre class="r"><code>dados %&gt;%
+  transmute(soma_sev = sev1 + sev2 + sev3)</code></pre>
+<pre><code># A tibble: 96 x 1
+   soma_sev
+      &lt;dbl&gt;
+ 1     14.9
+ 2     11.8
+ 3     18.6
+ 4     17.2
+ 5     44.9
+ 6     44.9
+ 7     31.9
+ 8     44.0
+ 9     17.0
+10     25.9
+# ... with 86 more rows</code></pre>
+</div>
+<div id="rename" class="section level3">
+<h3><code>rename()</code></h3>
+<ul>
+<li>Altera os nomes das variáveis</li>
+</ul>
+<p>Renomear trat e gen por tratamento e genótipo, respectivamente.</p>
+<pre class="r"><code>dados %&gt;%
+  rename(tratamento = trat , genotipo = gen)</code></pre>
+<pre><code># A tibble: 96 x 10
+   tratamento         id genotipo  blocos  sev1  sev2  sev3  area areat soma_sev
+   &lt;fct&gt;           &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Testemunha 6165     1 Predileta      1  0.97   1.9    12  58.7  14.7     14.9
+ 2 Testemunha 6165     2 Predileta      2  1.9    1.9     8  48.0  13.0     11.8
+ 3 Testemunha 6165     3 Predileta      3  3.3    3.3    12  76.6  17.2     18.6
+ 4 Testemunha 6165     4 Predileta      4  1.9    3.3    12  71.8  16.5     17.2
+ 5 Testemunha 6165     5 Inca           1  1.9   12      31 199.   29.9     44.9
+ 6 Testemunha 6165     6 Inca           2  1.9   12      31 199.   29.9     44.9
+ 7 Testemunha 6165     7 Inca           3  1.9    8      22 140.   24.4     31.9
+ 8 Testemunha 6165     8 Inca           4  0.97  12      31 196.   29.6     44.0
+ 9 UFV 02              9 Predileta      1  0.97   8       8  87.4  18.6     17.0
+10 UFV 02             10 Predileta      2  1.9   12      12 133.   23.7     25.9
+# ... with 86 more rows</code></pre>
+<p>Renomeia sev por severidade</p>
+<pre class="r"><code>dados %&gt;%
+  rename_with(~ gsub(&quot;sev&quot;, &quot;severidade&quot;, .x))</code></pre>
+<pre><code># A tibble: 96 x 10
+   trat              id gen   blocos sever~1 sever~2 sever~3  area areat soma_~4
+   &lt;fct&gt;          &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Testemunha 61~     1 Pred~      1    0.97     1.9      12  58.7  14.7    14.9
+ 2 Testemunha 61~     2 Pred~      2    1.9      1.9       8  48.0  13.0    11.8
+ 3 Testemunha 61~     3 Pred~      3    3.3      3.3      12  76.6  17.2    18.6
+ 4 Testemunha 61~     4 Pred~      4    1.9      3.3      12  71.8  16.5    17.2
+ 5 Testemunha 61~     5 Inca       1    1.9     12        31 199.   29.9    44.9
+ 6 Testemunha 61~     6 Inca       2    1.9     12        31 199.   29.9    44.9
+ 7 Testemunha 61~     7 Inca       3    1.9      8        22 140.   24.4    31.9
+ 8 Testemunha 61~     8 Inca       4    0.97    12        31 196.   29.6    44.0
+ 9 UFV 02             9 Pred~      1    0.97     8         8  87.4  18.6    17.0
+10 UFV 02            10 Pred~      2    1.9     12        12 133.   23.7    25.9
+# ... with 86 more rows, and abbreviated variable names 1: severidade1,
+#   2: severidade2, 3: severidade3, 4: soma_severidade</code></pre>
+</div>
+<div id="summarise" class="section level3">
+<h3><code>summarise()</code></h3>
+<ul>
+<li><p>A Função <code>summarise()</code> retorna a estatística
+determinada pelo usurário do conjunto de dados</p>
+<ul>
+<li>Funções úteis:</li>
+<li>Média: <code>mean()</code>,</li>
+<li>Mediana: <code>median()</code>,</li>
+<li>Desvio: <code>sd()</code>,</li>
+<li>Variância: <code>var()</code>,</li>
+<li>Mínimo e máximo: <code>min()</code>, <code>max()</code>,</li>
+<li>Quantils: <code>quantile()</code>.</li>
+<li>Posição: <code>first()</code>, <code>last()</code>,
+<code>nth()</code>,</li>
+<li>Frequência: <code>n()</code>, <code>n_distinct()</code>,</li>
+<li>Lógicas: <code>any()</code>, <code>all()</code></li>
+</ul></li>
+</ul>
+<p>Média e mediana da area</p>
+<pre class="r"><code>dados %&gt;%
+  summarise(area_mean = mean(area),
+            area_median = median(area)) </code></pre>
+<pre><code># A tibble: 1 x 2
+  area_mean area_median
+      &lt;dbl&gt;       &lt;dbl&gt;
+1      232.        204.</code></pre>
+<p>Calcula a média para todas as variáveis numéricas</p>
+<pre class="r"><code>dados %&gt;%
+  summarise_if(.predicate = is.numeric, .funs = mean)</code></pre>
+<pre><code># A tibble: 1 x 8
+     id blocos  sev1  sev2  sev3  area areat soma_sev
+  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+1  48.5    2.5  2.72  17.5  28.6  232.  31.5     48.9</code></pre>
+</div>
+<div id="group_by" class="section level3">
+<h3><code>group_by()</code></h3>
+<ul>
+<li>A Função <code>group_by()</code> agrupa os dados para a variável
+determinada. Sempre é utilizada com outra função.</li>
+</ul>
+<p>Filtrando os genótipos pela area menor que 100</p>
+<pre class="r"><code>dados %&gt;%
+  group_by(trat, gen) %&gt;%
+  filter(area &lt; 100)</code></pre>
+<pre><code># A tibble: 10 x 10
+# Groups:   trat, gen [3]
+   trat               id gen       blocos  sev1  sev2  sev3  area areat soma_sev
+   &lt;fct&gt;           &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Testemunha 6165     1 Predileta      1  0.97   1.9    12  58.7  14.7     14.9
+ 2 Testemunha 6165     2 Predileta      2  1.9    1.9     8  48.0  13.0     11.8
+ 3 Testemunha 6165     3 Predileta      3  3.3    3.3    12  76.6  17.2     18.6
+ 4 Testemunha 6165     4 Predileta      4  1.9    3.3    12  71.8  16.5     17.2
+ 5 UFV 02              9 Predileta      1  0.97   8       8  87.4  18.6     17.0
+ 6 UFV 02             11 Predileta      3  0.97   8       8  87.4  18.6     17.0
+ 7 UFV 02             12 Predileta      4  0.97   8       8  87.4  18.6     17.0
+ 8 UFV 02             13 Inca           1  0.97   3.3     8  54.5  14.0     12.3
+ 9 UFV 02             15 Inca           3  0.97   3.3     8  54.5  14.0     12.3
+10 UFV 02             16 Inca           4  1.9    3.3     8  57.8  14.5     13.2</code></pre>
+<p>Estatísticas da área por tratamento por genótipo</p>
+<pre class="r"><code>dados %&gt;%
+  group_by(trat, gen) %&gt;%
+  summarise(
+    area_mean = mean(area),
+    area_range = max(area) - min(area),
+    area_desv = sd(area)
+  ) </code></pre>
+<pre><code>`summarise()` has grouped output by &#39;trat&#39;. You can override using the
+`.groups` argument.</code></pre>
+<pre><code># A tibble: 24 x 5
+# Groups:   trat [12]
+   trat             gen       area_mean area_range area_desv
+   &lt;fct&gt;            &lt;fct&gt;         &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1 &quot;Guaxup\xe9&quot;     Inca           127.       38.3      17.1
+ 2 &quot;Guaxup\xe9&quot;     Predileta      165.      108.       51.0
+ 3 &quot;Lagoa da prata&quot; Inca           187.       59.5      28.2
+ 4 &quot;Lagoa da prata&quot; Predileta      223.       98        43.6
+ 5 &quot;M 354&quot;          Inca           423.      210        88.4
+ 6 &quot;M 354&quot;          Predileta      499.      226.      108. 
+ 7 &quot;M 373&quot;          Inca           321.       65.1      31.2
+ 8 &quot;M 373&quot;          Predileta      338.      133        54.4
+ 9 &quot;PROG 122&quot;       Inca           182.       62.8      30.3
+10 &quot;PROG 122&quot;       Predileta      191.       49.3      23.6
+# ... with 14 more rows</code></pre>
+<p>#Contagem de tratamentos com área maior que 100</p>
+<pre class="r"><code>dados %&gt;%
+  filter(area &gt; 100) %&gt;%
+  group_by(trat) %&gt;%
+  summarise(cont_trat = n())</code></pre>
+<pre><code># A tibble: 12 x 2
+   trat              cont_trat
+   &lt;fct&gt;                 &lt;int&gt;
+ 1 &quot;Guaxup\xe9&quot;              8
+ 2 &quot;Lagoa da prata&quot;          8
+ 3 &quot;M 354&quot;                   8
+ 4 &quot;M 373&quot;                   8
+ 5 &quot;PROG 122&quot;                8
+ 6 &quot;PROG 125&quot;                8
+ 7 &quot;RIL 18&quot;                  8
+ 8 &quot;Testemunha 6165&quot;         4
+ 9 &quot;UFV 02&quot;                  2
+10 &quot;UFV 04&quot;                  8
+11 &quot;UFV 72&quot;                  8
+12 &quot;VR 20&quot;                   8</code></pre>
+</div>
+<div id="junções" class="section level3">
+<h3>Junções</h3>
+<ul>
+<li>A função mais utilizada para fazer junções de conjunto de dados é a
+<code>join()</code>.</li>
+</ul>
+<p>Fazer um <code>join</code> nada mais é do que juntar dois conjuntos
+de dados por meio de um ou mais variáveis em comum.</p>
+<div id="tipos-de-join" class="section level4">
+<h4>Tipos de Join</h4>
+<ul>
+<li><p>Podemos dividir as funções do tipo <code>join</code> em 2
+tipos:</p>
+<ul>
+<li><p>Mutating joins: <code>left_join()</code>,
+<code>right_join()</code>,<code>inner_join()</code>,
+<code>full_join()</code>.</p></li>
+<li><p>Filtering joins: <code>semi_join()</code>,
+<code>anti_join()</code>.</p></li>
+</ul></li>
+</ul>
+<p>Temos ainda, no pacote dplyr, as funções <code>union()</code>,
+<code>intersect()</code>, <code>setdiff()</code>,
+<code>setequal()</code> que também são úteis para unir e comparar
+conjuntos de dados.</p>
+</div>
+<div id="inner_join" class="section level4">
+<h4><code>inner_join()</code></h4>
+<ul>
+<li>Retorna todas as linhas de x onde existem valores correspondentes em
+y e todas as colunas de x e y.</li>
+</ul>
+<p>Criando dois conjuntos de dados</p>
+<pre class="r"><code>dados1 &lt;- dados %&gt;%
+  mutate(soma_sev = sev1 + sev2 + sev3) %&gt;%
+  select(trat:blocos, soma_sev) %&gt;%
+  filter(soma_sev &gt; 50)
+
+head(dados1)</code></pre>
+<pre><code># A tibble: 6 x 5
+  trat      id gen       blocos soma_sev
+  &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+1 UFV 04    19 Predileta      3     54.9
+2 UFV 04    23 Inca           3     51  
+3 UFV 72    33 Predileta      1     54.9
+4 UFV 72    35 Predileta      3     65.3
+5 UFV 72    36 Predileta      4     56.3
+6 UFV 72    39 Inca           3     56.3</code></pre>
+<pre class="r"><code>dados2 &lt;- dados %&gt;%
+  mutate(mult_sev = sev1 * sev2 * sev3) %&gt;%
+  select(trat:blocos, mult_sev) %&gt;%
+  filter(mult_sev &gt; mean(mult_sev))
+
+head(dados2)</code></pre>
+<pre><code># A tibble: 6 x 5
+  trat        id gen       blocos mult_sev
+  &lt;fct&gt;    &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+1 UFV 04      23 Inca           3    2976 
+2 UFV 72      35 Predileta      3    3171.
+3 UFV 72      36 Predileta      4    2251.
+4 UFV 72      39 Inca           3    2251.
+5 PROG 125    41 Predileta      1    5217.
+6 PROG 125    42 Predileta      2    7688 </code></pre>
+<pre class="r"><code>inner &lt;- inner_join(dados1, dados2, by = &quot;trat&quot;)
+inner</code></pre>
+<pre><code># A tibble: 208 x 9
+   trat    id.x gen.x     blocos.x soma_sev  id.y gen.y     blocos.y mult_sev
+   &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+ 1 UFV 04    19 Predileta        3     54.9    23 Inca             3    2976 
+ 2 UFV 04    23 Inca             3     51      23 Inca             3    2976 
+ 3 UFV 72    33 Predileta        1     54.9    35 Predileta        3    3171.
+ 4 UFV 72    33 Predileta        1     54.9    36 Predileta        4    2251.
+ 5 UFV 72    33 Predileta        1     54.9    39 Inca             3    2251.
+ 6 UFV 72    35 Predileta        3     65.3    35 Predileta        3    3171.
+ 7 UFV 72    35 Predileta        3     65.3    36 Predileta        4    2251.
+ 8 UFV 72    35 Predileta        3     65.3    39 Inca             3    2251.
+ 9 UFV 72    36 Predileta        4     56.3    35 Predileta        3    3171.
+10 UFV 72    36 Predileta        4     56.3    36 Predileta        4    2251.
+# ... with 198 more rows</code></pre>
+</div>
+<div id="anti_join" class="section level4">
+<h4><code>anti_join()</code></h4>
+<ul>
+<li>Retorna todas as linhas de x para as quais não existem valores
+correspondente em y, mantendo apenas as colunas de x. É considerado um
+“filtering join”.</li>
+</ul>
+<pre class="r"><code>anti &lt;- anti_join(dados1, dados2, by = &quot;trat&quot;)
+anti</code></pre>
+<pre><code># A tibble: 4 x 5
+  trat              id gen       blocos soma_sev
+  &lt;fct&gt;          &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+1 VR 20             57 Predileta      1     64.0
+2 VR 20             60 Predileta      4     54.9
+3 Lagoa da prata    66 Predileta      2     64.9
+4 Lagoa da prata    68 Predileta      4     62.3</code></pre>
+</div>
+<div id="semi_join" class="section level4">
+<h4><code>semi_join()</code></h4>
+<ul>
+<li>Retorna todas as linhas de x para as quais existem valores
+correspondente em y, mantendo apenas as x. O <code>semi_join</code>
+difere do <code>inner_join</code> porque o <code>inner_join</code> irá
+retornar uma linha de x para cada valor correspondente de y, enquanto um
+<code>semi_join</code> nunca irá duplicar valores x.</li>
+</ul>
+<pre class="r"><code>semi &lt;- semi_join(dados1, dados2, by = &quot;trat&quot;)
+semi</code></pre>
+<pre><code># A tibble: 36 x 5
+   trat        id gen       blocos soma_sev
+   &lt;fct&gt;    &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+ 1 UFV 04      19 Predileta      3     54.9
+ 2 UFV 04      23 Inca           3     51  
+ 3 UFV 72      33 Predileta      1     54.9
+ 4 UFV 72      35 Predileta      3     65.3
+ 5 UFV 72      36 Predileta      4     56.3
+ 6 UFV 72      39 Inca           3     56.3
+ 7 PROG 125    41 Predileta      1     85.3
+ 8 PROG 125    42 Predileta      2     70  
+ 9 PROG 125    43 Predileta      3     81  
+10 PROG 125    44 Predileta      4     85.3
+# ... with 26 more rows</code></pre>
+</div>
+<div id="full_join" class="section level4">
+<h4><code>full_join()</code></h4>
+<ul>
+<li>Retorna todas as linhas e todas as colunas tanto de x quanto de y.
+Returno <code>NA</code> no caso de não haver valor correspondente.</li>
+</ul>
+<pre class="r"><code>full &lt;- full_join(dados1, dados2, by = &quot;trat&quot;)
+full</code></pre>
+<pre><code># A tibble: 212 x 9
+   trat    id.x gen.x     blocos.x soma_sev  id.y gen.y     blocos.y mult_sev
+   &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+ 1 UFV 04    19 Predileta        3     54.9    23 Inca             3    2976 
+ 2 UFV 04    23 Inca             3     51      23 Inca             3    2976 
+ 3 UFV 72    33 Predileta        1     54.9    35 Predileta        3    3171.
+ 4 UFV 72    33 Predileta        1     54.9    36 Predileta        4    2251.
+ 5 UFV 72    33 Predileta        1     54.9    39 Inca             3    2251.
+ 6 UFV 72    35 Predileta        3     65.3    35 Predileta        3    3171.
+ 7 UFV 72    35 Predileta        3     65.3    36 Predileta        4    2251.
+ 8 UFV 72    35 Predileta        3     65.3    39 Inca             3    2251.
+ 9 UFV 72    36 Predileta        4     56.3    35 Predileta        3    3171.
+10 UFV 72    36 Predileta        4     56.3    36 Predileta        4    2251.
+# ... with 202 more rows</code></pre>
+</div>
+<div id="left_join" class="section level4">
+<h4><code>left_join()</code></h4>
+<ul>
+<li>Retorna todas as linhas de x, e todas as colunas tanto de x quanto
+de y. Se houver múltiplas correspondências entre x e y, todas as
+combinações de correspondências serão retornadas.</li>
+</ul>
+<pre class="r"><code>left &lt;- left_join(dados1, dados2, by = &quot;trat&quot;)
+left</code></pre>
+<pre><code># A tibble: 212 x 9
+   trat    id.x gen.x     blocos.x soma_sev  id.y gen.y     blocos.y mult_sev
+   &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+ 1 UFV 04    19 Predileta        3     54.9    23 Inca             3    2976 
+ 2 UFV 04    23 Inca             3     51      23 Inca             3    2976 
+ 3 UFV 72    33 Predileta        1     54.9    35 Predileta        3    3171.
+ 4 UFV 72    33 Predileta        1     54.9    36 Predileta        4    2251.
+ 5 UFV 72    33 Predileta        1     54.9    39 Inca             3    2251.
+ 6 UFV 72    35 Predileta        3     65.3    35 Predileta        3    3171.
+ 7 UFV 72    35 Predileta        3     65.3    36 Predileta        4    2251.
+ 8 UFV 72    35 Predileta        3     65.3    39 Inca             3    2251.
+ 9 UFV 72    36 Predileta        4     56.3    35 Predileta        3    3171.
+10 UFV 72    36 Predileta        4     56.3    36 Predileta        4    2251.
+# ... with 202 more rows</code></pre>
+</div>
+<div id="right_join" class="section level4">
+<h4><code>right_join()</code></h4>
+<ul>
+<li>Retorna todas as linhas de y, e todas as colunas tanto de x quanto
+de y. Se houver múltiplas correspondências entre x e y, todas as
+combinações de correspondências serão retornadas.</li>
+</ul>
+<pre class="r"><code>right &lt;- right_join(dados1, dados2, by = &quot;trat&quot;)
+right</code></pre>
+<pre><code># A tibble: 208 x 9
+   trat    id.x gen.x     blocos.x soma_sev  id.y gen.y     blocos.y mult_sev
+   &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+ 1 UFV 04    19 Predileta        3     54.9    23 Inca             3    2976 
+ 2 UFV 04    23 Inca             3     51      23 Inca             3    2976 
+ 3 UFV 72    33 Predileta        1     54.9    35 Predileta        3    3171.
+ 4 UFV 72    33 Predileta        1     54.9    36 Predileta        4    2251.
+ 5 UFV 72    33 Predileta        1     54.9    39 Inca             3    2251.
+ 6 UFV 72    35 Predileta        3     65.3    35 Predileta        3    3171.
+ 7 UFV 72    35 Predileta        3     65.3    36 Predileta        4    2251.
+ 8 UFV 72    35 Predileta        3     65.3    39 Inca             3    2251.
+ 9 UFV 72    36 Predileta        4     56.3    35 Predileta        3    3171.
+10 UFV 72    36 Predileta        4     56.3    36 Predileta        4    2251.
+# ... with 198 more rows</code></pre>
+</div>
+</div>
+</div>
+<div id="formatos-de-banco-de-dados" class="section level2">
+<h2>Formatos de banco de dados</h2>
+<ul>
+<li>Podemos remodelar nossos dados para formatos longo, conjuntos de
+dados onde temos uma linha por observação, ou amplo, cada tipo de
+observação tenha sua própria coluna e as linhas sejam grupos mais
+agregados.</li>
+</ul>
+<div id="formato-longo" class="section level3">
+<h3>Formato ‘longo’:</h3>
+<ul>
+<li>Cada coluna é uma variável</li>
+<li>Cada linha é uma observação</li>
+<li>No formato ‘longo’, normalmente você tem 1 coluna para a variável
+observada e as demais colunas são variáveis de ID.</li>
+</ul>
+</div>
+<div id="formato-amplo" class="section level3">
+<h3>Formato ‘amplo’:</h3>
+<ul>
+<li>Uma linha corresponde a um indivíduo</li>
+<li>As variáveis de observação são dispostas em colunas</li>
+</ul>
+</div>
+<div id="funções-pivot_wider-e-pivot_longer" class="section level3">
+<h3>Funções <code>pivot_wider()</code> e
+<code>pivot_longer()</code></h3>
+<div id="pivot_longer" class="section level4">
+<h4><code>pivot_longer()</code></h4>
+<ul>
+<li>Para passar de um formato amplo para longo, que aumentará o número
+de linhas e diminuirá o número de colunas. Fornecemos três argumentos:
+<code>cols</code> que são as colunas que queremos dinamizar no formato
+longo, <code>names_to</code>, que é uma <code>string</code>
+especificando o nome da coluna a ser criada a partir dos dados
+armazenados nos nomes das colunas e <code>values_to</code>, que é também
+uma <code>string</code>, especificando o nome da coluna a ser criada a
+partir dos dados armazenados nos valores das células.</li>
+</ul>
+<pre class="r"><code>dados2 &lt;- dados %&gt;%
+  pivot_longer(
+    cols = c(sev1, sev2, sev3),
+    names_to = &quot;Sev&quot;,
+    values_to = &quot;Value&quot;
+  )
+dados2</code></pre>
+<pre><code># A tibble: 288 x 9
+   trat               id gen       blocos  area areat soma_sev Sev   Value
+   &lt;fct&gt;           &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
+ 1 Testemunha 6165     1 Predileta      1  58.7  14.7     14.9 sev1   0.97
+ 2 Testemunha 6165     1 Predileta      1  58.7  14.7     14.9 sev2   1.9 
+ 3 Testemunha 6165     1 Predileta      1  58.7  14.7     14.9 sev3  12   
+ 4 Testemunha 6165     2 Predileta      2  48.0  13.0     11.8 sev1   1.9 
+ 5 Testemunha 6165     2 Predileta      2  48.0  13.0     11.8 sev2   1.9 
+ 6 Testemunha 6165     2 Predileta      2  48.0  13.0     11.8 sev3   8   
+ 7 Testemunha 6165     3 Predileta      3  76.6  17.2     18.6 sev1   3.3 
+ 8 Testemunha 6165     3 Predileta      3  76.6  17.2     18.6 sev2   3.3 
+ 9 Testemunha 6165     3 Predileta      3  76.6  17.2     18.6 sev3  12   
+10 Testemunha 6165     4 Predileta      4  71.8  16.5     17.2 sev1   1.9 
+# ... with 278 more rows</code></pre>
+</div>
+<div id="pivot_wider" class="section level4">
+<h4><code>pivot_wider()</code></h4>
+<ul>
+<li>Permite converter um banco de dados no formato longo para amplo,
+providenciando dois argumentos: <code>names_from</code> descreve qual
+coluna usar para o nome da coluna de saída e <code>values_from</code>
+informa a coluna para obter os valores das células.</li>
+</ul>
+<pre class="r"><code>dados3 &lt;- dados2 %&gt;%
+  pivot_wider(names_from = Sev,
+              values_from = Value)
+dados3</code></pre>
+<pre><code># A tibble: 96 x 10
+   trat               id gen       blocos  area areat soma_sev  sev1  sev2  sev3
+   &lt;fct&gt;           &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Testemunha 6165     1 Predileta      1  58.7  14.7     14.9  0.97   1.9    12
+ 2 Testemunha 6165     2 Predileta      2  48.0  13.0     11.8  1.9    1.9     8
+ 3 Testemunha 6165     3 Predileta      3  76.6  17.2     18.6  3.3    3.3    12
+ 4 Testemunha 6165     4 Predileta      4  71.8  16.5     17.2  1.9    3.3    12
+ 5 Testemunha 6165     5 Inca           1 199.   29.9     44.9  1.9   12      31
+ 6 Testemunha 6165     6 Inca           2 199.   29.9     44.9  1.9   12      31
+ 7 Testemunha 6165     7 Inca           3 140.   24.4     31.9  1.9    8      22
+ 8 Testemunha 6165     8 Inca           4 196.   29.6     44.0  0.97  12      31
+ 9 UFV 02              9 Predileta      1  87.4  18.6     17.0  0.97   8       8
+10 UFV 02             10 Predileta      2 133.   23.7     25.9  1.9   12      12
+# ... with 86 more rows</code></pre>
+</div>
+</div>
+<div id="exportando-dados" class="section level3">
+<h3>Exportando dados:</h3>
+<pre class="r"><code>write_csv(dados2, file = &quot;dados2.csv&quot;)</code></pre>
+<ul>
+<li>ATIVIDADES</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>Ordene os <code>dados1</code> e <code>dados2</code> pelo
+<code>trat</code>, <code>gen</code> e <code>bloco</code>.</p></li>
+<li><p>Filtre os <code>dados1</code> e <code>dados2</code> apenas para o
+tratamento UFV72 e genótipo Predileta.</p></li>
+<li><p>Filtre os dados para área menor do que 50, em ordem decrescente
+para a variável área.</p></li>
+<li><p>Selecione os 2 tratamentos que apresentaram menor área.</p></li>
+<li><p>Crie um conjunto de dados sem as variáveis <code>sev</code>, do
+arquivo dados.</p></li>
+<li><p>Agrupe os dados usando funções resumos para calcular o mínimo,
+media, mediana, desvio e para todas as variáveis numéricas, com a
+exceção de blocos, para cada genótipo.</p></li>
+<li><p>Adicione no conjunto de dados uma variável que seja a interação
+entre tratamentos, genótipos e blocos.</p></li>
+<li><p>Faça as junções dos dois conjuntos de dados <code>dados1</code> e
+<code>dados2</code>, com o conjunto de dados
+<code>dados</code>.</p></li>
+<li><p>Pesquise sobre a função <code>gather()</code>, veja quais as suas
+funcinalidades e teste nos seus dados.</p></li>
+</ol>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.3 (2022-03-10)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=Portuguese_Brazil.1252  LC_CTYPE=Portuguese_Brazil.1252   
+[3] LC_MONETARY=Portuguese_Brazil.1252 LC_NUMERIC=C                      
+[5] LC_TIME=Portuguese_Brazil.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] forcats_0.5.2   stringr_1.4.1   dplyr_1.0.9     purrr_0.3.4    
+ [5] readr_2.1.2     tidyr_1.2.0     tibble_3.1.8    ggplot2_3.3.6  
+ [9] tidyverse_1.3.2 workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.9          lubridate_1.8.0     getPass_0.2-2      
+ [4] ps_1.7.1            assertthat_0.2.1    rprojroot_2.0.3    
+ [7] digest_0.6.29       utf8_1.2.2          R6_2.5.1           
+[10] cellranger_1.1.0    backports_1.4.1     reprex_2.0.2       
+[13] evaluate_0.16       httr_1.4.4          pillar_1.8.1       
+[16] rlang_1.0.4         readxl_1.4.1        googlesheets4_1.0.1
+[19] rstudioapi_0.13     whisker_0.4         callr_3.7.1        
+[22] jquerylib_0.1.4     rmarkdown_2.15      googledrive_2.0.0  
+[25] bit_4.0.4           munsell_0.5.0       broom_1.0.0        
+[28] compiler_4.1.3      httpuv_1.6.5        modelr_0.1.9       
+[31] xfun_0.32           pkgconfig_2.0.3     htmltools_0.5.3    
+[34] tidyselect_1.1.2    codetools_0.2-18    fansi_1.0.3        
+[37] crayon_1.5.1        withr_2.5.0         tzdb_0.3.0         
+[40] dbplyr_2.2.1        later_1.3.0         grid_4.1.3         
+[43] jsonlite_1.8.0      gtable_0.3.0        lifecycle_1.0.1    
+[46] DBI_1.1.3           git2r_0.30.1        magrittr_2.0.3     
+[49] scales_1.2.1        vroom_1.5.7         cli_3.3.0          
+[52] stringi_1.7.6       cachem_1.0.6        fs_1.5.2           
+[55] promises_1.2.0.1    xml2_1.3.3          bslib_0.4.0        
+[58] ellipsis_0.3.2      generics_0.1.3      vctrs_0.4.1        
+[61] tools_4.1.3         bit64_4.0.5         glue_1.6.2         
+[64] hms_1.1.2           parallel_4.1.3      processx_3.7.0     
+[67] fastmap_1.1.0       yaml_2.3.5          colorspace_2.0-3   
+[70] gargle_1.2.0        rvest_1.0.3         knitr_1.39         
+[73] haven_2.5.0         sass_0.4.2         </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
