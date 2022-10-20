@@ -19,6 +19,40 @@ github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 
 Para que você possa ter mais conhecimento sobre o R, preparei um material de introdução ao R. Assim você pode aprender mais sobre o software e como utilizá-lo. Na seção [Tutorial](#Tutorial) já vimos sobre a instalação e carregamento de pacotes e outros tópicos importantes. Aqui vamos dar mais enfoque na programação em si.
 
+## Importando dados
+
+Os dados podem ser importados para o R em diversos formatos (tipos de arquivos). Alguns dos formatos mais usados são mostrados a seguir:
+
+-   Planilha eletrônica (.xls, .xlsx, .ods)
+-   Bloco de notas (.txt)
+-   Valores separados por vírgulas (.csv)
+-   Dbase (.dbf)
+-   Diversos Pacotes estatísticos: (.Rdata - R), (.sav - SPSS), etc
+
+É possível importar os dados pela própria interface do RStudio. Para isso, vamos em `Import Dataset` e selecionamos o formato dos dados.
+
+![](images/importdataset.png)
+![](images/optionimportdata.png)
+
+Durante o curso iremos utilizar várias funções para importação de dados, para que você possa se ambientar melhor com as funções. De início vamos usar a função `read_csv()` do pacote `readr`, já incluso no framework `tidyverse`. Essa função importa tanto dados em formato .csv quanto .txt.
+
+```{r}
+library(tidyverse)
+dados <- read_csv("data/dados.csv")       # Função para importar os dados
+
+dados
+```
+
+### Exportando dados:
+
+Da mesma forma que a importação dos dados, os dados também podem ser exportados para do R em diversos formatos (tipos de arquivos).
+
+Aqui, como exemplo, iremos usar a função `write_csv()` para exportar os dados no formato `.csv`.
+
+```{r}
+write_csv(dados, file = "dados2.csv")
+```
+
 ## Objetos
 
 Objetos são qualquer variável que irá ser armazenado durante a sua sessão no R. Para que uma variável será armazenada no ambiente de sua sessão você deve atribuir um ou mais valores a está variável utilizando `<-`.

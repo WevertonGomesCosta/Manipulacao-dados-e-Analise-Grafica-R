@@ -45,22 +45,7 @@ Essa biblioteca possui um conjunto de funções que auxiliando na manipulação 
 
   -   Funções resumo: `n()`, `n_distinct()`, `first()`, `last()`, `nth()`, etc.
 
-## Importando dados
-
-Os dados podem ser importados para o R em diversos formatos (tipos de arquivos). Alguns dos formatos mais usados são mostrados a seguir:
-
--   Planilha eletrônica (.xls, .xlsx, .ods)
--   Bloco de notas (.txt)
--   Valores separados por vírgulas (.csv)
--   Dbase (.dbf)
--   Diversos Pacotes estatísticos: (.Rdata - R), (.sav - SPSS), etc
-
-É possível importar os dados pela própria interface do RStudio. Para isso, vamos em `Import Dataset` e selecionamos o formato dos dados.
-
-![](images/importdataset.png)
-![](images/optionimportdata.png)
-
-Durante o curso iremos utilizar várias funções para importação de dados, para que você possa se ambientar melhor com as funções. De início vamos usar a função `read_csv()` do pacote `readr`, já incluso no framework `tidyverse`. Essa função importa tanto dados em formato .csv quanto .txt.
+De início vamos usar a função `read_csv()` do pacote `readr`, já incluso no framework `tidyverse`, para importar os dados.
 
 ```{r}
 dados <- read_csv("data/dados.csv")       # Função para importar os dados
@@ -483,11 +468,6 @@ dados3 <- dados2 %>%
 dados3
 ```
 
-### Exportando dados:
-
-```{r}
-write_csv(dados2, file = "dados2.csv")
-```
 
 - ATIVIDADES
 
