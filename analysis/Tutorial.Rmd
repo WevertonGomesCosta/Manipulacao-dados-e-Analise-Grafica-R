@@ -33,7 +33,7 @@ Primeiro será necessário a instalação dos softwares R e RStudio. Você encon
 
 *Se você já possuir os softwares em seu computador não há necessidade de nova instalação*
 
-## Instalação e carregar de pacotes
+## Instalação de pacotes
 
 O R é composto por vários pacotes (*packages*), também chamados de bibliotecas (*libraries*). Os comandos básicos do R estão agrupados em um pacote chamado *base*. Existem inúmeros pacotes, alguns já incluídos na instalação padrão do R e vários foram desenvolvidos por usuários do R que, em certo momento, julgaram importante criar comandos que suprissem suas necessidades. 
 Depois, esses usuários disponibilizaram esses comandos na forma de um pacote com determinado nome, para que outras pessoas que necessitem usar os mesmos comandos não precisem implementá-los novamente. É essa colaboração mútua que faz do R um programa amplo, interdisciplinar e em constante evolução.
