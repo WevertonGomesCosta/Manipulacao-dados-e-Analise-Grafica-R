@@ -340,7 +340,7 @@ exists("b")
 
 Diversas vezes em programação queremos apenas que a ação descrita no código ocorra caso ela satisfaça uma condição pré-estabelecida. Para isso existem os operadores lógicos e as expressões apresentadas abaixo:
 
-    ![](tabela_1-8.png)
+![](images/tabela_1-8.png)
 
 ### Expressões lógicas `if()`, `else()` e `ifelse()`. 
 
