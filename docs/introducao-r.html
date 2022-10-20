@@ -449,10 +449,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
+<p>The R Markdown file has staged changes. To know which version of the
+R Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -582,7 +582,11 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/introducao-r.Rmd
+
+Staged changes:
+    Modified:   analysis/introducao-r.Rmd
     Modified:   analysis/manipulacaodedados.Rmd
+    New:        dados2.csv
 
 </code></pre>
 <p>
@@ -676,6 +680,21 @@ material de introdução ao R. Assim você pode aprender mais sobre o
 software e como utilizá-lo. Na seção <a href="#Tutorial">Tutorial</a> já
 vimos sobre a instalação e carregamento de pacotes e outros tópicos
 importantes. Aqui vamos dar mais enfoque na programação em si.</p>
+<div id="diretório-de-trabalho" class="section level2">
+<h2>Diretório de trabalho</h2>
+<p>Para dar início a qualquer projeto, primeiro precisamos indicar para
+o R onde vamos trabalhar, ou seja, indicar a nossa pasta de trabalho.
+Para isso usamos a função <code>setwd()</code> para indicar a pasta.</p>
+<pre class="r"><code>setwd(&quot;C:/curso_conectagem&quot;)</code></pre>
+<p><em>OBS: O diretório de trabalho deve ser adicionado dentro de aspas.
+Além disso, no windowns, ao copiar um diretório ele deverá vim no
+formato <code>C:\curso_conectagem</code>, observe que a barra que deve
+ser adicionado no diretório deve ser ao contrário ou então usar duplas
+barras como: <code>C:\\curso_conectagem</code>.</em></p>
+<p>Para confirmar se o diretório foi definido corretamente, usamos a
+função <code>getwd()</code>.</p>
+<pre class="r"><code>getwd()</code></pre>
+</div>
 <div id="importando-dados" class="section level2">
 <h2>Importando dados</h2>
 <p>Os dados podem ser importados para o R em diversos formatos (tipos de

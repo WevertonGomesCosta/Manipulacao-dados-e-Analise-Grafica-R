@@ -19,6 +19,23 @@ github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 
 Para que você possa ter mais conhecimento sobre o R, preparei um material de introdução ao R. Assim você pode aprender mais sobre o software e como utilizá-lo. Na seção [Tutorial](#Tutorial) já vimos sobre a instalação e carregamento de pacotes e outros tópicos importantes. Aqui vamos dar mais enfoque na programação em si.
 
+## Diretório de trabalho
+
+Para dar início a qualquer projeto, primeiro precisamos indicar para o R onde vamos trabalhar, ou seja, indicar a nossa pasta de trabalho. 
+Para isso usamos a função `setwd()` para indicar a pasta.
+
+```{r eval = FALSE}
+setwd("C:/curso_conectagem")
+```
+
+*OBS: O diretório de trabalho deve ser adicionado dentro de aspas. Além disso, no windowns, ao copiar um diretório ele deverá vim no formato `C:\curso_conectagem`, observe que a barra que deve ser adicionado no diretório deve ser ao contrário ou então usar duplas barras como: `C:\\curso_conectagem`.*
+
+Para confirmar se o diretório foi definido corretamente, usamos a função `getwd()`.
+
+```{r eval = FALSE}
+getwd()
+```
+
 ## Importando dados
 
 Os dados podem ser importados para o R em diversos formatos (tipos de arquivos). Alguns dos formatos mais usados são mostrados a seguir:
