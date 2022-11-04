@@ -11,11 +11,11 @@
 
 <meta name="author" content="Costa, W. G." />
 
-<meta name="date" content="2022-09-12" />
+<meta name="date" content="2022-11-04" />
 
 <title>Análise Gráfica no R </title>
 
-<script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -195,8 +195,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -204,16 +204,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -366,7 +359,6 @@ div.tocify {
   <a href="https://github.com/wevertongomescosta/">
     <span class="fa fa-github"></span>
      
-    Source code
   </a>
 </li>
       </ul>
@@ -382,7 +374,7 @@ div.tocify {
 src="images/logo.jpg" style="display:block; margin:0 auto"
 width="100" /></p></h1>
 <h4 class="author">Costa, W. G.</h4>
-<h4 class="date">2022-09-12</h4>
+<h4 class="date">2022-11-04</h4>
 
 </div>
 
@@ -411,7 +403,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-09-12
+<strong>Last updated:</strong> 2022-11-04
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -642,7 +634,31 @@ unnamed-chunk-42
 unnamed-chunk-43
 </li>
 <li>
+unnamed-chunk-44
+</li>
+<li>
+unnamed-chunk-45
+</li>
+<li>
+unnamed-chunk-46
+</li>
+<li>
+unnamed-chunk-47
+</li>
+<li>
+unnamed-chunk-48
+</li>
+<li>
+unnamed-chunk-49
+</li>
+<li>
 unnamed-chunk-5
+</li>
+<li>
+unnamed-chunk-50
+</li>
+<li>
+unnamed-chunk-51
 </li>
 <li>
 unnamed-chunk-6
@@ -683,15 +699,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtree206bfa9348f1d2adf561992cfa369377f0538c05targetblank206bfa9a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreebcef040f988f92ddbddcef090f40246d4efa1dd1targetblankbcef040a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/206bfa9348f1d2adf561992cfa369377f0538c05" target="_blank">206bfa9</a>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/bcef040f988f92ddbddcef090f40246d4efa1dd1" target="_blank">bcef040</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtree206bfa9348f1d2adf561992cfa369377f0538c05targetblank206bfa9a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreebcef040f988f92ddbddcef090f40246d4efa1dd1targetblankbcef040a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -701,7 +717,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/206bfa9348f1d2adf561992cfa369377f0538c05" target="_blank">206bfa9</a>.
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/bcef040f988f92ddbddcef090f40246d4efa1dd1" target="_blank">bcef040</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -718,8 +734,152 @@ were generated:
 Ignored files:
     Ignored:    .Rproj.user/
 
+Untracked files:
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-10_206890308a684fcd46abbf982bb24000.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-11_39dc6a0e4cf3bf097d142871e9c116fe.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-12_0815f8aeb8b52340f7dcf6f44a5d6977.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-13_72ce879ebf950222e6c841eccc0cba64.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-14_91c6820876976fca85833fb96ef19246.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-15_4f5130d492046c0d197d63d347b701ab.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-16_22fe9f4f9ad58bbd8df22afdfac5e07b.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-17_e889d16aa69e9c794b985898dad2c4ba.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-18_3bf1639087a6f08cd11bc8fbfe2894ce.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-19_a757cfe20b21df538a762f49b4e6e89c.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-1_f00595bd22695017ee90704a77ad22f7.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-20_629b3a9ff466dadc9a8e68b74f085534.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-21_01a2141f497a66105a2764201dde0201.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-22_410ac0b82053d9df2e246ea93e4339d8.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-23_a1cd4698f2c88de740d088f6310e3c67.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-24_f18ef3a0d549df95e101d25fb6e138e3.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-25_28bad1b99b3b71eb4392b2260b802d40.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-26_fea6f04794533b81cb7973a294a3f657.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-27_80c06a6f53a8c522ec52445d51c25f75.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-28_f28b17e2246736ab17bfcf53e495153f.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-29_66bc8fc685da5ef16e662363166e82ea.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-30_5d74c89a8cae85e22a2414270c8a7dbf.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-31_6476d018158e3f58ff272b2a497da0f3.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-32_d481a1f55efb90259435f2a7307b8f02.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-33_34e4ff67da5d451d59b0b45bc8aec631.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-34_36ac024ea6df234aa9c184afd9564259.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-35_e91b1ad90188c19eb700a37f8cd06b26.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-36_f1b6768b75ba0b604bf56f3badaf2940.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-37_2decb112c8c1e6cb53f10a2f09c78170.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-38_cc9c1382630210ceb5473970e422854e.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-39_c23b66d6977125399b11f232b342b23c.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-3_de354d1aebc4feeeff942c066ab9a829.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-40_41ce386c92ff67ec95269dab1d41e631.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-41_330ea16c357bcaa561c8884155ff0791.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-42_18cfdd267073bbba0bcb15fd66bd48d3.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-43_976c32701068e1f3aad3c2de8ee73c68.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-44_cb682b840df159c75d47843a4890a287.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-45_2a70a8725fe4e3bf3463fd0f3413d26c.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-46_a76732ddef0c3d36b7bfaac6870c9a1b.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-47_1d8615f2894ef3b693957532350c3cce.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-48_76c2cdd5493a85d0044dc5c99cffdd05.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-49_aeccb87608249ad0131ec11da5dd6e1b.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-4_893cf17c376749aba5452dc82f571dcb.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-50_6cf4671a8a3deaa1d04b5f74e8a372a5.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-51_9d77613272d1c9cee7dd5b326d88cd4c.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-5_c5783974c2686745f1557972908154d3.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-6_7b37aaab323ad1e2bbba3c31aac011e3.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-7_59ba06a9d3dfacd317633a4a52bd1392.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-8_27498a7f2a27d917fcde75b1fb145479.RData
+    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-9_271f89d6093519b7257adf0c039f7387.RData
+    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-22_24e054a280f2d8f6e963d999c6d01f6d.RData
+    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-26_8ac5276625a143701148a4098c416715.RData
+    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-27_283945c95111e6b1707475b412a6e20e.RData
+    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-28_f9c20edd31e6b60da42bc459364667d4.RData
+    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-39_fca15e21039651c74768d58ba7b9ec70.RData
+    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-40_afbddccce17ae6325aa5da89af3ce7aa.RData
+    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-41_e29c23fd0dbeff4b5bf13537b41fcffb.RData
+    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-42_50855be455ae24e1ff5f2ff4323af77f.RData
+    Untracked:  grÃ¡fico.tiff
+
 Unstaged changes:
     Modified:   analysis/analise-grafica.Rmd
+    Modified:   analysis/analise-grafica_cache/html/__globals
+    Modified:   analysis/analise-grafica_cache/html/__objects
+    Modified:   analysis/analise-grafica_cache/html/__packages
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-10_f6e41742bd537e2ed3f1297656e6646e.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-11_b23b8a3289ec091285cd50ab820afea6.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-12_38ebc28c9a0096ebe87ff02d7702dc6d.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-13_248766b82995adf69001fdee7ceba54b.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-14_c1d42c5e40355baee83fff7ac88293d3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-15_de4dd0eaca22d741da5bad19dfdffb76.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-16_89787db9f65e724e79c98a63db820a4d.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-17_c77db0b834c89146514b7172ea774fde.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-18_d0d2c770a4e86e11d5636dad8f404554.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-19_449b3cc459d19587dfef1b189529142b.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-1_70a5c485b15707eb53bb2154a89171c0.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-20_e0b0c0ebc0deb824ee7f79b878eb7f57.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-21_404059aaa0cd1f206dd4505c0f35cbd3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-22_ad7b077eaebe17841a4997f546209b31.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-23_c42b8ad3db266c7d548f01ef8f103dac.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-24_0b648fc0bc4a5c2cd1a2519ff9899572.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-25_5af0f5350cea00cfc04177dfc5a03ce3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-26_77cbe5785eb0ad2ab1f6b08e5446784e.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-27_1c06495076b8f55548eda6c36e57b0d1.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-28_9a89d1ac5fe4e2e85e41863b8d2c6772.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-29_b89cf0445aee7288732f5919f53138b7.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-30_9b55abe0371fa03e5445e7bef4584032.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-31_7638bb817a624dc7ba48939fc873f6bf.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-32_bf0eeb8fe39a18910a8d062bd3f478de.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-33_790e2814cebb1cc788127ed44a6aa4ae.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-34_c6898dbf81d037887b49f6d020184595.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-35_56d6ff8556cc823dbfe6c41345acb462.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-36_c2f2661bd01737072c10d20a2907abdd.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-37_61fd341717afd2caeec7360bd092e654.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-38_2aa69205a5ccb21bc1338858ae08bbb4.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-39_a76699bd9096c031e64ed9128f58f7a5.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-3_9411635eed1503a2ba2370453360a976.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-40_ea15539715ee48562d3a46ca41505f61.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-41_5177965151a44b0cde2470be8facafd8.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-42_b0dc3fe162b154ca0e3572bbe695b442.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-43_f4f6068aa4b36bda9f9832d0002619e4.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-4_9eca8551521869084ace69073ddaa587.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-5_9cec18c541e8729c3b87cd61eb9c1140.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-6_a783f7707642300678df8a6a11be0d6f.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-7_7ad59a4beb9756efe170bd9426f0e0d4.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-8_a453cfc8fc5747d7cb1f481a0f163784.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-9_83cd3f7ff145314d73151e941c001700.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-27_feeb5e3cab3628ddfcd49a6adbb4c08b.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-28_f5a8868823c2cf35ce2b671c6acca1e4.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-29_638d5ea39fca427a9b1650b7b04298ca.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-34_53fcd0b63f68ffd4cda202917bb22c94.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-35_52506aee3aae08e8df7c6583837128b2.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-38_53650737d971ba9e5682854f5a60ffeb.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-39_1740a9f973744154b605e5e778812418.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-40_e2e2eb9726a566f54e46866de9a65e5f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-41_49f98a53d313e2dea53d670ead9b7c87.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-42_d57804ba4f4ebd9f06d75f42e20d3e63.RData
+
+Staged changes:
+    Modified:   analysis/manipulacaodedados.Rmd
+    Modified:   analysis/manipulacaodedados_cache/html/__globals
+    Modified:   analysis/manipulacaodedados_cache/html/__objects
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-22_68742dd48e8c953dfeb1036e8a21f36a.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-26_72af52a957ddd04fc21e71d969f90ce8.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-29_fb5241bba1f58a8ed02d2aac0d0da820.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-30_043c3f2b153cffc2b4c37f59a793f4a6.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-30_da7ce0934d64eea91e1648bd98af9a89.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-31_69380287f8ea2b7813e413a4662bf468.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-31_af249045006699523b2c6a507df10f66.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-32_1fb6a43e726103d82cb04aecf865c1ad.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-33_4c0cda238d46e26292691a2b4c98b06f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-33_7853744433478610d1f0001d80890041.RData
+    Modified1:  analysis/manipulacaodedados_cache/html/unnamed-chunk-32_bfc4c4ab37e41ae585f8947dd76249b4.RData
+    Modified2:  analysis/manipulacaodedados_cache/html/unnamed-chunk-34_2e5f546c7fc634182b6f163d3ba03118.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-35_f7ccf154b087259bb54684a6397089d7.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-36_58f8835af5d3a75187879fd6de23ad99.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-36_b2ed78ce4be3020cdfaf60c426ab07c6.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-37_c17688d3d99d256aece9fe30372268e3.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-37_fa4821d374c98b794a2abe83a2c8d71b.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-38_52f0f7d017da31542a6bb1898d352bbc.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-43_35b71a4beb67d8733bee494fc25eaea8.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-43_7d6fcfb57d116a766c8bc7a8b5907cc0.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-44_317c58199bd9830efb460a85bf07d163.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-44_60c5043cc442b9694f267c098a8fc486.RData
+    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-45_e20749add7c9d35db02d8dbb1d055e06.RData
 
 </code></pre>
 <p>
@@ -770,6 +930,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/blob/58325502cd839116f98f3e47b896c599cc2b8da1/analysis/analise-grafica.Rmd" target="_blank">5832550</a>
+</td>
+<td>
+WevertonGomesCosta
+</td>
+<td>
+2022-09-12
+</td>
+<td>
+Update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/58325502cd839116f98f3e47b896c599cc2b8da1/docs/analise-grafica.html" target="_blank">5832550</a>
+</td>
+<td>
+WevertonGomesCosta
+</td>
+<td>
+2022-09-12
+</td>
+<td>
+Update
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/blob/206bfa9348f1d2adf561992cfa369377f0538c05/analysis/analise-grafica.Rmd" target="_blank">206bfa9</a>
 </td>
 <td>
@@ -806,6 +1000,63 @@ Update
 </div>
 </div>
 </div>
+<div id="análise-exploratória" class="section level2">
+<h2>Análise exploratória</h2>
+<pre class="r"><code>library(tidyverse)
+library(DataExplorer)</code></pre>
+<p>Importar os dados exemplos</p>
+<pre class="r"><code>dados &lt;- read_csv(&quot;data/dados.csv&quot;)       # Função para importar os dados</code></pre>
+<pre><code>Rows: 96 Columns: 9
+-- Column specification --------------------------------------------------------
+Delimiter: &quot;,&quot;
+chr (2): trat, gen
+dbl (7): id, blocos, sev1, sev2, sev3, area, areat
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>dados</code></pre>
+<pre><code># A tibble: 96 x 9
+   trat               id gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Testemunha 6165     1 Predileta      1  0.97   1.9    12  58.7  14.7
+ 2 Testemunha 6165     2 Predileta      2  1.9    1.9     8  48.0  13.0
+ 3 Testemunha 6165     3 Predileta      3  3.3    3.3    12  76.6  17.2
+ 4 Testemunha 6165     4 Predileta      4  1.9    3.3    12  71.8  16.5
+ 5 Testemunha 6165     5 Inca           1  1.9   12      31 199.   29.9
+ 6 Testemunha 6165     6 Inca           2  1.9   12      31 199.   29.9
+ 7 Testemunha 6165     7 Inca           3  1.9    8      22 140.   24.4
+ 8 Testemunha 6165     8 Inca           4  0.97  12      31 196.   29.6
+ 9 UFV 02              9 Predileta      1  0.97   8       8  87.4  18.6
+10 UFV 02             10 Predileta      2  1.9   12      12 133.   23.7
+# ... with 86 more rows</code></pre>
+<div id="tipos-de-valores-e-ocorrência-de-valores-ausentes."
+class="section level3">
+<h3>Tipos de valores e ocorrência de valores ausentes.</h3>
+<pre class="r"><code>plot_intro(dados)</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="perfil-dos-valores-ausentes." class="section level3">
+<h3>Perfil dos valores ausentes.</h3>
+<pre class="r"><code>plot_missing(dados)</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="distribuiçãoo-das-variáveis-qualitativas."
+class="section level3">
+<h3>Distribuiçãoo das variáveis qualitativas.</h3>
+<pre class="r"><code>plot_bar(dados)</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="distribuiçãoo-das-variáveis-quantitativas."
+class="section level3">
+<h3>Distribuiçãoo das variáveis quantitativas.</h3>
+<pre class="r"><code>plot_histogram(dados)</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="examinar-relações-de-forma-ágil." class="section level1">
+<h1>Examinar relações de forma Ágil.</h1>
+<pre class="r"><code>library(esquisse)</code></pre>
+<pre class="r"><code>esquisser(dados)</code></pre>
 <div id="sintaxe-básica-do-ggplot2" class="section level2">
 <h2>Sintaxe básica do <code>ggplot2</code></h2>
 <p>A função <code>ggplot()</code> necessita de no mínimo 3 elementos
@@ -824,14 +1075,6 @@ importar todas as bibliotecas presentes nele, incluindo o
 <code>ggplot2</code>.</p>
 <pre class="r"><code>#install.packages(&quot;tidyverse&quot;) # Instalar o tidyverse
 library(tidyverse)</code></pre>
-<pre><code>-- Attaching packages --------------------------------------- tidyverse 1.3.2 --
-v ggplot2 3.3.6     v purrr   0.3.4
-v tibble  3.1.8     v dplyr   1.0.9
-v tidyr   1.2.0     v stringr 1.4.1
-v readr   2.1.2     v forcats 0.5.2
--- Conflicts ------------------------------------------ tidyverse_conflicts() --
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()</code></pre>
 <p>Importar os dados exemplos</p>
 <pre class="r"><code>dados &lt;- read_csv(&quot;data/dados.csv&quot;)       # Função para importar os dados</code></pre>
 <pre><code>Rows: 96 Columns: 9
@@ -881,14 +1124,14 @@ formas.</p>
 <code>ggplot()</code>.</p>
 <pre class="r"><code>ggplot(dados, aes(x = id, y = area)) +
   geom_point()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>2 - Utilizando o pipe <code>%&gt;%</code>. Nesse caso, não há
 necessidade de inserir o banco de dados dentro da função
 <code>ggplot()</code>.</p>
 <pre class="r"><code>dados %&gt;%
   ggplot(aes(x = id, y = area)) +
   geom_point()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-12-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Como visto no código acima, ao usar a função <code>ggplot()</code>,
 usamos o símbolo <code>+</code> para adicionar ou alterar o gráfico.
 Aqui adicionamos a dispersão dos dados, mas poderíamos adicionar
@@ -901,7 +1144,7 @@ geométrica para <code>geom_line()</code></p>
 <pre class="r"><code>dados %&gt;%
   ggplot(aes(x = id, y = area)) +
   geom_line()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-13-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gráfico-de-barras-e-colunas" class="section level3">
 <h3>Gráfico de barras e colunas</h3>
@@ -910,14 +1153,14 @@ geométrica para <code>geom_line()</code></p>
 <pre class="r"><code>dados %&gt;%
   ggplot(aes(x = id, y = area)) +
   geom_col()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-14-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>E para o gráfico de barras usamos a função <code>geom_bar()</code>,
 mas aqui a função cria uma contagem dos dados, então devemos atribuir
 apenas uma estética <code>x</code> ou <code>y</code>.</p>
 <pre class="r"><code>dados %&gt;%
   ggplot(aes(x = area)) +
   geom_bar()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-7-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-15-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Para que o gráfico de barras seja equivalente ao gráfico de colunas,
 atribuímos o argumento <code>stat="identity"</code> dentro da função
 <code>geom_bar()</code>. Aqui devemos especificar tanto o <code>x</code>
@@ -925,7 +1168,7 @@ ou <code>y</code>.</p>
 <pre class="r"><code>dados %&gt;%
   ggplot(aes(x = id, y = area)) +
   geom_bar(stat = &quot;identity&quot;) </code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-8-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="histograma" class="section level3">
 <h3>Histograma</h3>
@@ -937,7 +1180,7 @@ dos dados, então devemos atribuir apenas uma estética <code>x</code> ou
   ggplot(aes(x = area)) +
   geom_histogram()</code></pre>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-17-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Esse gráfico é muito utilizado para comparar a frequência de dados
 contínuos como <code>area</code> com dados categóricos como
 <code>gen</code>. Veja um exemplo:</p>
@@ -947,7 +1190,7 @@ contínuos como <code>area</code> com dados categóricos como
   geom_vline(aes(xintercept = 300)) +
   geom_hline(aes(yintercept = 10))</code></pre>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-10-1.png" width="768" style="display: block; margin: auto;" />
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-18-1.png" width="768" style="display: block; margin: auto;" />
 Para plotar uma reta no gráfico, podemos utilizar a função
 <code>geom_vline()</code> para linhas verticais ou
 <code>geom_hline()</code> para linhas horizontais.</p>
@@ -963,7 +1206,7 @@ dados %&gt;%
   geom_histogram(bins = 10) +
   geom_vline(aes(xintercept = mean_area$mean_area[1])) +
   geom_vline(aes(xintercept = mean_area$mean_area[2]))</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-19-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="boxplot" class="section level3">
 <h3>Boxplot</h3>
@@ -974,7 +1217,7 @@ combinar dados contínuos <code>area</code> com dados categóricos
 <pre class="r"><code>dados %&gt;%
   ggplot(aes(y = area, x = gen)) +
   geom_boxplot()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-12-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-20-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="correlação" class="section level3">
 <h3>Correlação</h3>
@@ -987,14 +1230,34 @@ href="https://tiagoolivoto.github.io/metan/index.html">(mais informações
 sobre esse pacote)</a> para retornar uma matriz de correlação das nossas
 variáveis e a função <code>plot()</code> para plotar o gráfico.</p>
 <pre class="r"><code>#install.packages(metan)
+
 library(metan)
+
 coef_cor &lt;- corr_coef(dados %&gt;%
                         select(sev1:areat))
 coef_cor</code></pre>
+<pre><code>---------------------------------------------------------------------------
+Pearson&#39;s correlation coefficient
+---------------------------------------------------------------------------
+       sev1  sev2  sev3  area areat
+sev1  1.000 0.355 0.354 0.431 0.439
+sev2  0.355 1.000 0.671 0.951 0.925
+sev3  0.354 0.671 1.000 0.864 0.880
+area  0.431 0.951 0.864 1.000 0.989
+areat 0.439 0.925 0.880 0.989 1.000
+---------------------------------------------------------------------------
+p-values for the correlation coefficients
+---------------------------------------------------------------------------
+          sev1     sev2     sev3     area    areat
+sev1  0.00e+00 3.82e-04 3.98e-04 1.18e-05 7.58e-06
+sev2  3.82e-04 0.00e+00 7.75e-14 1.16e-49 3.16e-41
+sev3  3.98e-04 7.75e-14 0.00e+00 8.05e-30 4.29e-32
+area  1.18e-05 1.16e-49 8.05e-30 0.00e+00 2.75e-80
+areat 7.58e-06 3.16e-41 4.29e-32 2.75e-80 0.00e+00</code></pre>
 <p>Veja mais sobre as particularidades da função <code>plot()</code> <a
 href="https://tiagoolivoto.github.io/metan/reference/plot.corr_coef.html">aqui</a>.</p>
 <pre class="r"><code>plot(coef_cor)</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-14-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-22-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Se quisermos alterar o tipo de disposição das variáveis para parte
 superior podemos usar o argumento <code>type = "upper"</code>, para que
 não ocorra a ordenação de acordo com o valor da correlação usamos
@@ -1009,13 +1272,13 @@ letra.</p>
   size.text.lab = 14,
   size.text.cor = 5
 )</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-15-1.png" width="768" style="display: block; margin: auto;" />
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-23-1.png" width="768" style="display: block; margin: auto;" />
 Outra forma de visualizar a correlação entre as variáveis é pela função
 <code>corr_plot()</code>. Essa função permite a visualização gráfica e
 numérica de uma matriz de correlação.</p>
 <pre class="r"><code>corr_plot(dados %&gt;%
             select(sev1:areat))</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="regressão" class="section level3">
 <h3>Regressão</h3>
@@ -1033,14 +1296,14 @@ indica se será representado o desvio da reta.</p>
   ggplot(aes(x = id, y = area)) +
   geom_smooth()</code></pre>
 <pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-17-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-25-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Agora vamos plotar uma regressão linear entre <code>area</code> e
 <code>id</code>.</p>
 <pre class="r"><code>dados %&gt;%
   ggplot(aes(x = id, y = area)) +
   geom_smooth(method = lm, se = FALSE)</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-18-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-26-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Se quisermos inserir a fórmula no gráfico, utilizamos a
 <code>stat_poly_eq</code> função do pacote <code>ggpmisc</code>,
 indicando que a estética da equação é <code>..eq.label..</code> e/ ou da
@@ -1069,7 +1332,7 @@ para cada categoria de uma variável</p>
                aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;))) +
   facet_grid( ~ gen)</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-20-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-28-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Também é possível criar facetas para combinação de varáveis.</p>
 <pre class="r"><code>dados %&gt;%
   ggplot(aes(x = id, y = area)) +
@@ -1079,7 +1342,7 @@ para cada categoria de uma variável</p>
                aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;))) +
   facet_grid(gen ~ as.factor(blocos))</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-21-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-29-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="escala" class="section level3">
 <h3>Escala</h3>
@@ -1098,33 +1361,33 @@ para cada categoria de uma variável</p>
   ylim(0, 600)
 p</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-22-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-30-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="coordenadas" class="section level3">
 <h3>Coordenadas</h3>
 <pre class="r"><code># Girar o gráfico
 p + coord_flip()</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-23-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-31-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="temas" class="section level3">
 <h3>Temas</h3>
 <p>Vários temas</p>
 <pre class="r"><code>p + theme_bw()</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-1.png" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>p + theme_linedraw()</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-2.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-2.png" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>p + theme_dark()</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-3.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-3.png" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>p + theme_minimal()</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-4.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-4.png" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>p + theme_classic()</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-5.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-5.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="texto-e-eixos" class="section level3">
 <h3>Texto e eixos</h3>
@@ -1136,7 +1399,7 @@ p + coord_flip()</code></pre>
 texto (label) a ser inserido.</p>
 <pre class="r"><code>p+geom_text(x = 30, y = 450, label = &quot;texto que você quiser escrever&quot;)</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-25-1.png" width="768" style="display: block; margin: auto;" />
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-33-1.png" width="768" style="display: block; margin: auto;" />
 - Títulos</p>
 <p>Para inserir títulos no gráfico usamos a função <code>labs()</code>.
 Para alterar a posição do título usamos o argumento
@@ -1150,7 +1413,7 @@ gráfico, não apenas para o título.</em></p>
   theme(plot.subtitle = element_text(hjust = 0.5)) +          #centralizando o subtítulo
   theme(plot.title = element_text(color = &quot;blue&quot;)) #mudando a cor do título</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-26-1.png" width="768" style="display: block; margin: auto;" />
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-34-1.png" width="768" style="display: block; margin: auto;" />
 - Nome dos eixos</p>
 <p>Para alterar o nomes dos eixos podemos usar as funções
 <code>ylab()</code> e <code>xlab()</code>.</p>
@@ -1158,7 +1421,7 @@ gráfico, não apenas para o título.</em></p>
   #título do eixo y
   xlab(label = &quot;Individuo&quot;) #título do eixo x</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-27-1.png" width="768" style="display: block; margin: auto;" />
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-35-1.png" width="768" style="display: block; margin: auto;" />
 <strong>Para adicionar equações em texto de qualquer parte do gráfico
 usamos a função <code>bquote()</code>. Para valores subescritos
 indicamos entre colchetes entre <code>~</code> : CO[2], por exemplo.
@@ -1175,7 +1438,7 @@ posições podem ser <code>bottom</code> (inferior), <code>top</code>
 (direita).</p>
 <pre class="r"><code>p + theme(legend.position = &quot;top&quot;)</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-28-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-36-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Para inserir a legenda dentro do gráfico temos que atribuir valores
 de posição de x e y dentro do gráfico. x vale de 0 (esquerda) a 1
 (direita) e y vale de 0 (inferior) a 1 (superior). Assim se quisermos
@@ -1186,7 +1449,7 @@ especificar <code>legend.position = c(0.2, 0.8)</code>.</p>
   legend.background = element_rect(fill = &quot;white&quot;, colour = &quot;black&quot;)
 )</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-29-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-37-1.png" width="768" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Remover legendas</li>
 </ul>
@@ -1196,7 +1459,7 @@ caso, atribuímos <code>colour</code> para <code>geom_point()</code>,
 assim devemos especificar <code>guides(colour = FALSE)</code>.</p>
 <pre class="r"><code>p + guides(color = FALSE)</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-30-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-38-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="escalas-de-cores" class="section level2">
@@ -1208,14 +1471,14 @@ valores ou nome das cores, para conhecer lagumas cores disponeis acesse
 href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">aqui</a></p>
 <pre class="r"><code>p + scale_color_manual(values = c(&quot;#999999&quot;, &quot;#E69F00&quot;))</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-31-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-39-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Também podemos especificar por paletas de cores já existentes em
 pacotes. <a
 href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html">Aqui</a>
 você pode visualizar algumas paletas de cores.</p>
 <pre class="r"><code>p + scale_color_brewer()</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-1.png" width="768" style="display: block; margin: auto;" />
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-40-1.png" width="768" style="display: block; margin: auto;" />
 O pacote <a
 href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">ggthemes</a>
 também possui vários temas e paletas que podem ser do seu interesse.</p>
@@ -1223,7 +1486,7 @@ também possui vários temas e paletas que podem ser do seu interesse.</p>
 p + scale_color_gdocs() +
   theme_classic()</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-33-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-41-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="exportar-o-gráfico" class="section level2">
 <h2>Exportar o gráfico</h2>
@@ -1281,7 +1544,7 @@ data %&gt;%
     legend.position = c(0.3, 0.8),
     legend.background = element_rect(fill = &quot;white&quot;, colour = &quot;black&quot;)
   )</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-36-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-44-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="histograma-e-linha-em-um-só-gráfico-3-eixos"
 class="section level3">
@@ -1321,7 +1584,7 @@ ggplot() +
       hjust = 1
     )
   )</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-37-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-45-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gráfico-de-colunas-com-texto" class="section level3">
 <h3>Gráfico de colunas com texto</h3>
@@ -1355,7 +1618,7 @@ dados %&gt;%
   theme(axis.text.x = element_blank(),
         legend.title = element_text()) +
   guides(fill = guide_legend(title = &quot;Tratamentos&quot;))</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-38-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-46-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gráfico-de-segmentos-e-pontos" class="section level3">
 <h3>Gráfico de segmentos e pontos</h3>
@@ -1393,7 +1656,7 @@ imp_trait %&gt;%
     )
   ) +
   coord_flip()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-39-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-47-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gráfico-de-linhas-e-regressão-não-linear"
 class="section level3">
@@ -1411,19 +1674,13 @@ ggplot(progress, aes(Iteration, progress[[1]])) +
   theme_minimal() +
   labs(y = colnames(progress[1]))</code></pre>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-40-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-48-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="agrupando-gráficos-de-boxplot" class="section level3">
 <h3>Agrupando gráficos de boxplot</h3>
-<pre class="r"><code>library(gridExtra)                # Agrupar gráficos em um só</code></pre>
-<pre><code>
-Attaching package: &#39;gridExtra&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:dplyr&#39;:
-
-    combine</code></pre>
-<pre class="r"><code>library(extrafont)               # Pacote para alterar a fonte do texto</code></pre>
-<pre><code>Registering fonts with R</code></pre>
-<pre class="r"><code>library(ggpubr)                   # fornece algumas funções fáceis de usar para criar e personalizar gráficos
+<pre class="r"><code>library(gridExtra)                # Agrupar gráficos em um só
+library(extrafont)               # Pacote para alterar a fonte do texto
+library(ggpubr)                   # fornece algumas funções fáceis de usar para criar e personalizar gráficos
 
 
 herd_prod &lt;- read.table(&quot;data/prod_herd.txt&quot;, header = T)
@@ -1501,7 +1758,7 @@ p &lt;- annotate_figure(prod,
                        size = 14
                      ))
 p</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-41-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-49-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="dispersão-e-regressão-com-abline" class="section level3">
 <h3>Dispersão e regressão com abline</h3>
@@ -1544,7 +1801,7 @@ ggplot(graf, aes(
     legend.position = &quot;bottom&quot;,
     text = element_text(family = &quot;Times New Roman&quot;, size = 12)
   )</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-42-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-50-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="dispersão-com-regressão-linear-e-equação"
 class="section level3">
@@ -1571,7 +1828,7 @@ graf %&gt;%
   scale_color_gdocs() +
   labs(x = &quot;Year&quot;,
        colour = &quot;Study&quot;)</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-43-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-51-1.png" width="768" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1640,6 +1897,7 @@ loaded via a namespace (and not attached):
 [103] grid_4.1.3          git2r_0.30.1        reprex_2.0.2       
 [106] digest_0.6.29       httpuv_1.6.5        numDeriv_2016.8-1.1
 [109] textshaping_0.3.6   munsell_0.5.0       bslib_0.4.0        </code></pre>
+</div>
 </div>
 </div>
 </div>

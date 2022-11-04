@@ -7,8 +7,8 @@ unnamed-chunk-6
 unnamed-chunk-7	
 unnamed-chunk-8	
 unnamed-chunk-9	
-unnamed-chunk-10	
-unnamed-chunk-11	mean_area
+unnamed-chunk-10	dados
+unnamed-chunk-11	
 unnamed-chunk-12	
 unnamed-chunk-13	
 unnamed-chunk-14	
@@ -16,10 +16,10 @@ unnamed-chunk-15
 unnamed-chunk-16	
 unnamed-chunk-17	
 unnamed-chunk-18	
-unnamed-chunk-19	
+unnamed-chunk-19	mean_area
 unnamed-chunk-20	
-unnamed-chunk-21	
-unnamed-chunk-22	p
+unnamed-chunk-21	coef_cor
+unnamed-chunk-22	
 unnamed-chunk-23	
 unnamed-chunk-24	
 unnamed-chunk-25	
@@ -27,18 +27,26 @@ unnamed-chunk-26
 unnamed-chunk-27	
 unnamed-chunk-28	
 unnamed-chunk-29	
-unnamed-chunk-30	
+unnamed-chunk-30	p
 unnamed-chunk-31	
 unnamed-chunk-32	
 unnamed-chunk-33	
 unnamed-chunk-34	
 unnamed-chunk-35	
-unnamed-chunk-36	data	yield
-unnamed-chunk-37	yield
-unnamed-chunk-38	dados
-unnamed-chunk-39	imp_trait
-unnamed-chunk-40	progress
-unnamed-chunk-41	cv_p	cv_prod	cv_prod1	h_p	herd_prod	m_p	media_prod	p	prod
-unnamed-chunk-42	a	facet_labeller	graf
+unnamed-chunk-36	
+unnamed-chunk-37	
+unnamed-chunk-38	
+unnamed-chunk-39	
+unnamed-chunk-40	
+unnamed-chunk-41	
+unnamed-chunk-42	
 unnamed-chunk-43	
 session-info-chunk-inserted-by-workflowr	
+unnamed-chunk-44	data	yield
+unnamed-chunk-45	yield
+unnamed-chunk-46	dados
+unnamed-chunk-47	imp_trait
+unnamed-chunk-48	progress
+unnamed-chunk-49	cv_p	cv_prod	cv_prod1	h_p	herd_prod	m_p	media_prod	p	prod
+unnamed-chunk-50	a	facet_labeller	graf
+unnamed-chunk-51	

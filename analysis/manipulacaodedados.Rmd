@@ -222,8 +222,9 @@ Método 1 - Usando `select_if`
 
 ```{r}
 dados %>%
-  select(where(is.numeric))
+  select_if(is.numeric)
 ```
+
 Escolha as colunas que possuem um determinado texto
 
 ```{r}
@@ -240,11 +241,27 @@ Criando uma variável que é a soma das variáveis de severidade
 dados <- dados %>%
   mutate(soma_sev = sev1 + sev2 + sev3)
 ```
+
 Convertendo em fator as variáveis trat e gen
 
 ```{r}
 dados <- dados %>%
   mutate(trat = as.factor(trat), gen = as.factor(gen))
+```
+
+Usando sufixos com mutate
+
+
+```{r}
+dados <- dados %>%
+  mutate_if(is.factor, as.character)
+```
+
+Realizando o processo contrário
+
+```{r}
+dados <- dados %>%
+  mutate_if(is.character, as.factor)
 ```
 
 ### `trasmute()`

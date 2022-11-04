@@ -18,6 +18,55 @@ github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE, cache.lazy = FALSE, fig.width = 8, fig.height = 7, warning = FALSE, autodep = TRUE)
 ```
 
+## Análise exploratória
+
+```{r}
+library(tidyverse)
+library(DataExplorer)
+```
+
+Importar os dados exemplos
+
+```{r}
+dados <- read_csv("data/dados.csv")       # Função para importar os dados
+
+dados
+```
+
+### Tipos de valores e ocorrência de valores ausentes.
+```{r}
+plot_intro(dados)
+```
+
+### Perfil dos valores ausentes.
+```{r}
+plot_missing(dados)
+```
+
+### Distribuiçãoo das variáveis qualitativas.
+
+```{r}
+plot_bar(dados)
+```
+
+
+### Distribuiçãoo das variáveis quantitativas.
+
+```{r}
+plot_histogram(dados)
+```
+
+# Examinar relações de forma Ágil.
+```{r}
+library(esquisse)
+```
+
+```{r eval = FALSE}
+esquisser(dados)
+```
+
+
+
 ## Sintaxe básica do `ggplot2`
 
 A função `ggplot()` necessita de no mínimo 3 elementos para a produção dos gráficos:
@@ -162,9 +211,11 @@ dados %>%
 
 Para gráficos de correlação precisamos antes de plotar o gráfico calcular a correlação entre as variáveis. Vamos estimar a correlação das variaveis `sev1`, `sev2`, `sev3`, `area` e `areat`. Usaremos a função `corr_coef()`, do pacote `metan` [(mais informações sobre esse pacote)](https://tiagoolivoto.github.io/metan/index.html) para retornar uma matriz de correlação das nossas variáveis e a função `plot()` para plotar o gráfico. 
 
-```{r, eval=FALSE}
+```{r}
 #install.packages(metan)
+
 library(metan)
+
 coef_cor <- corr_coef(dados %>%
                         select(sev1:areat))
 coef_cor
