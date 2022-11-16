@@ -11,14 +11,14 @@
 
 <meta name="author" content="Costa, W. G." />
 
-<meta name="date" content="2022-11-04" />
+<meta name="date" content="2022-11-15" />
 
 <title>Análise Gráfica no R </title>
 
 <script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -35,8 +35,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -59,18 +57,105 @@ div.section {
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -356,7 +441,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/wevertongomescosta/">
+  <a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R">
     <span class="fa fa-github"></span>
      
   </a>
@@ -373,8 +458,9 @@ div.tocify {
 <h1 class="title toc-ignore"><p>Análise Gráfica no R <img
 src="images/logo.jpg" style="display:block; margin:0 auto"
 width="100" /></p></h1>
-<h4 class="author">Costa, W. G.</h4>
-<h4 class="date">2022-11-04</h4>
+<h4 class="author">Costa, W. G.<a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a></h4>
+<h4 class="date">2022-11-15</h4>
 
 </div>
 
@@ -403,13 +489,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-11-04
+<strong>Last updated:</strong> 2022-11-15
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 2
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong>
@@ -507,177 +593,16 @@ versions is critical for reproducibility.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
-<div id="strongCachestrongdetected" class="panel-collapse collapse">
+<div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-The following chunks had caches available:
-<ul>
-<li>
-session-info-chunk-inserted-by-workflowr
-</li>
-<li>
-unnamed-chunk-1
-</li>
-<li>
-unnamed-chunk-10
-</li>
-<li>
-unnamed-chunk-11
-</li>
-<li>
-unnamed-chunk-12
-</li>
-<li>
-unnamed-chunk-13
-</li>
-<li>
-unnamed-chunk-14
-</li>
-<li>
-unnamed-chunk-15
-</li>
-<li>
-unnamed-chunk-16
-</li>
-<li>
-unnamed-chunk-17
-</li>
-<li>
-unnamed-chunk-18
-</li>
-<li>
-unnamed-chunk-19
-</li>
-<li>
-unnamed-chunk-2
-</li>
-<li>
-unnamed-chunk-20
-</li>
-<li>
-unnamed-chunk-21
-</li>
-<li>
-unnamed-chunk-22
-</li>
-<li>
-unnamed-chunk-23
-</li>
-<li>
-unnamed-chunk-24
-</li>
-<li>
-unnamed-chunk-25
-</li>
-<li>
-unnamed-chunk-26
-</li>
-<li>
-unnamed-chunk-27
-</li>
-<li>
-unnamed-chunk-28
-</li>
-<li>
-unnamed-chunk-29
-</li>
-<li>
-unnamed-chunk-3
-</li>
-<li>
-unnamed-chunk-30
-</li>
-<li>
-unnamed-chunk-31
-</li>
-<li>
-unnamed-chunk-32
-</li>
-<li>
-unnamed-chunk-33
-</li>
-<li>
-unnamed-chunk-34
-</li>
-<li>
-unnamed-chunk-35
-</li>
-<li>
-unnamed-chunk-36
-</li>
-<li>
-unnamed-chunk-37
-</li>
-<li>
-unnamed-chunk-38
-</li>
-<li>
-unnamed-chunk-39
-</li>
-<li>
-unnamed-chunk-4
-</li>
-<li>
-unnamed-chunk-40
-</li>
-<li>
-unnamed-chunk-41
-</li>
-<li>
-unnamed-chunk-42
-</li>
-<li>
-unnamed-chunk-43
-</li>
-<li>
-unnamed-chunk-44
-</li>
-<li>
-unnamed-chunk-45
-</li>
-<li>
-unnamed-chunk-46
-</li>
-<li>
-unnamed-chunk-47
-</li>
-<li>
-unnamed-chunk-48
-</li>
-<li>
-unnamed-chunk-49
-</li>
-<li>
-unnamed-chunk-5
-</li>
-<li>
-unnamed-chunk-50
-</li>
-<li>
-unnamed-chunk-51
-</li>
-<li>
-unnamed-chunk-6
-</li>
-<li>
-unnamed-chunk-7
-</li>
-<li>
-unnamed-chunk-8
-</li>
-<li>
-unnamed-chunk-9
-</li>
-</ul>
-<p>To ensure reproducibility of the results, delete the cache directory
-<code>analise-grafica_cache</code> and re-run the analysis. To have
-workflowr automatically delete the cache directory prior to building the
-file, set <code>delete_cache = TRUE</code> when running
-<code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
@@ -699,15 +624,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreebcef040f988f92ddbddcef090f40246d4efa1dd1targetblankbcef040a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtree5c6cf18fe6093c82627952dac04f3b9646988edftargetblank5c6cf18a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/bcef040f988f92ddbddcef090f40246d4efa1dd1" target="_blank">bcef040</a>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/5c6cf18fe6093c82627952dac04f3b9646988edf" target="_blank">5c6cf18</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreebcef040f988f92ddbddcef090f40246d4efa1dd1targetblankbcef040a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtree5c6cf18fe6093c82627952dac04f3b9646988edftargetblank5c6cf18a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -717,7 +642,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/bcef040f988f92ddbddcef090f40246d4efa1dd1" target="_blank">bcef040</a>.
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/5c6cf18fe6093c82627952dac04f3b9646988edf" target="_blank">5c6cf18</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -734,152 +659,173 @@ were generated:
 Ignored files:
     Ignored:    .Rproj.user/
 
-Untracked files:
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-10_206890308a684fcd46abbf982bb24000.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-11_39dc6a0e4cf3bf097d142871e9c116fe.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-12_0815f8aeb8b52340f7dcf6f44a5d6977.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-13_72ce879ebf950222e6c841eccc0cba64.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-14_91c6820876976fca85833fb96ef19246.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-15_4f5130d492046c0d197d63d347b701ab.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-16_22fe9f4f9ad58bbd8df22afdfac5e07b.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-17_e889d16aa69e9c794b985898dad2c4ba.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-18_3bf1639087a6f08cd11bc8fbfe2894ce.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-19_a757cfe20b21df538a762f49b4e6e89c.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-1_f00595bd22695017ee90704a77ad22f7.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-20_629b3a9ff466dadc9a8e68b74f085534.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-21_01a2141f497a66105a2764201dde0201.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-22_410ac0b82053d9df2e246ea93e4339d8.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-23_a1cd4698f2c88de740d088f6310e3c67.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-24_f18ef3a0d549df95e101d25fb6e138e3.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-25_28bad1b99b3b71eb4392b2260b802d40.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-26_fea6f04794533b81cb7973a294a3f657.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-27_80c06a6f53a8c522ec52445d51c25f75.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-28_f28b17e2246736ab17bfcf53e495153f.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-29_66bc8fc685da5ef16e662363166e82ea.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-30_5d74c89a8cae85e22a2414270c8a7dbf.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-31_6476d018158e3f58ff272b2a497da0f3.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-32_d481a1f55efb90259435f2a7307b8f02.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-33_34e4ff67da5d451d59b0b45bc8aec631.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-34_36ac024ea6df234aa9c184afd9564259.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-35_e91b1ad90188c19eb700a37f8cd06b26.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-36_f1b6768b75ba0b604bf56f3badaf2940.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-37_2decb112c8c1e6cb53f10a2f09c78170.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-38_cc9c1382630210ceb5473970e422854e.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-39_c23b66d6977125399b11f232b342b23c.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-3_de354d1aebc4feeeff942c066ab9a829.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-40_41ce386c92ff67ec95269dab1d41e631.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-41_330ea16c357bcaa561c8884155ff0791.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-42_18cfdd267073bbba0bcb15fd66bd48d3.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-43_976c32701068e1f3aad3c2de8ee73c68.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-44_cb682b840df159c75d47843a4890a287.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-45_2a70a8725fe4e3bf3463fd0f3413d26c.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-46_a76732ddef0c3d36b7bfaac6870c9a1b.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-47_1d8615f2894ef3b693957532350c3cce.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-48_76c2cdd5493a85d0044dc5c99cffdd05.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-49_aeccb87608249ad0131ec11da5dd6e1b.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-4_893cf17c376749aba5452dc82f571dcb.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-50_6cf4671a8a3deaa1d04b5f74e8a372a5.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-51_9d77613272d1c9cee7dd5b326d88cd4c.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-5_c5783974c2686745f1557972908154d3.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-6_7b37aaab323ad1e2bbba3c31aac011e3.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-7_59ba06a9d3dfacd317633a4a52bd1392.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-8_27498a7f2a27d917fcde75b1fb145479.RData
-    Untracked:  analysis/analise-grafica_cache/html/unnamed-chunk-9_271f89d6093519b7257adf0c039f7387.RData
-    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-22_24e054a280f2d8f6e963d999c6d01f6d.RData
-    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-26_8ac5276625a143701148a4098c416715.RData
-    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-27_283945c95111e6b1707475b412a6e20e.RData
-    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-28_f9c20edd31e6b60da42bc459364667d4.RData
-    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-39_fca15e21039651c74768d58ba7b9ec70.RData
-    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-40_afbddccce17ae6325aa5da89af3ce7aa.RData
-    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-41_e29c23fd0dbeff4b5bf13537b41fcffb.RData
-    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-42_50855be455ae24e1ff5f2ff4323af77f.RData
-    Untracked:  grÃ¡fico.tiff
-
 Unstaged changes:
+    Modified:   analysis/Tutorial.Rmd
+    Deleted:    analysis/Tutorial_cache/html/__globals
+    Deleted:    analysis/Tutorial_cache/html/__objects
+    Deleted:    analysis/Tutorial_cache/html/__packages
+    Deleted:    analysis/Tutorial_cache/html/session-info-chunk-inserted-by-workflowr_39e77ec4e4e24071c6198b66644d04dc.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-10_5d700cc04ecbd56e5cba4f7b0f514262.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-11_e618cec3ebb42aae668ba4c2a9a741ed.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-12_677ec995d44983fdab729531c297ed4a.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-13_85555365b482653f03668eea7c9d3f12.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-14_8ad3912482174714390a445e0fd762bb.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-15_52630bf16a81b49dc2fb93600873e5bc.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-16_b2c82f8ecb294d71b6f8945151e938b4.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-17_51c21af285107b888ee09717a9dc6d71.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-18_e49eb62dbfc54028b8038a6fd4d9e22c.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-19_3cf64526b945d4ea3014e97f6b8dfd77.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-1_05c116ec03587effd80a5fbcca99aec6.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-20_16a52e0541d62c48ea04e85537c711da.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-21_c775e3feffee9cc7d713d0b08d2b7797.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-22_efc54ca034c695582a077dbc0b72f8e6.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-23_db7a2c5aa55a9b6aa3e106d91b248dc9.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-24_50a37f7e1a605ceddc13271b55eb5a53.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-25_3615c9b28cb383a6e6b99ca05745e546.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-26_b3f299ee9132672cca046427bd56ed04.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-27_88d5c3c043df023ec7ed524a08ac1d42.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-28_8ee73e0ae4420d262028ee772dcd0f95.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-29_248d34ff840bc15734ad1e0549a68854.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-2_ab2f09919036245c2250e4532406e7e1.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-30_cf17d2a7580b6a7023babec510ce7835.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-31_32a61356b411c1505f986f214581f1ad.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-32_964e8749b126823363f63d7450be2160.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-33_a88c27715f405bba786d75ee4ce06797.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-34_e24a03f8b918e32db24e37b9eb24e80d.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-35_7da52ce48bd7f28183547383a80f7aa4.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-36_2b64ceb9ddfc82129c5c0c850a5928d9.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-37_4c136dcdfb175fe7415d31dd32c03691.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-38_df951bfd23ba4da3b14e74d152ae8cb3.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-39_e1e2e91d2adad6da32e7fb4e5a306c50.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-3_a592597c1c0468a8cef88d14281cccf0.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-40_6a5bd13c78bb3b906c0f19790f736dbc.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-41_bbd987a46b15c5b786073bcfb75f9731.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-42_883b6bd2b9cb3016de9a7365ace66a0e.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-43_a83a7c6d878f895c4eb8beab8b5f5f35.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-44_0e217f6f7cf920a64d40e4b4012a6c36.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-45_2d012027cd643b1121d7228192bac2db.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-46_384274d9cdaaba7fc9f3ac09e9187645.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-4_da037b7c1f22615918226fa093c74ebc.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-5_6785d4f33de99a450ff8497b625fbc63.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-6_c01fde74468faf7a30e3761f0a065768.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-7_5cb161469e14d5f100a2c51766507ac2.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-8_a05ccaef8ba963263c0332b800e7298f.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-9_90953a1306f15b6899b616688eb19935.RData
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
     Modified:   analysis/analise-grafica.Rmd
-    Modified:   analysis/analise-grafica_cache/html/__globals
-    Modified:   analysis/analise-grafica_cache/html/__objects
-    Modified:   analysis/analise-grafica_cache/html/__packages
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-10_f6e41742bd537e2ed3f1297656e6646e.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-11_b23b8a3289ec091285cd50ab820afea6.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-12_38ebc28c9a0096ebe87ff02d7702dc6d.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-13_248766b82995adf69001fdee7ceba54b.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-14_c1d42c5e40355baee83fff7ac88293d3.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-15_de4dd0eaca22d741da5bad19dfdffb76.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-16_89787db9f65e724e79c98a63db820a4d.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-17_c77db0b834c89146514b7172ea774fde.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-18_d0d2c770a4e86e11d5636dad8f404554.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-19_449b3cc459d19587dfef1b189529142b.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-1_70a5c485b15707eb53bb2154a89171c0.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-20_e0b0c0ebc0deb824ee7f79b878eb7f57.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-21_404059aaa0cd1f206dd4505c0f35cbd3.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-22_ad7b077eaebe17841a4997f546209b31.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-23_c42b8ad3db266c7d548f01ef8f103dac.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-24_0b648fc0bc4a5c2cd1a2519ff9899572.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-25_5af0f5350cea00cfc04177dfc5a03ce3.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-26_77cbe5785eb0ad2ab1f6b08e5446784e.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-27_1c06495076b8f55548eda6c36e57b0d1.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-28_9a89d1ac5fe4e2e85e41863b8d2c6772.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-29_b89cf0445aee7288732f5919f53138b7.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-30_9b55abe0371fa03e5445e7bef4584032.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-31_7638bb817a624dc7ba48939fc873f6bf.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-32_bf0eeb8fe39a18910a8d062bd3f478de.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-33_790e2814cebb1cc788127ed44a6aa4ae.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-34_c6898dbf81d037887b49f6d020184595.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-35_56d6ff8556cc823dbfe6c41345acb462.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-36_c2f2661bd01737072c10d20a2907abdd.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-37_61fd341717afd2caeec7360bd092e654.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-38_2aa69205a5ccb21bc1338858ae08bbb4.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-39_a76699bd9096c031e64ed9128f58f7a5.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-3_9411635eed1503a2ba2370453360a976.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-40_ea15539715ee48562d3a46ca41505f61.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-41_5177965151a44b0cde2470be8facafd8.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-42_b0dc3fe162b154ca0e3572bbe695b442.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-43_f4f6068aa4b36bda9f9832d0002619e4.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-4_9eca8551521869084ace69073ddaa587.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-5_9cec18c541e8729c3b87cd61eb9c1140.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-6_a783f7707642300678df8a6a11be0d6f.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-7_7ad59a4beb9756efe170bd9426f0e0d4.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-8_a453cfc8fc5747d7cb1f481a0f163784.RData
-    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-9_83cd3f7ff145314d73151e941c001700.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-27_feeb5e3cab3628ddfcd49a6adbb4c08b.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-28_f5a8868823c2cf35ce2b671c6acca1e4.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-29_638d5ea39fca427a9b1650b7b04298ca.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-34_53fcd0b63f68ffd4cda202917bb22c94.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-35_52506aee3aae08e8df7c6583837128b2.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-38_53650737d971ba9e5682854f5a60ffeb.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-39_1740a9f973744154b605e5e778812418.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-40_e2e2eb9726a566f54e46866de9a65e5f.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-41_49f98a53d313e2dea53d670ead9b7c87.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-42_d57804ba4f4ebd9f06d75f42e20d3e63.RData
-
-Staged changes:
+    Deleted:    analysis/analise-grafica_cache/html/__globals
+    Deleted:    analysis/analise-grafica_cache/html/__objects
+    Deleted:    analysis/analise-grafica_cache/html/__packages
+    Deleted:    analysis/analise-grafica_cache/html/session-info-chunk-inserted-by-workflowr_facb8e93a72c00b9777b28ce546eaf13.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-10_206890308a684fcd46abbf982bb24000.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-11_39dc6a0e4cf3bf097d142871e9c116fe.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-12_0815f8aeb8b52340f7dcf6f44a5d6977.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-13_72ce879ebf950222e6c841eccc0cba64.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-14_91c6820876976fca85833fb96ef19246.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-15_4f5130d492046c0d197d63d347b701ab.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-16_22fe9f4f9ad58bbd8df22afdfac5e07b.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-17_e889d16aa69e9c794b985898dad2c4ba.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-18_3bf1639087a6f08cd11bc8fbfe2894ce.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-19_a757cfe20b21df538a762f49b4e6e89c.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-1_f00595bd22695017ee90704a77ad22f7.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-20_629b3a9ff466dadc9a8e68b74f085534.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-21_01a2141f497a66105a2764201dde0201.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-22_410ac0b82053d9df2e246ea93e4339d8.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-23_a1cd4698f2c88de740d088f6310e3c67.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-24_f18ef3a0d549df95e101d25fb6e138e3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-25_28bad1b99b3b71eb4392b2260b802d40.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-26_fea6f04794533b81cb7973a294a3f657.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-27_80c06a6f53a8c522ec52445d51c25f75.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-28_f28b17e2246736ab17bfcf53e495153f.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-29_66bc8fc685da5ef16e662363166e82ea.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-2_840ba46fc34c674d6f170173e18e2fcd.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-30_5d74c89a8cae85e22a2414270c8a7dbf.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-31_6476d018158e3f58ff272b2a497da0f3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-32_d481a1f55efb90259435f2a7307b8f02.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-33_34e4ff67da5d451d59b0b45bc8aec631.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-34_36ac024ea6df234aa9c184afd9564259.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-35_e91b1ad90188c19eb700a37f8cd06b26.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-36_f1b6768b75ba0b604bf56f3badaf2940.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-37_2decb112c8c1e6cb53f10a2f09c78170.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-38_cc9c1382630210ceb5473970e422854e.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-39_c23b66d6977125399b11f232b342b23c.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-3_de354d1aebc4feeeff942c066ab9a829.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-40_41ce386c92ff67ec95269dab1d41e631.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-41_330ea16c357bcaa561c8884155ff0791.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-42_18cfdd267073bbba0bcb15fd66bd48d3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-43_976c32701068e1f3aad3c2de8ee73c68.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-44_cb682b840df159c75d47843a4890a287.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-45_2a70a8725fe4e3bf3463fd0f3413d26c.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-46_a76732ddef0c3d36b7bfaac6870c9a1b.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-47_1d8615f2894ef3b693957532350c3cce.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-48_76c2cdd5493a85d0044dc5c99cffdd05.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-49_aeccb87608249ad0131ec11da5dd6e1b.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-4_893cf17c376749aba5452dc82f571dcb.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-50_6cf4671a8a3deaa1d04b5f74e8a372a5.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-51_9d77613272d1c9cee7dd5b326d88cd4c.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-5_c5783974c2686745f1557972908154d3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-6_7b37aaab323ad1e2bbba3c31aac011e3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-7_59ba06a9d3dfacd317633a4a52bd1392.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-8_27498a7f2a27d917fcde75b1fb145479.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-9_271f89d6093519b7257adf0c039f7387.RData
+    Modified:   analysis/index.Rmd
+    Deleted:    analysis/index_cache/html/__globals
+    Deleted:    analysis/index_cache/html/__objects
+    Deleted:    analysis/index_cache/html/__packages
+    Deleted:    analysis/index_cache/html/session-info-chunk-inserted-by-workflowr_54bfedccea8b7e7d61fc7fca6bcc2241.RData
+    Modified:   analysis/introducao-r.Rmd
+    Modified:   analysis/license.Rmd
     Modified:   analysis/manipulacaodedados.Rmd
-    Modified:   analysis/manipulacaodedados_cache/html/__globals
-    Modified:   analysis/manipulacaodedados_cache/html/__objects
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-22_68742dd48e8c953dfeb1036e8a21f36a.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-26_72af52a957ddd04fc21e71d969f90ce8.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-29_fb5241bba1f58a8ed02d2aac0d0da820.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-30_043c3f2b153cffc2b4c37f59a793f4a6.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-30_da7ce0934d64eea91e1648bd98af9a89.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-31_69380287f8ea2b7813e413a4662bf468.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-31_af249045006699523b2c6a507df10f66.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-32_1fb6a43e726103d82cb04aecf865c1ad.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-33_4c0cda238d46e26292691a2b4c98b06f.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-33_7853744433478610d1f0001d80890041.RData
-    Modified1:  analysis/manipulacaodedados_cache/html/unnamed-chunk-32_bfc4c4ab37e41ae585f8947dd76249b4.RData
-    Modified2:  analysis/manipulacaodedados_cache/html/unnamed-chunk-34_2e5f546c7fc634182b6f163d3ba03118.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-35_f7ccf154b087259bb54684a6397089d7.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-36_58f8835af5d3a75187879fd6de23ad99.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-36_b2ed78ce4be3020cdfaf60c426ab07c6.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-37_c17688d3d99d256aece9fe30372268e3.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-37_fa4821d374c98b794a2abe83a2c8d71b.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-38_52f0f7d017da31542a6bb1898d352bbc.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-43_35b71a4beb67d8733bee494fc25eaea8.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-43_7d6fcfb57d116a766c8bc7a8b5907cc0.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-44_317c58199bd9830efb460a85bf07d163.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-44_60c5043cc442b9694f267c098a8fc486.RData
-    New:        analysis/manipulacaodedados_cache/html/unnamed-chunk-45_e20749add7c9d35db02d8dbb1d055e06.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/__globals
+    Deleted:    analysis/manipulacaodedados_cache/html/__objects
+    Deleted:    analysis/manipulacaodedados_cache/html/__packages
+    Deleted:    analysis/manipulacaodedados_cache/html/session-info-chunk-inserted-by-workflowr_416d01b0b6e37ea2f9cf30071ecf6d3b.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-10_fd0fe17f39a78c1bcff1908913b73b0b.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-11_eeebf5e25a12e49e078381cb2ca7e6b6.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-12_ae77a1007b57162d5ee9b2f7c8892c19.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-13_97b3ad301e30520f72f171b0f2bc5d1d.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-14_8df02393b7c6b77359726d23b4544624.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-15_c3b38ddfc5ec89141db37d06a6c2062f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-16_eca8e81e94d37902cbc341ceb705143f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-17_26dadc17fd32b1d0573bf810faceeeaa.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-18_1155afacbd1816b7fd151952fc2d80cf.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-19_25245b0107bba9a621363440299577af.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-1_9a07137184ec908fe07ea0a572cb6755.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-20_98343bba74135be0a35f227e681855b2.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-21_5f3ac6face900705bb13562762fac3f2.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-22_24e054a280f2d8f6e963d999c6d01f6d.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-23_8869148d8eac18e22a5633f8f8c0befb.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-24_6daac7438b96922e218bc77086ab5cda.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-25_55c457b948919c2e7426750e245ca1ec.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-26_8ac5276625a143701148a4098c416715.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-27_283945c95111e6b1707475b412a6e20e.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-28_f9c20edd31e6b60da42bc459364667d4.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-29_fb5241bba1f58a8ed02d2aac0d0da820.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-2_ab8030907a2a6ae5fc99ccdef427333f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-30_043c3f2b153cffc2b4c37f59a793f4a6.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-31_af249045006699523b2c6a507df10f66.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-32_1fb6a43e726103d82cb04aecf865c1ad.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-33_4c0cda238d46e26292691a2b4c98b06f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-34_2e5f546c7fc634182b6f163d3ba03118.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-35_f7ccf154b087259bb54684a6397089d7.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-36_58f8835af5d3a75187879fd6de23ad99.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-37_fa4821d374c98b794a2abe83a2c8d71b.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-38_52f0f7d017da31542a6bb1898d352bbc.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-39_fca15e21039651c74768d58ba7b9ec70.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-3_e5b1e9c02068a692eed7dd9a7d744f33.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-40_afbddccce17ae6325aa5da89af3ce7aa.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-41_e29c23fd0dbeff4b5bf13537b41fcffb.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-42_50855be455ae24e1ff5f2ff4323af77f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-43_7d6fcfb57d116a766c8bc7a8b5907cc0.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-44_317c58199bd9830efb460a85bf07d163.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-45_e20749add7c9d35db02d8dbb1d055e06.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-4_b37249f1106a922313c0d819f45ffaf4.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-5_276ddf6bb2c441eeb8480cc7dc95fa39.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-6_924a432407498e425aa7b0b9b9e6978e.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-7_9776a7816dcc7d379615e40c7aae3e60.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-8_87501f1cc31e330dbcc50d9a406eea84.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-9_0686fa476e3b4fbe750b833a11c04b4b.RData
 
 </code></pre>
 <p>
@@ -925,6 +871,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/blob/5c6cf18fe6093c82627952dac04f3b9646988edf/analysis/analise-grafica.Rmd" target="_blank">5c6cf18</a>
+</td>
+<td>
+WevertonGomesCosta
+</td>
+<td>
+2022-11-04
+</td>
+<td>
+Update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/5c6cf18fe6093c82627952dac04f3b9646988edf/docs/analise-grafica.html" target="_blank">5c6cf18</a>
+</td>
+<td>
+WevertonGomesCosta
+</td>
+<td>
+2022-11-04
+</td>
+<td>
+Update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1002,10 +982,18 @@ Update
 </div>
 <div id="análise-exploratória" class="section level2">
 <h2>Análise exploratória</h2>
-<pre class="r"><code>library(tidyverse)
-library(DataExplorer)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>-- Attaching packages --------------------------------------- tidyverse 1.3.2 --
+v ggplot2 3.3.6      v purrr   0.3.4 
+v tibble  3.1.8      v dplyr   1.0.10
+v tidyr   1.2.1      v stringr 1.4.1 
+v readr   2.1.2      v forcats 0.5.2 
+-- Conflicts ------------------------------------------ tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer)</span></code></pre></div>
 <p>Importar os dados exemplos</p>
-<pre class="r"><code>dados &lt;- read_csv(&quot;data/dados.csv&quot;)       # Função para importar os dados</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/dados.csv&quot;</span>)       <span class="co"># Função para importar os dados</span></span></code></pre></div>
 <pre><code>Rows: 96 Columns: 9
 -- Column specification --------------------------------------------------------
 Delimiter: &quot;,&quot;
@@ -1014,7 +1002,7 @@ dbl (7): id, blocos, sev1, sev2, sev3, area, areat
 
 i Use `spec()` to retrieve the full column specification for this data.
 i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>dados</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dados</span></code></pre></div>
 <pre><code># A tibble: 96 x 9
    trat               id gen       blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1032,31 +1020,35 @@ i Specify the column types or set `show_col_types = FALSE` to quiet this message
 <div id="tipos-de-valores-e-ocorrência-de-valores-ausentes."
 class="section level3">
 <h3>Tipos de valores e ocorrência de valores ausentes.</h3>
-<pre class="r"><code>plot_intro(dados)</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_intro</span>(dados)</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="perfil-dos-valores-ausentes." class="section level3">
 <h3>Perfil dos valores ausentes.</h3>
-<pre class="r"><code>plot_missing(dados)</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(dados)</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="distribuiçãoo-das-variáveis-qualitativas."
 class="section level3">
 <h3>Distribuiçãoo das variáveis qualitativas.</h3>
-<pre class="r"><code>plot_bar(dados)</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(dados)</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="distribuiçãoo-das-variáveis-quantitativas."
 class="section level3">
 <h3>Distribuiçãoo das variáveis quantitativas.</h3>
-<pre class="r"><code>plot_histogram(dados)</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_histogram</span>(dados)</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="examinar-relações" class="section level3">
+<h3>Examinar relações</h3>
+<p>A biblioteca esquisse permite criar uma interface para que você pode
+de forma ágil visualizar a relação das variáveis da forma que
+desejar.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(esquisse)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">esquisser</span>(dados)</span></code></pre></div>
 </div>
 </div>
-<div id="examinar-relações-de-forma-ágil." class="section level1">
-<h1>Examinar relações de forma Ágil.</h1>
-<pre class="r"><code>library(esquisse)</code></pre>
-<pre class="r"><code>esquisser(dados)</code></pre>
 <div id="sintaxe-básica-do-ggplot2" class="section level2">
 <h2>Sintaxe básica do <code>ggplot2</code></h2>
 <p>A função <code>ggplot()</code> necessita de no mínimo 3 elementos
@@ -1073,10 +1065,10 @@ ggplot</a></p>
 <p>Novamente, vamos utilizar o framework <code>tidyverse</code> para já
 importar todas as bibliotecas presentes nele, incluindo o
 <code>ggplot2</code>.</p>
-<pre class="r"><code>#install.packages(&quot;tidyverse&quot;) # Instalar o tidyverse
-library(tidyverse)</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;) # Instalar o tidyverse</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>Importar os dados exemplos</p>
-<pre class="r"><code>dados &lt;- read_csv(&quot;data/dados.csv&quot;)       # Função para importar os dados</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/dados.csv&quot;</span>)       <span class="co"># Função para importar os dados</span></span></code></pre></div>
 <pre><code>Rows: 96 Columns: 9
 -- Column specification --------------------------------------------------------
 Delimiter: &quot;,&quot;
@@ -1085,7 +1077,7 @@ dbl (7): id, blocos, sev1, sev2, sev3, area, areat
 
 i Use `spec()` to retrieve the full column specification for this data.
 i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>dados</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dados</span></code></pre></div>
 <pre><code># A tibble: 96 x 9
    trat               id gen       blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1122,16 +1114,16 @@ e <code>area</code> no eixo y.</p>
 formas.</p>
 <p>1 - Inserindo o banco de dados dentro da função
 <code>ggplot()</code>.</p>
-<pre class="r"><code>ggplot(dados, aes(x = id, y = area)) +
-  geom_point()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>2 - Utilizando o pipe <code>%&gt;%</code>. Nesse caso, não há
 necessidade de inserir o banco de dados dentro da função
 <code>ggplot()</code>.</p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = id, y = area)) +
-  geom_point()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-12-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Como visto no código acima, ao usar a função <code>ggplot()</code>,
 usamos o símbolo <code>+</code> para adicionar ou alterar o gráfico.
 Aqui adicionamos a dispersão dos dados, mas poderíamos adicionar
@@ -1141,34 +1133,34 @@ qualquer outra forma geométrica.</p>
 <h3>Gráfico de linhas</h3>
 <p>Por exemplo, podemos criar um gráfico de linhas alterando a forma
 geométrica para <code>geom_line()</code></p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = id, y = area)) +
-  geom_line()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-13-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gráfico-de-barras-e-colunas" class="section level3">
 <h3>Gráfico de barras e colunas</h3>
 <p>Para criar um gráfico de colunas usamos a função
 <code>geom_col()</code>.</p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = id, y = area)) +
-  geom_col()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-14-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>E para o gráfico de barras usamos a função <code>geom_bar()</code>,
 mas aqui a função cria uma contagem dos dados, então devemos atribuir
 apenas uma estética <code>x</code> ou <code>y</code>.</p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = area)) +
-  geom_bar()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-15-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> area)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Para que o gráfico de barras seja equivalente ao gráfico de colunas,
 atribuímos o argumento <code>stat="identity"</code> dentro da função
 <code>geom_bar()</code>. Aqui devemos especificar tanto o <code>x</code>
 ou <code>y</code>.</p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = id, y = area)) +
-  geom_bar(stat = &quot;identity&quot;) </code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) </span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="histograma" class="section level3">
 <h3>Histograma</h3>
@@ -1176,37 +1168,37 @@ ou <code>y</code>.</p>
 <code>geom_histogram()</code>. Novamente, essa forma cria uma contagem
 dos dados, então devemos atribuir apenas uma estética <code>x</code> ou
 <code>y</code></p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = area)) +
-  geom_histogram()</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> area)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-17-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Esse gráfico é muito utilizado para comparar a frequência de dados
 contínuos como <code>area</code> com dados categóricos como
 <code>gen</code>. Veja um exemplo:</p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = area, fill = gen)) +
-  geom_histogram() +
-  geom_vline(aes(xintercept = 300)) +
-  geom_hline(aes(yintercept = 10))</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> area, <span class="at">fill =</span> gen)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="dv">300</span>)) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">10</span>))</span></code></pre></div>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-18-1.png" width="768" style="display: block; margin: auto;" />
-Para plotar uma reta no gráfico, podemos utilizar a função
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Para plotar uma reta no gráfico, podemos utilizar a função
 <code>geom_vline()</code> para linhas verticais ou
 <code>geom_hline()</code> para linhas horizontais.</p>
 <p>No exemplo abaixo vamos calcular a média da área por <code>gen</code>
 e vamos plotar a reta média para cada <code>gen</code> no
 histograma.</p>
-<pre class="r"><code>mean_area &lt;- dados %&gt;%
-  group_by(gen) %&gt;%
-  summarise(mean_area = mean(area))
-
-dados %&gt;%
-  ggplot(aes(x = area, fill = gen)) +
-  geom_histogram(bins = 10) +
-  geom_vline(aes(xintercept = mean_area$mean_area[1])) +
-  geom_vline(aes(xintercept = mean_area$mean_area[2]))</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-19-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mean_area <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gen) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_area =</span> <span class="fu">mean</span>(area))</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> area, <span class="at">fill =</span> gen)) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mean_area<span class="sc">$</span>mean_area[<span class="dv">1</span>])) <span class="sc">+</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mean_area<span class="sc">$</span>mean_area[<span class="dv">2</span>]))</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="boxplot" class="section level3">
 <h3>Boxplot</h3>
@@ -1214,10 +1206,10 @@ dados %&gt;%
 <code>geom_boxplot()</code>. Nesse tipo de gráfico também é necessário
 combinar dados contínuos <code>area</code> com dados categóricos
 <code>gen</code>.</p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(y = area, x = gen)) +
-  geom_boxplot()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-20-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> area, <span class="at">x =</span> gen)) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="correlação" class="section level3">
 <h3>Correlação</h3>
@@ -1229,13 +1221,36 @@ variaveis <code>sev1</code>, <code>sev2</code>, <code>sev3</code>,
 href="https://tiagoolivoto.github.io/metan/index.html">(mais informações
 sobre esse pacote)</a> para retornar uma matriz de correlação das nossas
 variáveis e a função <code>plot()</code> para plotar o gráfico.</p>
-<pre class="r"><code>#install.packages(metan)
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(metan)</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metan)</span></code></pre></div>
+<pre><code>Registered S3 method overwritten by &#39;GGally&#39;:
+  method from   
+  +.gg   ggplot2</code></pre>
+<pre><code>|=========================================================|</code></pre>
+<pre><code>| Multi-Environment Trial Analysis (metan) v1.17.0        |</code></pre>
+<pre><code>| Author: Tiago Olivoto                                   |</code></pre>
+<pre><code>| Type &#39;citation(&#39;metan&#39;)&#39; to know how to cite metan      |</code></pre>
+<pre><code>| Type &#39;vignette(&#39;metan_start&#39;)&#39; for a short tutorial     |</code></pre>
+<pre><code>| Visit &#39;https://bit.ly/pkgmetan&#39; for a complete tutorial |</code></pre>
+<pre><code>|=========================================================|</code></pre>
+<pre><code>
+Attaching package: &#39;metan&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:forcats&#39;:
 
-library(metan)
+    as_factor</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
 
-coef_cor &lt;- corr_coef(dados %&gt;%
-                        select(sev1:areat))
-coef_cor</code></pre>
+    recode_factor</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    replace_na</code></pre>
+<pre><code>The following objects are masked from &#39;package:tibble&#39;:
+
+    column_to_rownames, remove_rownames, rownames_to_column</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>coef_cor <span class="ot">&lt;-</span> <span class="fu">corr_coef</span>(dados <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">select</span>(sev1<span class="sc">:</span>areat))</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>coef_cor</span></code></pre></div>
 <pre><code>---------------------------------------------------------------------------
 Pearson&#39;s correlation coefficient
 ---------------------------------------------------------------------------
@@ -1256,8 +1271,8 @@ area  1.18e-05 1.16e-49 8.05e-30 0.00e+00 2.75e-80
 areat 7.58e-06 3.16e-41 4.29e-32 2.75e-80 0.00e+00</code></pre>
 <p>Veja mais sobre as particularidades da função <code>plot()</code> <a
 href="https://tiagoolivoto.github.io/metan/reference/plot.corr_coef.html">aqui</a>.</p>
-<pre class="r"><code>plot(coef_cor)</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-22-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coef_cor)</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Se quisermos alterar o tipo de disposição das variáveis para parte
 superior podemos usar o argumento <code>type = "upper"</code>, para que
 não ocorra a ordenação de acordo com o valor da correlação usamos
@@ -1265,20 +1280,20 @@ não ocorra a ordenação de acordo com o valor da correlação usamos
 plot podemos usar <code>size.text.lab = 14</code> e
 <code>size.text.cor = 5</code>, os números representam o tamanho da
 letra.</p>
-<pre class="r"><code>plot(
-  coef_cor,
-  type = &quot;upper&quot;,
-  reorder = FALSE,
-  size.text.lab = 14,
-  size.text.cor = 5
-)</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-23-1.png" width="768" style="display: block; margin: auto;" />
-Outra forma de visualizar a correlação entre as variáveis é pela função
-<code>corr_plot()</code>. Essa função permite a visualização gráfica e
-numérica de uma matriz de correlação.</p>
-<pre class="r"><code>corr_plot(dados %&gt;%
-            select(sev1:areat))</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  coef_cor,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">reorder =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">size.text.lab =</span> <span class="dv">14</span>,</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">size.text.cor =</span> <span class="dv">5</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Outra forma de visualizar a correlação entre as variáveis é pela
+função <code>corr_plot()</code>. Essa função permite a visualização
+gráfica e numérica de uma matriz de correlação.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corr_plot</span>(dados <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">select</span>(sev1<span class="sc">:</span>areat))</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="regressão" class="section level3">
 <h3>Regressão</h3>
@@ -1292,29 +1307,37 @@ que define qual método iremos utilizar, por exemplo
 <code>x</code> e <code>y</code>, <code>se=</code> que é um argumento
 lógico (ou seja, recebe <code>TRUE</code> ou <code>FALSE</code>) e
 indica se será representado o desvio da reta.</p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = id, y = area)) +
-  geom_smooth()</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
 <pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-25-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Agora vamos plotar uma regressão linear entre <code>area</code> e
 <code>id</code>.</p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = id, y = area)) +
-  geom_smooth(method = lm, se = FALSE)</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-26-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Se quisermos inserir a fórmula no gráfico, utilizamos a
 <code>stat_poly_eq</code> função do pacote <code>ggpmisc</code>,
 indicando que a estética da equação é <code>..eq.label..</code> e/ ou da
 correlação <code>..rr.label..</code>.</p>
-<pre class="r"><code>library(ggpmisc)
-dados %&gt;%
-  ggplot(aes(x = id, y = area)) +
-  geom_smooth(method = lm, se = FALSE) +
-  geom_point() +
-  stat_poly_eq(formula = y ~ x,
-               aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;)))</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpmisc)</span></code></pre></div>
+<pre><code>Carregando pacotes exigidos: ggpp</code></pre>
+<pre><code>
+Attaching package: &#39;ggpp&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    annotate</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_poly_eq</span>(<span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(..eq.label.., ..rr.label.., <span class="at">sep =</span> <span class="st">&quot;~~~&quot;</span>)))</span></code></pre></div>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="estética" class="section level2">
@@ -1324,70 +1347,72 @@ dados %&gt;%
 <p>Temos duas formas de facetas no R <code>facet_grid()</code> e
 <code>facet_wrap()</code>. Utilizamos as facetas para criar gráficos
 para cada categoria de uma variável</p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = id, y = area)) +
-  geom_smooth(method = lm, se = FALSE) +
-  geom_point() +
-  stat_poly_eq(formula = y ~ x,
-               aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;))) +
-  facet_grid( ~ gen)</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_poly_eq</span>(<span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(..eq.label.., ..rr.label.., <span class="at">sep =</span> <span class="st">&quot;~~~&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>( <span class="sc">~</span> gen)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-28-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Também é possível criar facetas para combinação de varáveis.</p>
-<pre class="r"><code>dados %&gt;%
-  ggplot(aes(x = id, y = area)) +
-  geom_smooth(method = lm, se = FALSE) +
-  geom_point() +
-  stat_poly_eq(formula = y ~ x,
-               aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;))) +
-  facet_grid(gen ~ as.factor(blocos))</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_poly_eq</span>(<span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(..eq.label.., ..rr.label.., <span class="at">sep =</span> <span class="st">&quot;~~~&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(gen <span class="sc">~</span> <span class="fu">as.factor</span>(blocos))</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-29-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="escala" class="section level3">
 <h3>Escala</h3>
 <p>Para alterar a escala dos eixos definimos <code>xlim</code> e/ou
 <code>ylim</code></p>
-<pre class="r"><code>p &lt;- dados %&gt;%
-  ggplot(aes(x = id, y = area)) +
-  geom_smooth(method = lm, se = FALSE) +
-  geom_point(aes(colour = gen)) +
-  stat_poly_eq(formula = y ~ x,
-               aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;))) +
-  # garantir que o gráfico tem o ponto (0,0)
-  expand_limits(x = 0, y = 0) +
-  # escolhendo as amplitudes dos eixos
-  xlim(0, 100) +
-  ylim(0, 600)
-p</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> gen)) <span class="sc">+</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_poly_eq</span>(<span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(..eq.label.., ..rr.label.., <span class="at">sep =</span> <span class="st">&quot;~~~&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># garantir que o gráfico tem o ponto (0,0)</span></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># escolhendo as amplitudes dos eixos</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">600</span>)</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-30-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="coordenadas" class="section level3">
 <h3>Coordenadas</h3>
-<pre class="r"><code># Girar o gráfico
-p + coord_flip()</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Girar o gráfico</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-31-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="temas" class="section level3">
 <h3>Temas</h3>
 <p>Vários temas</p>
-<pre class="r"><code>p + theme_bw()</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-1.png" width="768" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>p + theme_linedraw()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_linedraw</span>()</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-2.png" width="768" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>p + theme_dark()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_dark</span>()</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-3.png" width="768" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>p + theme_minimal()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-4.png" width="768" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>p + theme_classic()</code></pre>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-4.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_classic</span>()</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-5.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-32-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Outro temas você pode encontrar no pacote <a
+href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/"><code>ggthemes</code></a>.</p>
 </div>
 <div id="texto-e-eixos" class="section level3">
 <h3>Texto e eixos</h3>
@@ -1397,32 +1422,37 @@ p + coord_flip()</code></pre>
 <p>Para inserir textos no gráfico utilizamos o função
 <code>geom_text)</code>, indicando a posição no gráfico (x e y) e o
 texto (label) a ser inserido.</p>
-<pre class="r"><code>p+geom_text(x = 30, y = 450, label = &quot;texto que você quiser escrever&quot;)</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">x =</span> <span class="dv">30</span>, <span class="at">y =</span> <span class="dv">450</span>, <span class="at">label =</span> <span class="st">&quot;texto que você quiser escrever&quot;</span>)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-33-1.png" width="768" style="display: block; margin: auto;" />
-- Títulos</p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Títulos</li>
+</ul>
 <p>Para inserir títulos no gráfico usamos a função <code>labs()</code>.
 Para alterar a posição do título usamos o argumento
 `<code>plot.title()</code> dentro da função <code>theme()</code>. Para
 alteração no texto sempre devemos especificar
 <code>element_text()</code>. <em>Isso vale para qualquer parte do
 gráfico, não apenas para o título.</em></p>
-<pre class="r"><code>p +
-  labs(title = &quot;Aqui o seu título&quot;, subtitle = &quot;Aqui o seu subtítulo&quot;) +
-  theme(plot.title = element_text(hjust = 0.5)) +             #centralizando o subtítulo
-  theme(plot.subtitle = element_text(hjust = 0.5)) +          #centralizando o subtítulo
-  theme(plot.title = element_text(color = &quot;blue&quot;)) #mudando a cor do título</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Aqui o seu título&quot;</span>, <span class="at">subtitle =</span> <span class="st">&quot;Aqui o seu subtítulo&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span>             <span class="co">#centralizando o subtítulo</span></span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span>          <span class="co">#centralizando o subtítulo</span></span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>)) <span class="co">#mudando a cor do título</span></span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-34-1.png" width="768" style="display: block; margin: auto;" />
-- Nome dos eixos</p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Nome dos eixos</li>
+</ul>
 <p>Para alterar o nomes dos eixos podemos usar as funções
 <code>ylab()</code> e <code>xlab()</code>.</p>
-<pre class="r"><code>p + ylab(label = bquote(&quot;Produção (kg&quot; ~ ha ^ -1 ~ &quot;)&quot;)) +
-  #título do eixo y
-  xlab(label = &quot;Individuo&quot;) #título do eixo x</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="at">label =</span> <span class="fu">bquote</span>(<span class="st">&quot;Produção (kg&quot;</span> <span class="sc">~</span> ha <span class="sc">^</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;)&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#título do eixo y</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="at">label =</span> <span class="st">&quot;Individuo&quot;</span>) <span class="co">#título do eixo x</span></span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-35-1.png" width="768" style="display: block; margin: auto;" />
-<strong>Para adicionar equações em texto de qualquer parte do gráfico
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Para adicionar equações em texto de qualquer parte do gráfico
 usamos a função <code>bquote()</code>. Para valores subescritos
 indicamos entre colchetes entre <code>~</code> : CO[2], por exemplo.
 Para valores superescritos indicamos o acento circunflexo entre
@@ -1436,20 +1466,20 @@ Para valores superescritos indicamos o acento circunflexo entre
 posições podem ser <code>bottom</code> (inferior), <code>top</code>
 (superior), <code>left</code> (esquerda) e <code>right</code>
 (direita).</p>
-<pre class="r"><code>p + theme(legend.position = &quot;top&quot;)</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-36-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Para inserir a legenda dentro do gráfico temos que atribuir valores
 de posição de x e y dentro do gráfico. x vale de 0 (esquerda) a 1
 (direita) e y vale de 0 (inferior) a 1 (superior). Assim se quisermos
 que a legenda fique na esquerda da parte superior podemos, por exemplo,
 especificar <code>legend.position = c(0.2, 0.8)</code>.</p>
-<pre class="r"><code>p + theme(
-  legend.position = c(0.2, 0.8),
-  legend.background = element_rect(fill = &quot;white&quot;, colour = &quot;black&quot;)
-)</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme</span>(</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>),</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-37-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Remover legendas</li>
 </ul>
@@ -1457,9 +1487,9 @@ especificar <code>legend.position = c(0.2, 0.8)</code>.</p>
 como <code>FALSE</code> dentro da função <code>guides()</code>. No nosso
 caso, atribuímos <code>colour</code> para <code>geom_point()</code>,
 assim devemos especificar <code>guides(colour = FALSE)</code>.</p>
-<pre class="r"><code>p + guides(color = FALSE)</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">guides</span>(<span class="at">color =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-38-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="escalas-de-cores" class="section level2">
@@ -1469,24 +1499,24 @@ função <code>scale_color_manual()</code>, dentro da função atribuímos
 valores ou nome das cores, para conhecer lagumas cores disponeis acesse
 <a
 href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">aqui</a></p>
-<pre class="r"><code>p + scale_color_manual(values = c(&quot;#999999&quot;, &quot;#E69F00&quot;))</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>))</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-39-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Também podemos especificar por paletas de cores já existentes em
 pacotes. <a
 href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html">Aqui</a>
 você pode visualizar algumas paletas de cores.</p>
-<pre class="r"><code>p + scale_color_brewer()</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_color_brewer</span>()</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-40-1.png" width="768" style="display: block; margin: auto;" />
-O pacote <a
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>O pacote <a
 href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">ggthemes</a>
 também possui vários temas e paletas que podem ser do seu interesse.</p>
-<pre class="r"><code>library(ggthemes)
-p + scale_color_gdocs() +
-  theme_classic()</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_color_gdocs</span>() <span class="sc">+</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-41-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="exportar-o-gráfico" class="section level2">
 <h2>Exportar o gráfico</h2>
@@ -1499,24 +1529,24 @@ gráfico em <code>Plots</code>. Os argumentos presentes são
 <code>width</code> e <code>height</code> é a largura e altura da imagem,
 respectivamente; <code>dpi</code> é a resolução em pixel, por default é
 300.</p>
-<pre class="r"><code>ggsave(
-  filename = &quot;gráfico.tiff&quot;,
-  units = &quot;cm&quot;,
-  width = 30,
-  height = 20,
-  dpi = 300
-)</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename =</span> <span class="st">&quot;gráfico.tiff&quot;</span>,</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">units =</span> <span class="st">&quot;cm&quot;</span>,</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">30</span>,</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">20</span>,</span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p>Para salvar um gráfico salvo em um objeto você deve especificar o
 argumento <code>plot</code> na função <code>ggsave()</code>.</p>
-<pre class="r"><code>ggsave(
-  filename = &quot;gráfico.tiff&quot;,
-  plo = p,
-  units = &quot;cm&quot;,
-  width = 30,
-  height = 20,
-  dpi = 300
-)</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename =</span> <span class="st">&quot;gráfico.tiff&quot;</span>,</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plo =</span> p,</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">units =</span> <span class="st">&quot;cm&quot;</span>,</span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">30</span>,</span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">20</span>,</span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 </div>
 <div id="gráficos-extras" class="section level2">
@@ -1524,311 +1554,327 @@ argumento <code>plot</code> na função <code>ggsave()</code>.</p>
 <div id="histograma-com-alteração-da-posição-da-legenda"
 class="section level3">
 <h3>Histograma com alteração da posição da legenda</h3>
-<pre class="r"><code>library(readxl)                   # Ler aquivos em .xls e .xlsx
-library(tidyverse)                # Framework para manipulação e visualização de dados
-
-yield &lt;- read_excel(&quot;data/yield.xlsx&quot;)
-data &lt;- read_excel(&quot;data/data.xlsx&quot;)
-
-# Count graph relating Growth type to year
-
-data %&gt;%
-  ggplot() +
-  geom_bar(aes(Year, fill = Growth_type)) +
-  theme_bw() +
-  xlab(&quot;Year&quot;) +
-  ylab(&quot;Count&quot;) +
-  scale_fill_brewer(palette = &quot;Set1&quot;) +
-  labs(fill = &quot;Growth type&quot;) +
-  theme(
-    legend.position = c(0.3, 0.8),
-    legend.background = element_rect(fill = &quot;white&quot;, colour = &quot;black&quot;)
-  )</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-44-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb100"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)                   <span class="co"># Ler aquivos em .xls e .xlsx</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)                <span class="co"># Framework para manipulação e visualização de dados</span></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>yield <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/yield.xlsx&quot;</span>)</span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/data.xlsx&quot;</span>)</span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Count graph relating Growth type to year</span></span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(Year, <span class="at">fill =</span> Growth_type)) <span class="sc">+</span></span>
+<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb100-13"><a href="#cb100-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="sc">+</span></span>
+<span id="cb100-14"><a href="#cb100-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb100-15"><a href="#cb100-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="sc">+</span></span>
+<span id="cb100-16"><a href="#cb100-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Growth type&quot;</span>) <span class="sc">+</span></span>
+<span id="cb100-17"><a href="#cb100-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb100-18"><a href="#cb100-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.8</span>),</span>
+<span id="cb100-19"><a href="#cb100-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb100-20"><a href="#cb100-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="histograma-e-linha-em-um-só-gráfico-3-eixos"
 class="section level3">
 <h3>Histograma e linha em um só gráfico (3 eixos)</h3>
-<pre class="r"><code>library(readxl)                   # Ler aquivos em .xls e .xlsx
-library(tidyverse)                # Framework para manipulação e visualização de dados
-
-#Transforming variables into factors
-yield$Year &lt;- as.factor(yield$Year)
-
-ggplot() +
-  geom_bar(data = data, aes(as.factor(Year), fill = Growth_type)) +
-  geom_point(data = yield,
-             aes(x = Year, y = (Yield * (175 / 125000))),
-             group = 1,
-             color = &quot;#a50026&quot;) +
-  geom_line(
-    data = yield,
-    aes(x = Year, y = Yield * (175 / 125000)),
-    group = 1,
-    color = &quot;#a50026&quot;
-  ) +
-  scale_y_continuous(name = &quot;Count&quot;,
-                     sec.axis = sec_axis( ~ . * 125000 / 175, name = &quot;Yield (Thousand Tons)&quot;)) +
-  theme_bw() +
-  xlab(&quot;Year&quot;) +
-  scale_fill_brewer(palette = &quot;Dark2&quot;) +
-  labs(fill = &quot;Event Type&quot;) +
-  theme(
-    legend.position = c(0.3, 0.8),
-    legend.title = element_blank(),
-    legend.background = element_rect(fill = &quot;white&quot;, colour = &quot;black&quot;),
-    legend.key.size = unit(0.5, &quot;cm&quot;),
-    axis.text.y = element_text(
-      angle = 15,
-      vjust = 0.5,
-      hjust = 1
-    )
-  )</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-45-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb101"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)                   <span class="co"># Ler aquivos em .xls e .xlsx</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)                <span class="co"># Framework para manipulação e visualização de dados</span></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Transforming variables into factors</span></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>yield<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(yield<span class="sc">$</span>Year)</span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> data, <span class="fu">aes</span>(<span class="fu">as.factor</span>(Year), <span class="at">fill =</span> Growth_type)) <span class="sc">+</span></span>
+<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> yield,</span>
+<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> (Yield <span class="sc">*</span> (<span class="dv">175</span> <span class="sc">/</span> <span class="dv">125000</span>))),</span>
+<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">group =</span> <span class="dv">1</span>,</span>
+<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#a50026&quot;</span>) <span class="sc">+</span></span>
+<span id="cb101-13"><a href="#cb101-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
+<span id="cb101-14"><a href="#cb101-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> yield,</span>
+<span id="cb101-15"><a href="#cb101-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Yield <span class="sc">*</span> (<span class="dv">175</span> <span class="sc">/</span> <span class="dv">125000</span>)),</span>
+<span id="cb101-16"><a href="#cb101-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="dv">1</span>,</span>
+<span id="cb101-17"><a href="#cb101-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;#a50026&quot;</span></span>
+<span id="cb101-18"><a href="#cb101-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb101-19"><a href="#cb101-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb101-20"><a href="#cb101-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>( <span class="sc">~</span> . <span class="sc">*</span> <span class="dv">125000</span> <span class="sc">/</span> <span class="dv">175</span>, <span class="at">name =</span> <span class="st">&quot;Yield (Thousand Tons)&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb101-21"><a href="#cb101-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb101-22"><a href="#cb101-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="sc">+</span></span>
+<span id="cb101-23"><a href="#cb101-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb101-24"><a href="#cb101-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Event Type&quot;</span>) <span class="sc">+</span></span>
+<span id="cb101-25"><a href="#cb101-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb101-26"><a href="#cb101-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.8</span>),</span>
+<span id="cb101-27"><a href="#cb101-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb101-28"><a href="#cb101-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb101-29"><a href="#cb101-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb101-30"><a href="#cb101-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(</span>
+<span id="cb101-31"><a href="#cb101-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">angle =</span> <span class="dv">15</span>,</span>
+<span id="cb101-32"><a href="#cb101-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">vjust =</span> <span class="fl">0.5</span>,</span>
+<span id="cb101-33"><a href="#cb101-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">hjust =</span> <span class="dv">1</span></span>
+<span id="cb101-34"><a href="#cb101-34" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb101-35"><a href="#cb101-35" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gráfico-de-colunas-com-texto" class="section level3">
 <h3>Gráfico de colunas com texto</h3>
-<pre class="r"><code>library(readxl)                   # Ler aquivos em .xls e .xlsx
-library(tidyverse)                # Framework para manipulação e visualização de dados
-
-dados &lt;- read_excel(&quot;data/medias.xlsx&quot;)
-
-## Plotando o teste
-dados %&gt;%
-  ggplot() +
-  geom_col(
-    aes(x = TRAT, y = mean,
-        fill = TRAT),
-    position = &quot;dodge&quot;,
-    colour = &#39;black&#39;,
-    alpha = 0.8,
-    width = 0.85
-  ) +
-  geom_errorbar(aes(
-    ymin = mean - sd,
-    ymax = mean + sd,
-    x = TRAT
-  ), width = .3) +
-  geom_text(aes(y = mean + sd, x = TRAT, label = group),
-            position = position_dodge(0.9),
-            vjust = -0.5) +
-  theme_classic() +
-  scale_fill_brewer(palette = &quot;Paired&quot;) +
-  labs(y = &quot;Produtividade do cafeeiro&quot;, x = &quot;&quot;) +
-  theme(axis.text.x = element_blank(),
-        legend.title = element_text()) +
-  guides(fill = guide_legend(title = &quot;Tratamentos&quot;))</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-46-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb102"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)                   <span class="co"># Ler aquivos em .xls e .xlsx</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)                <span class="co"># Framework para manipulação e visualização de dados</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/medias.xlsx&quot;</span>)</span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Plotando o teste</span></span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(</span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> TRAT, <span class="at">y =</span> mean,</span>
+<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> TRAT),</span>
+<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>,</span>
+<span id="cb102-13"><a href="#cb102-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">&#39;black&#39;</span>,</span>
+<span id="cb102-14"><a href="#cb102-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.8</span>,</span>
+<span id="cb102-15"><a href="#cb102-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">0.85</span></span>
+<span id="cb102-16"><a href="#cb102-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb102-17"><a href="#cb102-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(</span>
+<span id="cb102-18"><a href="#cb102-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">ymin =</span> mean <span class="sc">-</span> sd,</span>
+<span id="cb102-19"><a href="#cb102-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">ymax =</span> mean <span class="sc">+</span> sd,</span>
+<span id="cb102-20"><a href="#cb102-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> TRAT</span>
+<span id="cb102-21"><a href="#cb102-21" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">width =</span> .<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb102-22"><a href="#cb102-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> mean <span class="sc">+</span> sd, <span class="at">x =</span> TRAT, <span class="at">label =</span> group),</span>
+<span id="cb102-23"><a href="#cb102-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.9</span>),</span>
+<span id="cb102-24"><a href="#cb102-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb102-25"><a href="#cb102-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb102-26"><a href="#cb102-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="sc">+</span></span>
+<span id="cb102-27"><a href="#cb102-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Produtividade do cafeeiro&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb102-28"><a href="#cb102-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb102-29"><a href="#cb102-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>()) <span class="sc">+</span></span>
+<span id="cb102-30"><a href="#cb102-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">&quot;Tratamentos&quot;</span>))</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gráfico-de-segmentos-e-pontos" class="section level3">
 <h3>Gráfico de segmentos e pontos</h3>
-<pre class="r"><code>library(readxl)                   # Ler aquivos em .xls e .xlsx
-library(tidyverse)                # Framework para manipulação e visualização de dados
-
-imp_trait &lt;- read_excel(&quot;data/imp.xlsx&quot;)
-
-imp_trait %&gt;%
-  pivot_longer(1:2,
-               names_to = &quot;variable&quot;) %&gt;% 
-  mutate(traitnames = fct_reorder(traitnames, value)) %&gt;%
-  ggplot(aes(x = traitnames, y = value)) +
-  geom_point(aes(colour = variable, shape = variable), size = 4) +
-  scale_colour_discrete(labels = c(&quot;Accuracy&quot;, &quot;Gini Indice&quot;)) +
-  scale_shape_discrete(labels = c(&quot;Accuracy&quot;, &quot;Gini Indice&quot;)) +
-  geom_segment(aes(
-    x = traitnames,
-    xend = traitnames,
-    y = 0,
-    yend = value
-  )) +
-  ylab(&quot;Increase in node purity&quot;) +
-  xlab(&quot;&quot;) +
-  theme_minimal() +
-  theme(
-    legend.position = c(0.8, 0.15),
-    legend.title = element_blank(),
-    legend.background = element_rect(fill = &quot;white&quot;, colour = &quot;black&quot;),
-    legend.key.size = unit(0.5, &quot;cm&quot;),
-    axis.text.y = element_text(
-      angle = 15,
-      vjust = 0.5,
-      hjust = 1
-    )
-  ) +
-  coord_flip()</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-47-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb103"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)                   <span class="co"># Ler aquivos em .xls e .xlsx</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)                <span class="co"># Framework para manipulação e visualização de dados</span></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>imp_trait <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/imp.xlsx&quot;</span>)</span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>imp_trait <span class="sc">%&gt;%</span></span>
+<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb103-9"><a href="#cb103-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">traitnames =</span> <span class="fu">fct_reorder</span>(traitnames, value)) <span class="sc">%&gt;%</span></span>
+<span id="cb103-10"><a href="#cb103-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> traitnames, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb103-11"><a href="#cb103-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> variable, <span class="at">shape =</span> variable), <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb103-12"><a href="#cb103-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Accuracy&quot;</span>, <span class="st">&quot;Gini Indice&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb103-13"><a href="#cb103-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Accuracy&quot;</span>, <span class="st">&quot;Gini Indice&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb103-14"><a href="#cb103-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(</span>
+<span id="cb103-15"><a href="#cb103-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> traitnames,</span>
+<span id="cb103-16"><a href="#cb103-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">xend =</span> traitnames,</span>
+<span id="cb103-17"><a href="#cb103-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="dv">0</span>,</span>
+<span id="cb103-18"><a href="#cb103-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">yend =</span> value</span>
+<span id="cb103-19"><a href="#cb103-19" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb103-20"><a href="#cb103-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Increase in node purity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb103-21"><a href="#cb103-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb103-22"><a href="#cb103-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb103-23"><a href="#cb103-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb103-24"><a href="#cb103-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.15</span>),</span>
+<span id="cb103-25"><a href="#cb103-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb103-26"><a href="#cb103-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb103-27"><a href="#cb103-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb103-28"><a href="#cb103-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(</span>
+<span id="cb103-29"><a href="#cb103-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">angle =</span> <span class="dv">15</span>,</span>
+<span id="cb103-30"><a href="#cb103-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">vjust =</span> <span class="fl">0.5</span>,</span>
+<span id="cb103-31"><a href="#cb103-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">hjust =</span> <span class="dv">1</span></span>
+<span id="cb103-32"><a href="#cb103-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb103-33"><a href="#cb103-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb103-34"><a href="#cb103-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gráfico-de-linhas-e-regressão-não-linear"
 class="section level3">
 <h3>Gráfico de linhas e regressão não-linear</h3>
-<pre class="r"><code>library(readxl)                   # Ler aquivos em .xls e .xlsx
-library(tidyverse)                # Framework para manipulação e visualização de dados
-
-progress &lt;- read_excel(&quot;data/progress.xlsx&quot;)
-
-ggplot(progress, aes(Iteration, progress[[1]])) +
-  geom_line(color = &quot;#00AFBB&quot;, size = 1) +
-  stat_smooth(color = &quot;#FC4E07&quot;,
-              fill = &quot;#FC4E07&quot;,
-              method = &quot;loess&quot;) +
-  theme_minimal() +
-  labs(y = colnames(progress[1]))</code></pre>
+<div class="sourceCode" id="cb104"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)                   <span class="co"># Ler aquivos em .xls e .xlsx</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)                <span class="co"># Framework para manipulação e visualização de dados</span></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>progress <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/progress.xlsx&quot;</span>)</span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(progress, <span class="fu">aes</span>(Iteration, progress[[<span class="dv">1</span>]])) <span class="sc">+</span></span>
+<span id="cb104-7"><a href="#cb104-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;#00AFBB&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb104-8"><a href="#cb104-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">color =</span> <span class="st">&quot;#FC4E07&quot;</span>,</span>
+<span id="cb104-9"><a href="#cb104-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;#FC4E07&quot;</span>,</span>
+<span id="cb104-10"><a href="#cb104-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="sc">+</span></span>
+<span id="cb104-11"><a href="#cb104-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb104-12"><a href="#cb104-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">colnames</span>(progress[<span class="dv">1</span>]))</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-48-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="agrupando-gráficos-de-boxplot" class="section level3">
 <h3>Agrupando gráficos de boxplot</h3>
-<pre class="r"><code>library(gridExtra)                # Agrupar gráficos em um só
-library(extrafont)               # Pacote para alterar a fonte do texto
-library(ggpubr)                   # fornece algumas funções fáceis de usar para criar e personalizar gráficos
+<div class="sourceCode" id="cb106"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)                <span class="co"># Agrupar gráficos em um só</span></span></code></pre></div>
+<pre><code>
+Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
 
-
-herd_prod &lt;- read.table(&quot;data/prod_herd.txt&quot;, header = T)
-cv_prod1 &lt;- read.table(&quot;data/prod_cv.txt&quot;, header = T)
-cv_prod &lt;- read.table(&quot;data/cv_prod.txt&quot;, header = T)
-media_prod &lt;- read.table(&quot;data/prod_med.txt&quot;, header = T)
-
-h_p &lt;- ggplot(data = herd_prod, mapping = aes(x = 1, y = h²)) +
-  geom_boxplot(
-    fill = &quot;gold1&quot;,
-    outlier.colour = &quot;tomato3&quot;,
-    outlier.shape = 19,
-    outlier.size = 1.5
-  ) +
-  geom_jitter(width = 0.01,
-              alpha = 0.2,
-              height = 0.05) +
-  xlab(&quot;h²&quot;) +
-  xlim(0, 2) +
-  ylim(0, 100) +
-  ylab(NULL) +
-  theme_bw() +
-  theme(
-    axis.text.x = element_blank(),
-    axis.ticks = element_blank(),
-    panel.ontop = FALSE,
-    text = element_text(family = &quot;Times New Roman&quot;, size = 14)
-  )
-
-cv_p &lt;- ggplot(data = cv_prod, aes(x = 1, y = CV)) +
-  geom_boxplot(
-    fill = &quot;#4271AE&quot;,
-    outlier.colour = &quot;red&quot;,
-    outlier.shape = 19,
-    outlier.size = 1.5
-  ) +
-  geom_jitter(width = 0.001, alpha = 0.2) +
-  xlab(&quot;CV&quot;) +
-  xlim(0, 2) +
-  ylim(0, 60) +
-  ylab(NULL) +
-  theme_bw() +
-  theme(
-    axis.text.x = element_blank(),
-    axis.ticks = element_blank(),
-    text = element_text(family = &quot;Times New Roman&quot;, size = 14)
-  )
-
-m_p &lt;- ggplot(data = media_prod, aes(x = 1, y = med)) +
-  geom_boxplot(
-    fill = &quot;seagreen1&quot;,
-    outlier.colour = &quot;tomato3&quot;,
-    outlier.shape = 19,
-    outlier.size = 1.5
-  ) +
-  geom_jitter(width = 0.01, alpha = 0.2) +
-  xlab(&quot;μ&quot;) +
-  xlim(0, 2) +
-  ylim(0, 10) +
-  ylab(NULL) +
-  theme_bw() +
-  theme(
-    axis.text.x = element_blank(),
-    axis.ticks = element_blank(),
-    text = element_text(family = &quot;Times New Roman&quot;, size = 14)
-  )
-
-prod &lt;- ggarrange(h_p, cv_p, m_p, ncol = 3, nrow = 1)
-
-p &lt;- annotate_figure(prod,
-                     top = text_grob(
-                       bquote(underline(.(&quot;            Grain yield               &quot;))),
-                       face = &quot;bold&quot;,
-                       family = &quot;Times New Roman&quot;,
-                       size = 14
-                     ))
-p</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-49-1.png" width="768" style="display: block; margin: auto;" /></p>
+    combine</code></pre>
+<div class="sourceCode" id="cb109"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(extrafont)               <span class="co"># Pacote para alterar a fonte do texto</span></span></code></pre></div>
+<pre><code>Registering fonts with R</code></pre>
+<div class="sourceCode" id="cb111"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)                   <span class="co"># fornece algumas funções fáceis de usar para criar e personalizar gráficos</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>herd_prod <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;data/prod_herd.txt&quot;</span>, <span class="at">header =</span> T)</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>cv_prod1 <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;data/prod_cv.txt&quot;</span>, <span class="at">header =</span> T)</span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>cv_prod <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;data/cv_prod.txt&quot;</span>, <span class="at">header =</span> T)</span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a>media_prod <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;data/prod_med.txt&quot;</span>, <span class="at">header =</span> T)</span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a>h_p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> herd_prod, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> h²)) <span class="sc">+</span></span>
+<span id="cb111-10"><a href="#cb111-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb111-11"><a href="#cb111-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;gold1&quot;</span>,</span>
+<span id="cb111-12"><a href="#cb111-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">outlier.colour =</span> <span class="st">&quot;tomato3&quot;</span>,</span>
+<span id="cb111-13"><a href="#cb111-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="dv">19</span>,</span>
+<span id="cb111-14"><a href="#cb111-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">outlier.size =</span> <span class="fl">1.5</span></span>
+<span id="cb111-15"><a href="#cb111-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb111-16"><a href="#cb111-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>,</span>
+<span id="cb111-17"><a href="#cb111-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.2</span>,</span>
+<span id="cb111-18"><a href="#cb111-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">height =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb111-19"><a href="#cb111-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;h²&quot;</span>) <span class="sc">+</span></span>
+<span id="cb111-20"><a href="#cb111-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb111-21"><a href="#cb111-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb111-22"><a href="#cb111-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb111-23"><a href="#cb111-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb111-24"><a href="#cb111-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb111-25"><a href="#cb111-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb111-26"><a href="#cb111-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb111-27"><a href="#cb111-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.ontop =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb111-28"><a href="#cb111-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">&quot;Times New Roman&quot;</span>, <span class="at">size =</span> <span class="dv">14</span>)</span>
+<span id="cb111-29"><a href="#cb111-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb111-30"><a href="#cb111-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-31"><a href="#cb111-31" aria-hidden="true" tabindex="-1"></a>cv_p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> cv_prod, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> CV)) <span class="sc">+</span></span>
+<span id="cb111-32"><a href="#cb111-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb111-33"><a href="#cb111-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;#4271AE&quot;</span>,</span>
+<span id="cb111-34"><a href="#cb111-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">outlier.colour =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb111-35"><a href="#cb111-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="dv">19</span>,</span>
+<span id="cb111-36"><a href="#cb111-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">outlier.size =</span> <span class="fl">1.5</span></span>
+<span id="cb111-37"><a href="#cb111-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb111-38"><a href="#cb111-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.001</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb111-39"><a href="#cb111-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;CV&quot;</span>) <span class="sc">+</span></span>
+<span id="cb111-40"><a href="#cb111-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb111-41"><a href="#cb111-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb111-42"><a href="#cb111-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb111-43"><a href="#cb111-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb111-44"><a href="#cb111-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb111-45"><a href="#cb111-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb111-46"><a href="#cb111-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb111-47"><a href="#cb111-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">&quot;Times New Roman&quot;</span>, <span class="at">size =</span> <span class="dv">14</span>)</span>
+<span id="cb111-48"><a href="#cb111-48" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb111-49"><a href="#cb111-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-50"><a href="#cb111-50" aria-hidden="true" tabindex="-1"></a>m_p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> media_prod, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> med)) <span class="sc">+</span></span>
+<span id="cb111-51"><a href="#cb111-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb111-52"><a href="#cb111-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;seagreen1&quot;</span>,</span>
+<span id="cb111-53"><a href="#cb111-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">outlier.colour =</span> <span class="st">&quot;tomato3&quot;</span>,</span>
+<span id="cb111-54"><a href="#cb111-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="dv">19</span>,</span>
+<span id="cb111-55"><a href="#cb111-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">outlier.size =</span> <span class="fl">1.5</span></span>
+<span id="cb111-56"><a href="#cb111-56" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb111-57"><a href="#cb111-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb111-58"><a href="#cb111-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;μ&quot;</span>) <span class="sc">+</span></span>
+<span id="cb111-59"><a href="#cb111-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb111-60"><a href="#cb111-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb111-61"><a href="#cb111-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb111-62"><a href="#cb111-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb111-63"><a href="#cb111-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb111-64"><a href="#cb111-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb111-65"><a href="#cb111-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb111-66"><a href="#cb111-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">&quot;Times New Roman&quot;</span>, <span class="at">size =</span> <span class="dv">14</span>)</span>
+<span id="cb111-67"><a href="#cb111-67" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb111-68"><a href="#cb111-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-69"><a href="#cb111-69" aria-hidden="true" tabindex="-1"></a>prod <span class="ot">&lt;-</span> <span class="fu">ggarrange</span>(h_p, cv_p, m_p, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">1</span>)</span>
+<span id="cb111-70"><a href="#cb111-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-71"><a href="#cb111-71" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">annotate_figure</span>(prod,</span>
+<span id="cb111-72"><a href="#cb111-72" aria-hidden="true" tabindex="-1"></a>                     <span class="at">top =</span> <span class="fu">text_grob</span>(</span>
+<span id="cb111-73"><a href="#cb111-73" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">bquote</span>(<span class="fu">underline</span>(.(<span class="st">&quot;            Grain yield               &quot;</span>))),</span>
+<span id="cb111-74"><a href="#cb111-74" aria-hidden="true" tabindex="-1"></a>                       <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb111-75"><a href="#cb111-75" aria-hidden="true" tabindex="-1"></a>                       <span class="at">family =</span> <span class="st">&quot;Times New Roman&quot;</span>,</span>
+<span id="cb111-76"><a href="#cb111-76" aria-hidden="true" tabindex="-1"></a>                       <span class="at">size =</span> <span class="dv">14</span></span>
+<span id="cb111-77"><a href="#cb111-77" aria-hidden="true" tabindex="-1"></a>                     ))</span>
+<span id="cb111-78"><a href="#cb111-78" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="dispersão-e-regressão-com-abline" class="section level3">
 <h3>Dispersão e regressão com abline</h3>
-<pre class="r"><code>graf &lt;- read.table(&quot;data/face.txt&quot;, header = T)
-graf$Variable &lt;- as.factor(graf$Variable)
-
-a &lt;- c(
-  &quot;Coeficient_of_Variation&quot; = &quot;Coef. of Variation (%)&quot;,
-  &quot;Grain_yield&quot; = bquote(&quot;Grain yield (kg&quot; ~ ha ^ -1 ~ &quot;)&quot;),
-  &quot;Heritability&quot; = &quot;Heritability (%)&quot;
-)
-
-facet_labeller &lt;- function(variable, value) {
-  return(a[value])
-}
-
-ggplot(graf, aes(
-  x = Year,
-  y = Average,
-  color = as.factor(Study)
-)) +
-  geom_point() +
-  geom_line() +
-  facet_grid(Variable ~ ., scales = &quot;free_y&quot;, labeller = facet_labeller) +
-  scale_colour_discrete(name = &quot;Environment&quot;,
-                        labels = c(&quot;CELP&quot;, &quot;CELB&quot;, &quot;CEGR&quot;)) +
-  scale_x_continuous(breaks = c(2000:2020)) +
-  scale_y_continuous(expand = expansion(mult = 0.5, add = 0.5)) +
-  geom_abline(
-    data = graf,
-    mapping = aes(slope = Slope, intercept = Intercept),
-    color = &quot;red&quot;
-  ) +
-  theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 45),
-    strip.text.y = element_text(size = 8),
-    axis.title.x = element_blank(),
-    axis.title.y = element_blank(),
-    legend.position = &quot;bottom&quot;,
-    text = element_text(family = &quot;Times New Roman&quot;, size = 12)
-  )</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-50-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb112"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>graf <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;data/face.txt&quot;</span>, <span class="at">header =</span> T)</span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>graf<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(graf<span class="sc">$</span>Variable)</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Coeficient_of_Variation&quot;</span> <span class="ot">=</span> <span class="st">&quot;Coef. of Variation (%)&quot;</span>,</span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Grain_yield&quot;</span> <span class="ot">=</span> <span class="fu">bquote</span>(<span class="st">&quot;Grain yield (kg&quot;</span> <span class="sc">~</span> ha <span class="sc">^</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;)&quot;</span>),</span>
+<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Heritability&quot;</span> <span class="ot">=</span> <span class="st">&quot;Heritability (%)&quot;</span></span>
+<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-10"><a href="#cb112-10" aria-hidden="true" tabindex="-1"></a>facet_labeller <span class="ot">&lt;-</span> <span class="cf">function</span>(variable, value) {</span>
+<span id="cb112-11"><a href="#cb112-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(a[value])</span>
+<span id="cb112-12"><a href="#cb112-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb112-13"><a href="#cb112-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-14"><a href="#cb112-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(graf, <span class="fu">aes</span>(</span>
+<span id="cb112-15"><a href="#cb112-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> Year,</span>
+<span id="cb112-16"><a href="#cb112-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> Average,</span>
+<span id="cb112-17"><a href="#cb112-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="fu">as.factor</span>(Study)</span>
+<span id="cb112-18"><a href="#cb112-18" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">+</span></span>
+<span id="cb112-19"><a href="#cb112-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb112-20"><a href="#cb112-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb112-21"><a href="#cb112-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(Variable <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="at">labeller =</span> facet_labeller) <span class="sc">+</span></span>
+<span id="cb112-22"><a href="#cb112-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Environment&quot;</span>,</span>
+<span id="cb112-23"><a href="#cb112-23" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;CELP&quot;</span>, <span class="st">&quot;CELB&quot;</span>, <span class="st">&quot;CEGR&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb112-24"><a href="#cb112-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2000</span><span class="sc">:</span><span class="dv">2020</span>)) <span class="sc">+</span></span>
+<span id="cb112-25"><a href="#cb112-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fl">0.5</span>, <span class="at">add =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb112-26"><a href="#cb112-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(</span>
+<span id="cb112-27"><a href="#cb112-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> graf,</span>
+<span id="cb112-28"><a href="#cb112-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">slope =</span> Slope, <span class="at">intercept =</span> Intercept),</span>
+<span id="cb112-29"><a href="#cb112-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;red&quot;</span></span>
+<span id="cb112-30"><a href="#cb112-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb112-31"><a href="#cb112-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb112-32"><a href="#cb112-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb112-33"><a href="#cb112-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>),</span>
+<span id="cb112-34"><a href="#cb112-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb112-35"><a href="#cb112-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb112-36"><a href="#cb112-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb112-37"><a href="#cb112-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb112-38"><a href="#cb112-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">&quot;Times New Roman&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>)</span>
+<span id="cb112-39"><a href="#cb112-39" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="dispersão-com-regressão-linear-e-equação"
 class="section level3">
 <h3>Dispersão com regressão linear e equação</h3>
-<pre class="r"><code>library(ggpmisc)                  # Adiconar resta e equação no gráfico
-library(ggthemes)                 # Diversos temas para os gráficos
-
-graf %&gt;%
-  filter(Variable != &quot;Coefficient_of_variation&quot;) %&gt;% 
-  mutate(
-    Study = as.factor(Study)
-  ) %&gt;%
-  ggplot(aes(x = as.numeric(Year), y = Average, colour = Study)) +
-  geom_point() +
-  stat_poly_line(se = FALSE) +
-  stat_poly_eq(aes(label = after_stat(eq.label)),
-               label.y = c(0.95, 0.9, 0.85),
-               label.x = c(1, 1, 1)) +
-  facet_wrap(~ Variable, ncol = 3, scales=&quot;free_y&quot;) +
-  scale_x_continuous(breaks = c(2004:2017))+
-  theme_bw() +
-  theme(plot.title = element_text(size = 16, face = &quot;bold&quot;),
-        axis.text.x = element_text(angle = 45)) +
-  scale_color_gdocs() +
-  labs(x = &quot;Year&quot;,
-       colour = &quot;Study&quot;)</code></pre>
-<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-51-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb113"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpmisc)                  <span class="co"># Adiconar resta e equação no gráfico</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)                 <span class="co"># Diversos temas para os gráficos</span></span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>graf <span class="sc">%&gt;%</span></span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Variable <span class="sc">!=</span> <span class="st">&quot;Coefficient_of_variation&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Study =</span> <span class="fu">as.factor</span>(Study)</span>
+<span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(Year), <span class="at">y =</span> Average, <span class="at">colour =</span> Study)) <span class="sc">+</span></span>
+<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb113-11"><a href="#cb113-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_poly_line</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb113-12"><a href="#cb113-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_poly_eq</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(eq.label)),</span>
+<span id="cb113-13"><a href="#cb113-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">label.y =</span> <span class="fu">c</span>(<span class="fl">0.95</span>, <span class="fl">0.9</span>, <span class="fl">0.85</span>),</span>
+<span id="cb113-14"><a href="#cb113-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">label.x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb113-15"><a href="#cb113-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Variable, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">scales=</span><span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb113-16"><a href="#cb113-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2004</span><span class="sc">:</span><span class="dv">2017</span>))<span class="sc">+</span></span>
+<span id="cb113-17"><a href="#cb113-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb113-18"><a href="#cb113-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb113-19"><a href="#cb113-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>)) <span class="sc">+</span></span>
+<span id="cb113-20"><a href="#cb113-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_gdocs</span>() <span class="sc">+</span></span>
+<span id="cb113-21"><a href="#cb113-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb113-22"><a href="#cb113-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">&quot;Study&quot;</span>)</span></code></pre></div>
+<p><img src="figure/analise-grafica.Rmd/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1837,7 +1883,8 @@ Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
+<div class="sourceCode" id="cb114"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>R version 4.1.3 (2022-03-10)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 Running under: Windows 10 x64 (build 19042)
@@ -1853,53 +1900,66 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] ggpubr_0.4.0    extrafont_0.18  gridExtra_2.3   readxl_1.4.1   
- [5] ggthemes_4.2.4  ggpmisc_0.5.0   ggpp_0.4.4      metan_1.17.0   
- [9] forcats_0.5.2   stringr_1.4.1   dplyr_1.0.9     purrr_0.3.4    
-[13] readr_2.1.2     tidyr_1.2.0     tibble_3.1.8    ggplot2_3.3.6  
-[17] tidyverse_1.3.2
+ [1] ggpubr_0.4.0       extrafont_0.18     gridExtra_2.3      readxl_1.4.1      
+ [5] ggthemes_4.2.4     ggpmisc_0.5.1      ggpp_0.4.5         metan_1.17.0      
+ [9] esquisse_1.1.2     DataExplorer_0.8.2 forcats_0.5.2      stringr_1.4.1     
+[13] dplyr_1.0.10       purrr_0.3.4        readr_2.1.2        tidyr_1.2.1       
+[17] tibble_3.1.8       ggplot2_3.3.6      tidyverse_1.3.2   
 
 loaded via a namespace (and not attached):
-  [1] googledrive_2.0.0   minqa_1.2.4         colorspace_2.0-3   
-  [4] ggsignif_0.6.3      ellipsis_0.3.2      rprojroot_2.0.3    
-  [7] fs_1.5.2            rstudioapi_0.13     farver_2.1.1       
- [10] MatrixModels_0.5-0  ggrepel_0.9.1       bit64_4.0.5        
- [13] fansi_1.0.3         lubridate_1.8.0     mathjaxr_1.6-0     
- [16] xml2_1.3.3          codetools_0.2-18    splines_4.1.3      
- [19] cachem_1.0.6        knitr_1.39          confintr_0.1.2     
- [22] polyclip_1.10-0     polynom_1.4-1       jsonlite_1.8.0     
- [25] workflowr_1.7.0     nloptr_2.0.3        Rttf2pt1_1.3.10    
- [28] broom_1.0.0         dbplyr_2.2.1        ggforce_0.3.4      
- [31] compiler_4.1.3      httr_1.4.4          backports_1.4.1    
- [34] assertthat_0.2.1    Matrix_1.4-1        fastmap_1.1.0      
- [37] gargle_1.2.0        cli_3.3.0           later_1.3.0        
- [40] tweenr_2.0.0        htmltools_0.5.3     quantreg_5.94      
- [43] tools_4.1.3         lmerTest_3.1-3      gtable_0.3.0       
- [46] glue_1.6.2          Rcpp_1.0.9          carData_3.0-5      
- [49] cellranger_1.1.0    jquerylib_0.1.4     vctrs_0.4.1        
- [52] nlme_3.1-159        extrafontdb_1.0     xfun_0.32          
- [55] lme4_1.1-30         rvest_1.0.3         lifecycle_1.0.1    
- [58] rstatix_0.7.0       googlesheets4_1.0.1 MASS_7.3-58.1      
- [61] scales_1.2.1        vroom_1.5.7         ragg_1.2.2         
- [64] hms_1.1.2           promises_1.2.0.1    parallel_4.1.3     
- [67] SparseM_1.81        RColorBrewer_1.1-3  yaml_2.3.5         
- [70] sass_0.4.2          reshape_0.8.9       stringi_1.7.6      
- [73] highr_0.9           boot_1.3-28         rlang_1.0.4        
- [76] pkgconfig_2.0.3     systemfonts_1.0.4   evaluate_0.16      
- [79] lattice_0.20-45     patchwork_1.1.2     labeling_0.4.2     
- [82] cowplot_1.1.1       bit_4.0.4           tidyselect_1.1.2   
- [85] GGally_2.1.2        plyr_1.8.7          magrittr_2.0.3     
- [88] R6_2.5.1            generics_0.1.3      DBI_1.1.3          
- [91] pillar_1.8.1        haven_2.5.0         withr_2.5.0        
- [94] mgcv_1.8-40         abind_1.4-5         survival_3.4-0     
- [97] car_3.1-0           modelr_0.1.9        crayon_1.5.1       
-[100] utf8_1.2.2          tzdb_0.3.0          rmarkdown_2.15     
-[103] grid_4.1.3          git2r_0.30.1        reprex_2.0.2       
-[106] digest_0.6.29       httpuv_1.6.5        numDeriv_2016.8-1.1
-[109] textshaping_0.3.6   munsell_0.5.0       bslib_0.4.0        </code></pre>
+  [1] backports_1.4.1     workflowr_1.7.0     systemfonts_1.0.4  
+  [4] plyr_1.8.7          igraph_1.3.5        splines_4.1.3      
+  [7] digest_0.6.29       htmltools_0.5.3     lmerTest_3.1-3     
+ [10] fansi_1.0.3         magrittr_2.0.3      googlesheets4_1.0.1
+ [13] confintr_0.2.0      tzdb_0.3.0          openxlsx_4.2.5     
+ [16] modelr_0.1.9        vroom_1.6.0         extrafontdb_1.0    
+ [19] colorspace_2.0-3    rvest_1.0.3         ggrepel_0.9.1      
+ [22] textshaping_0.3.6   haven_2.5.1         xfun_0.32          
+ [25] crayon_1.5.2        jsonlite_1.8.0      lme4_1.1-30        
+ [28] survival_3.4-0      glue_1.6.2          polyclip_1.10-0    
+ [31] gtable_0.3.1        gargle_1.2.1        MatrixModels_0.5-1 
+ [34] phosphoricons_0.1.2 car_3.1-1           Rttf2pt1_1.3.11    
+ [37] abind_1.4-5         SparseM_1.81        scales_1.2.1       
+ [40] DBI_1.1.3           GGally_2.1.2        rstatix_0.7.0      
+ [43] Rcpp_1.0.9          xtable_1.8-4        foreign_0.8-82     
+ [46] bit_4.0.4           htmlwidgets_1.5.4   httr_1.4.4         
+ [49] RColorBrewer_1.1-3  ellipsis_0.3.2      pkgconfig_2.0.3    
+ [52] reshape_0.8.9       farver_2.1.1        sass_0.4.2         
+ [55] dbplyr_2.2.1        utf8_1.2.2          tidyselect_1.2.0   
+ [58] labeling_0.4.2      rlang_1.0.6         later_1.3.0        
+ [61] polynom_1.4-1       munsell_0.5.0       cellranger_1.1.0   
+ [64] tools_4.1.3         cachem_1.0.6        cli_3.3.0          
+ [67] generics_0.1.3      broom_1.0.1         mathjaxr_1.6-0     
+ [70] evaluate_0.17       fastmap_1.1.0       yaml_2.3.5         
+ [73] ragg_1.2.3          knitr_1.40          bit64_4.0.5        
+ [76] fs_1.5.2            zip_2.2.1           nlme_3.1-159       
+ [79] whisker_0.4         mime_0.12           quantreg_5.94      
+ [82] xml2_1.3.3          compiler_4.1.3      rstudioapi_0.14    
+ [85] datamods_1.3.4      curl_4.3.3          ggsignif_0.6.4     
+ [88] reprex_2.0.2        tweenr_2.0.2        bslib_0.4.0        
+ [91] stringi_1.7.6       highr_0.9           lattice_0.20-45    
+ [94] Matrix_1.5-1        nloptr_2.0.3        vctrs_0.4.1        
+ [97] pillar_1.8.1        lifecycle_1.0.3     networkD3_0.4      
+[100] jquerylib_0.1.4     cowplot_1.1.1       data.table_1.14.2  
+[103] httpuv_1.6.5        patchwork_1.1.2     R6_2.5.1           
+[106] promises_1.2.0.1    rio_0.5.29          boot_1.3-28        
+[109] MASS_7.3-58.1       assertthat_0.2.1    rprojroot_2.0.3    
+[112] shinyWidgets_0.7.4  withr_2.5.0         mgcv_1.8-40        
+[115] parallel_4.1.3      hms_1.1.2           grid_4.1.3         
+[118] minqa_1.2.4         rmarkdown_2.17      carData_3.0-5      
+[121] googledrive_2.0.0   git2r_0.30.1        ggforce_0.4.1      
+[124] numDeriv_2016.8-1.1 shiny_1.7.2         lubridate_1.8.0    </code></pre>
 </div>
 </div>
 </div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>Weverton Gomes da Costa, Pós-Doutorando, Embrapa
+Mandioca e Fruticultura, <a href="mailto:wevertonufv@gmail.com"
+class="email">wevertonufv@gmail.com</a><a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 

@@ -3,14 +3,12 @@ title: "Sobre"
 author: "Costa, W. G."
 date: "`r Sys.Date()`"
 site: workflowr::wflow_site
-url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/about.html
 output:
   workflowr::wflow_html:
-    toc: yes
-  highlight: github
+    toc: no
 editor_options:
   chunk_output_type: console
-github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 ---
 
 Curso: Análise Gráfica no R.

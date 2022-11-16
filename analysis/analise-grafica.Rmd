@@ -2,20 +2,18 @@
 title: | 
   Análise Gráfica no R
   ![](images/logo.jpg){width=100px style="display:block; margin:0 auto"}
-author: "Costa, W. G."
+author: 
+  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Embrapa Mandioca e Fruticultura, wevertonufv@gmail.com]
 date: "`r Sys.Date()`"
-url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/
-output:
-  workflowr::wflow_html:
-    toc: yes
-  highlight: github
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/analise-grafica.html
+output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, cache.lazy = FALSE, fig.width = 8, fig.height = 7, warning = FALSE, autodep = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```
 
 ## Análise exploratória
@@ -34,11 +32,13 @@ dados
 ```
 
 ### Tipos de valores e ocorrência de valores ausentes.
+
 ```{r}
 plot_intro(dados)
 ```
 
 ### Perfil dos valores ausentes.
+
 ```{r}
 plot_missing(dados)
 ```
@@ -49,14 +49,16 @@ plot_missing(dados)
 plot_bar(dados)
 ```
 
-
 ### Distribuiçãoo das variáveis quantitativas.
 
 ```{r}
 plot_histogram(dados)
 ```
 
-# Examinar relações de forma Ágil.
+### Examinar relações
+
+A biblioteca esquisse permite criar uma interface para que você pode de forma ágil visualizar a relação das variáveis da forma que desejar.
+
 ```{r}
 library(esquisse)
 ```
@@ -64,8 +66,6 @@ library(esquisse)
 ```{r eval = FALSE}
 esquisser(dados)
 ```
-
-
 
 ## Sintaxe básica do `ggplot2`
 
@@ -180,6 +180,7 @@ dados %>%
   geom_vline(aes(xintercept = 300)) +
   geom_hline(aes(yintercept = 10))
 ```
+
 Para plotar uma reta no gráfico, podemos utilizar a função `geom_vline()` para linhas verticais ou `geom_hline()` para linhas horizontais. 
 
 No exemplo abaixo vamos calcular a média da área por `gen` e vamos plotar a reta média para cada `gen` no histograma.
@@ -206,7 +207,6 @@ dados %>%
   geom_boxplot()
 ```
 
-
 ### Correlação
 
 Para gráficos de correlação precisamos antes de plotar o gráfico calcular a correlação entre as variáveis. Vamos estimar a correlação das variaveis `sev1`, `sev2`, `sev3`, `area` e `areat`. Usaremos a função `corr_coef()`, do pacote `metan` [(mais informações sobre esse pacote)](https://tiagoolivoto.github.io/metan/index.html) para retornar uma matriz de correlação das nossas variáveis e a função `plot()` para plotar o gráfico. 
@@ -220,6 +220,7 @@ coef_cor <- corr_coef(dados %>%
                         select(sev1:areat))
 coef_cor
 ```
+
 Veja mais sobre as particularidades da função `plot()` [aqui](https://tiagoolivoto.github.io/metan/reference/plot.corr_coef.html).
 
 ```{r}
@@ -237,6 +238,7 @@ plot(
   size.text.cor = 5
 )
 ```
+
 Outra forma de visualizar a correlação entre as variáveis é pela função `corr_plot()`. Essa função permite a visualização gráfica e numérica de uma matriz de correlação.
 
 ```{r}
@@ -266,8 +268,9 @@ dados %>%
 
 Se quisermos inserir a fórmula no gráfico, utilizamos a `stat_poly_eq` função do pacote `ggpmisc`, indicando que a estética da equação é `..eq.label..` e/ ou da correlação `..rr.label..`.
 
-```{r, eval=FALSE}
+```{r}
 library(ggpmisc)
+
 dados %>%
   ggplot(aes(x = id, y = area)) +
   geom_smooth(method = lm, se = FALSE) +
@@ -275,7 +278,6 @@ dados %>%
   stat_poly_eq(formula = y ~ x,
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")))
 ```
-
 
 ## Estética
 
@@ -304,7 +306,6 @@ dados %>%
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
   facet_grid(gen ~ as.factor(blocos))
 ```
-
 
 ### Escala
 
@@ -344,6 +345,8 @@ p + theme_minimal()
 p + theme_classic()
 ```
 
+Outro temas você pode encontrar no pacote [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/).
+
 ### Texto e eixos
 
 - Textos
@@ -351,8 +354,9 @@ p + theme_classic()
 Para inserir textos no gráfico utilizamos o função `geom_text)`, indicando a posição no gráfico (x e y) e o texto (label) a ser inserido.
 
 ```{r}
-p+geom_text(x = 30, y = 450, label = "texto que você quiser escrever")
+p + geom_text(x = 30, y = 450, label = "texto que você quiser escrever")
 ```
+
 - Títulos
 
 Para inserir títulos no gráfico usamos a função `labs()`. Para alterar a posição do título usamos o argumento ``plot.title()` dentro da função `theme()`. Para alteração no texto sempre devemos especificar `element_text()`. *Isso vale para qualquer parte do gráfico, não apenas para o título.*
@@ -364,16 +368,18 @@ p +
   theme(plot.subtitle = element_text(hjust = 0.5)) +          #centralizando o subtítulo
   theme(plot.title = element_text(color = "blue")) #mudando a cor do título
 ```
+
 - Nome dos eixos
 
 Para alterar o nomes dos eixos podemos usar as funções `ylab()` e `xlab()`.
 
 ```{r}
-p + ylab(label = bquote("Produção (kg" ~ ha ^ -1 ~ ")")) +
+p +
+  ylab(label = bquote("Produção (kg" ~ ha ^ -1 ~ ")")) +
   #título do eixo y
   xlab(label = "Individuo") #título do eixo x
-
 ```
+
 **Para adicionar equações em texto de qualquer parte do gráfico usamos a função `bquote()`. Para valores subescritos indicamos entre colchetes entre `~` : CO[2], por exemplo. Para valores superescritos indicamos o acento circunflexo entre `~`: ha ^ -1, por exemplo.**
 
 ### Legendas
@@ -406,6 +412,7 @@ p + guides(color = FALSE)
 ## Escalas de cores
 
 A indicação de cores pode ser feita de forma manual utilizando a função `scale_color_manual()`, dentro da função atribuímos valores ou nome das cores, para conhecer lagumas cores disponeis acesse [aqui](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+
 ```{r}
 p + scale_color_manual(values = c("#999999", "#E69F00"))
 ```
@@ -415,6 +422,7 @@ Também podemos especificar por paletas de cores já existentes em pacotes. [Aqu
 ```{r}
 p + scale_color_brewer()
 ```
+
 O pacote [ggthemes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) também possui vários temas e paletas que podem ser do seu interesse.
 
 ```{r}

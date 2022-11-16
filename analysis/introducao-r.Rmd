@@ -2,18 +2,20 @@
 title: | 
   Introdução ao R
   ![](images/logo.jpg){width=100px style="display:block; margin:0 auto"}
-author: "Costa, W. G."
+author: 
+  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Embrapa Mandioca e Fruticultura, wevertonufv@gmail.com]
 date: "`r Sys.Date()`"
 site: workflowr::wflow_site
-url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/introducao-r.html
 output:
-  workflowr::wflow_html:
-    toc: yes
-  highlight: github
+  workflowr::wflow_html
 editor_options:
   chunk_output_type: console
-github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
 
 # Introdução ao R
 

@@ -2,21 +2,18 @@
 title: | 
   Como Usar este Material
   ![](images/logo.jpg){width=100px style="display:block; margin:0 auto"}
-author: "Costa, W. G."
+author: 
+  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Embrapa Mandioca e Fruticultura, wevertonufv@gmail.com]
 date: "`r Sys.Date()`"
 site: workflowr::wflow_site
-url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/
-output:
-  workflowr::wflow_html:
-    toc: yes
-  highlight: github
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/Tutorial.html
+output:   workflowr::wflow_html
 editor_options:
-  chunk_output_type: inline
-github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, cache.lazy = FALSE, fig.width = 8, fig.height = 7, warning = FALSE, autodep = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```
 
 Primeiro será necessário a instalação dos softwares R e RStudio. Você encontrará as informações de como realizar o download na seção seguinte.

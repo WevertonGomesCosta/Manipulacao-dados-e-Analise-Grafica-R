@@ -2,22 +2,16 @@
 title: | 
   Curso - Análise Gráfica no R 
   ![](images/logo.jpg){width=100px style="display:block; margin:0 auto"}
-author: "Costa, W. G."
+author: 
+  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Embrapa Mandioca e Fruticultura, wevertonufv@gmail.com]
 date: "`r Sys.Date()`"
 site: workflowr::wflow_site
-url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/index.html
 output:
-  workflowr::wflow_html:
-    toc: yes
-  highlight: github
+  workflowr::wflow_html
 editor_options:
   chunk_output_type: console
-github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, cache.lazy = FALSE, fig.width = 8, fig.height = 7, warning = FALSE, autodep = TRUE)
-```
 
 ###  Curso Análise Gráfica no R
 
@@ -42,10 +36,10 @@ Para todos aqueles que desejam aprender a produzir gráficos com execelência.
 
 ### O que você irá encontrar nesse curso:
 
-- [Tutorial](#Tutorial): Tudo que você precisa para usar este material e como realizar as instalações dos softwares, pacotes e materiais auxiliares para você se aprofundar mais sobre o R e análise de dados. 
+- [Tutorial](https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/Tutorial.html): Tudo que você precisa para usar este material e como realizar as instalações dos softwares, pacotes e materiais auxiliares para você se aprofundar mais sobre o R e análise de dados. 
 
-- [Introdução ao R](#introducao-r): Para que você possa ter mais conhecimento sobre o R, preparei um material de introdução ao R. Assim você pode aprender mais sobre o software e como utilizá-lo, além de e poder consultar futuramente em seus estudos.
+- [Introdução ao R](https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/introducao-r.html): Para que você possa ter mais conhecimento sobre o R, preparei um material de introdução ao R. Assim você pode aprender mais sobre o software e como utilizá-lo, além de e poder consultar futuramente em seus estudos.
 
-- [Manipulação de dados](#manipulacaodedados): Aqui você irá aprender sobre manipulação de dados. A análise gráfica depende desse conhecimento para futuros ajustes ou até mesmo para a produção dos gráficos da maneira que você desejar. Neste tópico iremos abordar as principais funções do framework `tidyverse`, que é amplamente utilizado para manipulação de dados, permitindo realizar manipulações de maneira rápida e simples e organizada.
+- [Manipulação de dados](https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/manipulacaodedados.html): Aqui você irá aprender sobre manipulação de dados. A análise gráfica depende desse conhecimento para futuros ajustes ou até mesmo para a produção dos gráficos da maneira que você desejar. Neste tópico iremos abordar as principais funções do framework `tidyverse`, que é amplamente utilizado para manipulação de dados, permitindo realizar manipulações de maneira rápida e simples e organizada.
 
-- [Análise Gráfica no R](#analise-grafica): O objetivo deste curso é te ensinar todos os conceitos para fazer gráficos usando a biblioteca `ggplot2`. O `ggplot2` é uma biblioteca que permite construir vários tipos de gráficos diferentes, com estruturas e estética diferenciadas e de qualidade.
+- [Análise Gráfica no R](https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/analise-grafica.html): O objetivo deste curso é te ensinar todos os conceitos para fazer gráficos usando a biblioteca `ggplot2`. O `ggplot2` é uma biblioteca que permite construir vários tipos de gráficos diferentes, com estruturas e estética diferenciadas e de qualidade.

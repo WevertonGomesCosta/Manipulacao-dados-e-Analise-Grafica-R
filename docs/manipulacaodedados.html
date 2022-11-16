@@ -11,14 +11,14 @@
 
 <meta name="author" content="Costa, W. G." />
 
-<meta name="date" content="2022-10-25" />
+<meta name="date" content="2022-11-15" />
 
 <title>Manipulação de dados no R </title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -35,8 +35,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -59,18 +57,105 @@ div.section {
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -195,8 +280,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -204,16 +289,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -363,7 +441,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/wevertongomescosta/">
+  <a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R">
     <span class="fa fa-github"></span>
      
   </a>
@@ -380,8 +458,9 @@ div.tocify {
 <h1 class="title toc-ignore"><p>Manipulação de dados no R <img
 src="images/logo.jpg" style="display:block; margin:0 auto"
 width="100" /></p></h1>
-<h4 class="author">Costa, W. G.</h4>
-<h4 class="date">2022-10-25</h4>
+<h4 class="author">Costa, W. G.<a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a></h4>
+<h4 class="date">2022-11-15</h4>
 
 </div>
 
@@ -410,13 +489,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-10-25
+<strong>Last updated:</strong> 2022-11-15
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 2
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong>
@@ -514,126 +593,16 @@ versions is critical for reproducibility.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
-<div id="strongCachestrongdetected" class="panel-collapse collapse">
+<div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-The following chunks had caches available:
-<ul>
-<li>
-session-info-chunk-inserted-by-workflowr
-</li>
-<li>
-unnamed-chunk-1
-</li>
-<li>
-unnamed-chunk-10
-</li>
-<li>
-unnamed-chunk-11
-</li>
-<li>
-unnamed-chunk-12
-</li>
-<li>
-unnamed-chunk-13
-</li>
-<li>
-unnamed-chunk-14
-</li>
-<li>
-unnamed-chunk-15
-</li>
-<li>
-unnamed-chunk-16
-</li>
-<li>
-unnamed-chunk-17
-</li>
-<li>
-unnamed-chunk-18
-</li>
-<li>
-unnamed-chunk-19
-</li>
-<li>
-unnamed-chunk-2
-</li>
-<li>
-unnamed-chunk-20
-</li>
-<li>
-unnamed-chunk-21
-</li>
-<li>
-unnamed-chunk-22
-</li>
-<li>
-unnamed-chunk-23
-</li>
-<li>
-unnamed-chunk-24
-</li>
-<li>
-unnamed-chunk-25
-</li>
-<li>
-unnamed-chunk-26
-</li>
-<li>
-unnamed-chunk-3
-</li>
-<li>
-unnamed-chunk-36
-</li>
-<li>
-unnamed-chunk-37
-</li>
-<li>
-unnamed-chunk-38
-</li>
-<li>
-unnamed-chunk-39
-</li>
-<li>
-unnamed-chunk-4
-</li>
-<li>
-unnamed-chunk-40
-</li>
-<li>
-unnamed-chunk-41
-</li>
-<li>
-unnamed-chunk-43
-</li>
-<li>
-unnamed-chunk-44
-</li>
-<li>
-unnamed-chunk-5
-</li>
-<li>
-unnamed-chunk-6
-</li>
-<li>
-unnamed-chunk-7
-</li>
-<li>
-unnamed-chunk-8
-</li>
-<li>
-unnamed-chunk-9
-</li>
-</ul>
-<p>To ensure reproducibility of the results, delete the cache directory
-<code>manipulacaodedados_cache</code> and re-run the analysis. To have
-workflowr automatically delete the cache directory prior to building the
-file, set <code>delete_cache = TRUE</code> when running
-<code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
@@ -655,15 +624,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreebcef040f988f92ddbddcef090f40246d4efa1dd1targetblankbcef040a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtree5c6cf18fe6093c82627952dac04f3b9646988edftargetblank5c6cf18a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/bcef040f988f92ddbddcef090f40246d4efa1dd1" target="_blank">bcef040</a>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/5c6cf18fe6093c82627952dac04f3b9646988edf" target="_blank">5c6cf18</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreebcef040f988f92ddbddcef090f40246d4efa1dd1targetblankbcef040a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtree5c6cf18fe6093c82627952dac04f3b9646988edftargetblank5c6cf18a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -673,7 +642,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/bcef040f988f92ddbddcef090f40246d4efa1dd1" target="_blank">bcef040</a>.
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/5c6cf18fe6093c82627952dac04f3b9646988edf" target="_blank">5c6cf18</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -690,26 +659,173 @@ were generated:
 Ignored files:
     Ignored:    .Rproj.user/
 
-Untracked files:
-    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-22_24e054a280f2d8f6e963d999c6d01f6d.RData
-    Untracked:  analysis/manipulacaodedados_cache/html/unnamed-chunk-26_8ac5276625a143701148a4098c416715.RData
-
 Unstaged changes:
+    Modified:   analysis/Tutorial.Rmd
+    Deleted:    analysis/Tutorial_cache/html/__globals
+    Deleted:    analysis/Tutorial_cache/html/__objects
+    Deleted:    analysis/Tutorial_cache/html/__packages
+    Deleted:    analysis/Tutorial_cache/html/session-info-chunk-inserted-by-workflowr_39e77ec4e4e24071c6198b66644d04dc.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-10_5d700cc04ecbd56e5cba4f7b0f514262.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-11_e618cec3ebb42aae668ba4c2a9a741ed.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-12_677ec995d44983fdab729531c297ed4a.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-13_85555365b482653f03668eea7c9d3f12.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-14_8ad3912482174714390a445e0fd762bb.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-15_52630bf16a81b49dc2fb93600873e5bc.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-16_b2c82f8ecb294d71b6f8945151e938b4.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-17_51c21af285107b888ee09717a9dc6d71.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-18_e49eb62dbfc54028b8038a6fd4d9e22c.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-19_3cf64526b945d4ea3014e97f6b8dfd77.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-1_05c116ec03587effd80a5fbcca99aec6.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-20_16a52e0541d62c48ea04e85537c711da.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-21_c775e3feffee9cc7d713d0b08d2b7797.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-22_efc54ca034c695582a077dbc0b72f8e6.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-23_db7a2c5aa55a9b6aa3e106d91b248dc9.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-24_50a37f7e1a605ceddc13271b55eb5a53.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-25_3615c9b28cb383a6e6b99ca05745e546.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-26_b3f299ee9132672cca046427bd56ed04.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-27_88d5c3c043df023ec7ed524a08ac1d42.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-28_8ee73e0ae4420d262028ee772dcd0f95.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-29_248d34ff840bc15734ad1e0549a68854.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-2_ab2f09919036245c2250e4532406e7e1.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-30_cf17d2a7580b6a7023babec510ce7835.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-31_32a61356b411c1505f986f214581f1ad.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-32_964e8749b126823363f63d7450be2160.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-33_a88c27715f405bba786d75ee4ce06797.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-34_e24a03f8b918e32db24e37b9eb24e80d.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-35_7da52ce48bd7f28183547383a80f7aa4.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-36_2b64ceb9ddfc82129c5c0c850a5928d9.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-37_4c136dcdfb175fe7415d31dd32c03691.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-38_df951bfd23ba4da3b14e74d152ae8cb3.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-39_e1e2e91d2adad6da32e7fb4e5a306c50.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-3_a592597c1c0468a8cef88d14281cccf0.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-40_6a5bd13c78bb3b906c0f19790f736dbc.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-41_bbd987a46b15c5b786073bcfb75f9731.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-42_883b6bd2b9cb3016de9a7365ace66a0e.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-43_a83a7c6d878f895c4eb8beab8b5f5f35.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-44_0e217f6f7cf920a64d40e4b4012a6c36.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-45_2d012027cd643b1121d7228192bac2db.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-46_384274d9cdaaba7fc9f3ac09e9187645.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-4_da037b7c1f22615918226fa093c74ebc.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-5_6785d4f33de99a450ff8497b625fbc63.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-6_c01fde74468faf7a30e3761f0a065768.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-7_5cb161469e14d5f100a2c51766507ac2.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-8_a05ccaef8ba963263c0332b800e7298f.RData
+    Deleted:    analysis/Tutorial_cache/html/unnamed-chunk-9_90953a1306f15b6899b616688eb19935.RData
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/analise-grafica.Rmd
+    Deleted:    analysis/analise-grafica_cache/html/__globals
+    Deleted:    analysis/analise-grafica_cache/html/__objects
+    Deleted:    analysis/analise-grafica_cache/html/__packages
+    Deleted:    analysis/analise-grafica_cache/html/session-info-chunk-inserted-by-workflowr_facb8e93a72c00b9777b28ce546eaf13.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-10_206890308a684fcd46abbf982bb24000.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-11_39dc6a0e4cf3bf097d142871e9c116fe.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-12_0815f8aeb8b52340f7dcf6f44a5d6977.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-13_72ce879ebf950222e6c841eccc0cba64.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-14_91c6820876976fca85833fb96ef19246.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-15_4f5130d492046c0d197d63d347b701ab.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-16_22fe9f4f9ad58bbd8df22afdfac5e07b.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-17_e889d16aa69e9c794b985898dad2c4ba.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-18_3bf1639087a6f08cd11bc8fbfe2894ce.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-19_a757cfe20b21df538a762f49b4e6e89c.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-1_f00595bd22695017ee90704a77ad22f7.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-20_629b3a9ff466dadc9a8e68b74f085534.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-21_01a2141f497a66105a2764201dde0201.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-22_410ac0b82053d9df2e246ea93e4339d8.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-23_a1cd4698f2c88de740d088f6310e3c67.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-24_f18ef3a0d549df95e101d25fb6e138e3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-25_28bad1b99b3b71eb4392b2260b802d40.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-26_fea6f04794533b81cb7973a294a3f657.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-27_80c06a6f53a8c522ec52445d51c25f75.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-28_f28b17e2246736ab17bfcf53e495153f.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-29_66bc8fc685da5ef16e662363166e82ea.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-2_840ba46fc34c674d6f170173e18e2fcd.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-30_5d74c89a8cae85e22a2414270c8a7dbf.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-31_6476d018158e3f58ff272b2a497da0f3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-32_d481a1f55efb90259435f2a7307b8f02.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-33_34e4ff67da5d451d59b0b45bc8aec631.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-34_36ac024ea6df234aa9c184afd9564259.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-35_e91b1ad90188c19eb700a37f8cd06b26.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-36_f1b6768b75ba0b604bf56f3badaf2940.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-37_2decb112c8c1e6cb53f10a2f09c78170.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-38_cc9c1382630210ceb5473970e422854e.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-39_c23b66d6977125399b11f232b342b23c.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-3_de354d1aebc4feeeff942c066ab9a829.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-40_41ce386c92ff67ec95269dab1d41e631.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-41_330ea16c357bcaa561c8884155ff0791.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-42_18cfdd267073bbba0bcb15fd66bd48d3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-43_976c32701068e1f3aad3c2de8ee73c68.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-44_cb682b840df159c75d47843a4890a287.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-45_2a70a8725fe4e3bf3463fd0f3413d26c.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-46_a76732ddef0c3d36b7bfaac6870c9a1b.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-47_1d8615f2894ef3b693957532350c3cce.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-48_76c2cdd5493a85d0044dc5c99cffdd05.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-49_aeccb87608249ad0131ec11da5dd6e1b.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-4_893cf17c376749aba5452dc82f571dcb.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-50_6cf4671a8a3deaa1d04b5f74e8a372a5.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-51_9d77613272d1c9cee7dd5b326d88cd4c.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-5_c5783974c2686745f1557972908154d3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-6_7b37aaab323ad1e2bbba3c31aac011e3.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-7_59ba06a9d3dfacd317633a4a52bd1392.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-8_27498a7f2a27d917fcde75b1fb145479.RData
+    Deleted:    analysis/analise-grafica_cache/html/unnamed-chunk-9_271f89d6093519b7257adf0c039f7387.RData
+    Modified:   analysis/index.Rmd
+    Deleted:    analysis/index_cache/html/__globals
+    Deleted:    analysis/index_cache/html/__objects
+    Deleted:    analysis/index_cache/html/__packages
+    Deleted:    analysis/index_cache/html/session-info-chunk-inserted-by-workflowr_54bfedccea8b7e7d61fc7fca6bcc2241.RData
+    Modified:   analysis/introducao-r.Rmd
+    Modified:   analysis/license.Rmd
     Modified:   analysis/manipulacaodedados.Rmd
-    Modified:   analysis/manipulacaodedados_cache/html/__globals
-    Modified:   analysis/manipulacaodedados_cache/html/__objects
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-22_68742dd48e8c953dfeb1036e8a21f36a.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-26_72af52a957ddd04fc21e71d969f90ce8.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-27_feeb5e3cab3628ddfcd49a6adbb4c08b.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-28_f5a8868823c2cf35ce2b671c6acca1e4.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-29_638d5ea39fca427a9b1650b7b04298ca.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-30_da7ce0934d64eea91e1648bd98af9a89.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-31_69380287f8ea2b7813e413a4662bf468.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-32_bfc4c4ab37e41ae585f8947dd76249b4.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-33_7853744433478610d1f0001d80890041.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-34_53fcd0b63f68ffd4cda202917bb22c94.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-35_52506aee3aae08e8df7c6583837128b2.RData
-    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-42_d57804ba4f4ebd9f06d75f42e20d3e63.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/__globals
+    Deleted:    analysis/manipulacaodedados_cache/html/__objects
+    Deleted:    analysis/manipulacaodedados_cache/html/__packages
+    Deleted:    analysis/manipulacaodedados_cache/html/session-info-chunk-inserted-by-workflowr_416d01b0b6e37ea2f9cf30071ecf6d3b.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-10_fd0fe17f39a78c1bcff1908913b73b0b.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-11_eeebf5e25a12e49e078381cb2ca7e6b6.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-12_ae77a1007b57162d5ee9b2f7c8892c19.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-13_97b3ad301e30520f72f171b0f2bc5d1d.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-14_8df02393b7c6b77359726d23b4544624.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-15_c3b38ddfc5ec89141db37d06a6c2062f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-16_eca8e81e94d37902cbc341ceb705143f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-17_26dadc17fd32b1d0573bf810faceeeaa.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-18_1155afacbd1816b7fd151952fc2d80cf.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-19_25245b0107bba9a621363440299577af.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-1_9a07137184ec908fe07ea0a572cb6755.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-20_98343bba74135be0a35f227e681855b2.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-21_5f3ac6face900705bb13562762fac3f2.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-22_24e054a280f2d8f6e963d999c6d01f6d.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-23_8869148d8eac18e22a5633f8f8c0befb.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-24_6daac7438b96922e218bc77086ab5cda.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-25_55c457b948919c2e7426750e245ca1ec.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-26_8ac5276625a143701148a4098c416715.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-27_283945c95111e6b1707475b412a6e20e.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-28_f9c20edd31e6b60da42bc459364667d4.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-29_fb5241bba1f58a8ed02d2aac0d0da820.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-2_ab8030907a2a6ae5fc99ccdef427333f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-30_043c3f2b153cffc2b4c37f59a793f4a6.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-31_af249045006699523b2c6a507df10f66.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-32_1fb6a43e726103d82cb04aecf865c1ad.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-33_4c0cda238d46e26292691a2b4c98b06f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-34_2e5f546c7fc634182b6f163d3ba03118.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-35_f7ccf154b087259bb54684a6397089d7.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-36_58f8835af5d3a75187879fd6de23ad99.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-37_fa4821d374c98b794a2abe83a2c8d71b.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-38_52f0f7d017da31542a6bb1898d352bbc.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-39_fca15e21039651c74768d58ba7b9ec70.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-3_e5b1e9c02068a692eed7dd9a7d744f33.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-40_afbddccce17ae6325aa5da89af3ce7aa.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-41_e29c23fd0dbeff4b5bf13537b41fcffb.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-42_50855be455ae24e1ff5f2ff4323af77f.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-43_7d6fcfb57d116a766c8bc7a8b5907cc0.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-44_317c58199bd9830efb460a85bf07d163.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-45_e20749add7c9d35db02d8dbb1d055e06.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-4_b37249f1106a922313c0d819f45ffaf4.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-5_276ddf6bb2c441eeb8480cc7dc95fa39.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-6_924a432407498e425aa7b0b9b9e6978e.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-7_9776a7816dcc7d379615e40c7aae3e60.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-8_87501f1cc31e330dbcc50d9a406eea84.RData
+    Deleted:    analysis/manipulacaodedados_cache/html/unnamed-chunk-9_0686fa476e3b4fbe750b833a11c04b4b.RData
 
 </code></pre>
 <p>
@@ -755,6 +871,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/blob/5c6cf18fe6093c82627952dac04f3b9646988edf/analysis/manipulacaodedados.Rmd" target="_blank">5c6cf18</a>
+</td>
+<td>
+WevertonGomesCosta
+</td>
+<td>
+2022-11-04
+</td>
+<td>
+Update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/5c6cf18fe6093c82627952dac04f3b9646988edf/docs/manipulacaodedados.html" target="_blank">5c6cf18</a>
+</td>
+<td>
+WevertonGomesCosta
+</td>
+<td>
+2022-11-04
+</td>
+<td>
+Update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -834,8 +984,16 @@ Update
 <h2>Introdução à manipulação de dados</h2>
 <p>Vamos utilizar o framework <code>tidyverse</code> para já importar
 todas as bibliotecas presentes nele, para facilitar.</p>
-<pre class="r"><code>#install.packages(&quot;tidyverse&quot;) # Instala o tidyverse
-library(tidyverse)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;) # Instala o tidyverse</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>-- Attaching packages --------------------------------------- tidyverse 1.3.2 --
+v ggplot2 3.3.6      v purrr   0.3.4 
+v tibble  3.1.8      v dplyr   1.0.10
+v tidyr   1.2.1      v stringr 1.4.1 
+v readr   2.1.2      v forcats 0.5.2 
+-- Conflicts ------------------------------------------ tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()</code></pre>
 <p>O dplyr é a biblioteca que iremos utilizar para manipulação de dados.
 A biblioteca dplyr faz parte do framework <code>tidyverse</code> Saiba
 mais em: <a href="https://www.tidyverse.org/"
@@ -862,7 +1020,7 @@ etc.</p></li>
 <p>De início vamos usar a função <code>read_csv()</code> do pacote
 <code>readr</code>, já incluso no framework <code>tidyverse</code>, para
 importar os dados.</p>
-<pre class="r"><code>dados &lt;- read_csv(&quot;data/dados.csv&quot;)       # Função para importar os dados</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/dados.csv&quot;</span>)       <span class="co"># Função para importar os dados</span></span></code></pre></div>
 <pre><code>Rows: 96 Columns: 9
 -- Column specification --------------------------------------------------------
 Delimiter: &quot;,&quot;
@@ -871,7 +1029,7 @@ dbl (7): id, blocos, sev1, sev2, sev3, area, areat
 
 i Use `spec()` to retrieve the full column specification for this data.
 i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>dados</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dados</span></code></pre></div>
 <pre><code># A tibble: 96 x 9
    trat               id gen       blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -887,7 +1045,7 @@ i Specify the column types or set `show_col_types = FALSE` to quiet this message
 10 UFV 02             10 Predileta      2  1.9   12      12 133.   23.7
 # ... with 86 more rows</code></pre>
 <p>Leitura dos 6 primeiros observações</p>
-<pre class="r"><code>head(dados)</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados)</span></code></pre></div>
 <pre><code># A tibble: 6 x 9
   trat               id gen       blocos  sev1  sev2  sev3  area areat
   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -900,7 +1058,7 @@ i Specify the column types or set `show_col_types = FALSE` to quiet this message
 </div>
 <div id="análise-descritiva-dos-dados" class="section level2">
 <h2>Análise descritiva dos dados</h2>
-<pre class="r"><code>summary(dados)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados)</span></code></pre></div>
 <pre><code>     trat                 id            gen                blocos    
  Length:96          Min.   : 1.00   Length:96          Min.   :1.00  
  Class :character   1st Qu.:24.75   Class :character   1st Qu.:1.75  
@@ -934,13 +1092,13 @@ conjunto de dados a uma determinada função.</li>
 <p>Apenas para comparação vamos visualizar como é realizada o cálculo da
 média de uma das variáveis do nosso conjunto de dados por meio da função
 <code>mean()</code>.</p>
-<pre class="r"><code>mean(dados$sev1)</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dados<span class="sc">$</span>sev1)</span></code></pre></div>
 <pre><code>[1] 2.715208</code></pre>
 <p>Com o operador pipe <code>%&gt;%</code> podemos realizar o cálculo da
 média do seguinte modo:</p>
-<pre class="r"><code>#Operador pipe
-dados$sev1 %&gt;%
-  mean()</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Operador pipe</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>sev1 <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span></code></pre></div>
 <pre><code>[1] 2.715208</code></pre>
 <p>Veja que o resultado é semelhante, mas nesse caso utilizamos o
 <code>%&gt;%</code> para indicar qual os dados queremos calcular a
@@ -956,8 +1114,8 @@ dados. Veja alguns exemplos?</p>
 <li>Ordenando pela <code>area</code></li>
 </ul>
 <p>Ordenando pela menor área (crescente)</p>
-<pre class="r"><code>dados %&gt;%
-  arrange(area)</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(area)</span></code></pre></div>
 <pre><code># A tibble: 96 x 9
    trat               id gen       blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -973,8 +1131,8 @@ dados. Veja alguns exemplos?</p>
 10 UFV 02             12 Predileta      4  0.97   8       8  87.4  18.6
 # ... with 86 more rows</code></pre>
 <p>Ordenando pela maior área (descendente)</p>
-<pre class="r"><code>dados %&gt;%
-  arrange(desc(area))</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(area))</span></code></pre></div>
 <pre><code># A tibble: 96 x 9
    trat        id gen       blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -990,8 +1148,8 @@ dados. Veja alguns exemplos?</p>
 10 RIL 18      85 Inca           1   3.3    31    51  407.  44.7
 # ... with 86 more rows</code></pre>
 <p>Ordenando por gen e area</p>
-<pre class="r"><code>dados %&gt;%
-  arrange(gen, desc(area))</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(gen, <span class="fu">desc</span>(area))</span></code></pre></div>
 <pre><code># A tibble: 96 x 9
    trat      id gen   blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1014,8 +1172,8 @@ dados. Veja alguns exemplos?</p>
 satisfaçam as condições estabelecidas</li>
 </ul>
 <p>Filtrar apenas os genótipos <code>Predileta</code></p>
-<pre class="r"><code>dados %&gt;%
-  filter(gen == &quot;Predileta&quot;)</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gen <span class="sc">==</span> <span class="st">&quot;Predileta&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 48 x 9
    trat               id gen       blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1032,8 +1190,8 @@ satisfaçam as condições estabelecidas</li>
 # ... with 38 more rows</code></pre>
 <p>Filtrar os genótipos <code>Predileta</code> com área maior do que
 100</p>
-<pre class="r"><code>dados %&gt;%
-  filter(gen == &quot;Predileta&quot; &amp; area &gt;= 100)</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gen <span class="sc">==</span> <span class="st">&quot;Predileta&quot;</span> <span class="sc">&amp;</span> area <span class="sc">&gt;=</span> <span class="dv">100</span>)</span></code></pre></div>
 <pre><code># A tibble: 41 x 9
    trat            id gen       blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1049,8 +1207,8 @@ satisfaçam as condições estabelecidas</li>
 10 &quot;UFV 72&quot;        33 Predileta      1  1.9     22    31  269.  35.5
 # ... with 31 more rows</code></pre>
 <p>Filtrar os tratamentos <code>UFV 02</code> OU <code>UFV 04</code></p>
-<pre class="r"><code>dados %&gt;%
-  filter(trat == &quot;UFV 02&quot; | trat == &quot;UFV 04&quot;)</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(trat <span class="sc">==</span> <span class="st">&quot;UFV 02&quot;</span> <span class="sc">|</span> trat <span class="sc">==</span> <span class="st">&quot;UFV 04&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 16 x 9
    trat      id gen       blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1093,8 +1251,8 @@ tolerância</li>
 <li>Retorna as linhas (observações) determinadas</li>
 </ul>
 <p>Filtrar as observações 1 até 5</p>
-<pre class="r"><code>dados %&gt;%
-  slice(1:5)</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code># A tibble: 5 x 9
   trat               id gen       blocos  sev1  sev2  sev3  area areat
   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1104,8 +1262,8 @@ tolerância</li>
 4 Testemunha 6165     4 Predileta      4  1.9    3.3    12  71.8  16.5
 5 Testemunha 6165     5 Inca           1  1.9   12      31 199.   29.9</code></pre>
 <p>Filtrar todas observações menos a número 1 até a 5</p>
-<pre class="r"><code>dados %&gt;%
-  slice(-(1:5))</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code></pre></div>
 <pre><code># A tibble: 91 x 9
    trat               id gen       blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1121,8 +1279,8 @@ tolerância</li>
 10 UFV 02             15 Inca           3  0.97   3.3     8  54.5  14.0
 # ... with 81 more rows</code></pre>
 <p>Filtrar as 4 observações com maior área</p>
-<pre class="r"><code>dados %&gt;%
-  slice_max(area, n = 4)</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(area, <span class="at">n =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code># A tibble: 4 x 9
   trat     id gen       blocos  sev1  sev2  sev3  area areat
   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1131,8 +1289,8 @@ tolerância</li>
 3 M 354    90 Predileta      2   3.3    51    51  547.  52.7
 4 M 354    96 Inca           4   3.3    51    51  547.  52.7</code></pre>
 <p>Filtrar as 4 observações com menor area</p>
-<pre class="r"><code>dados %&gt;%
-  slice_min(area, n = 4)</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(area, <span class="at">n =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code># A tibble: 4 x 9
   trat               id gen       blocos  sev1  sev2  sev3  area areat
   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1148,8 +1306,8 @@ tolerância</li>
 </ul>
 <p>Selecionar as colunas 3 (gen) e 8 (area) Método 1 - indicando o
 número da coluna no conjunto de dados</p>
-<pre class="r"><code>dados %&gt;%
-  select(gen, area)</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gen, area)</span></code></pre></div>
 <pre><code># A tibble: 96 x 2
    gen        area
    &lt;chr&gt;     &lt;dbl&gt;
@@ -1165,8 +1323,8 @@ número da coluna no conjunto de dados</p>
 10 Predileta 133. 
 # ... with 86 more rows</code></pre>
 <p>Método 2 - indicando o nome da coluna no conjunto de dados</p>
-<pre class="r"><code>dados %&gt;%
-  select(3, 8)</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">3</span>, <span class="dv">8</span>)</span></code></pre></div>
 <pre><code># A tibble: 96 x 2
    gen        area
    &lt;chr&gt;     &lt;dbl&gt;
@@ -1182,8 +1340,8 @@ número da coluna no conjunto de dados</p>
 10 Predileta 133. 
 # ... with 86 more rows</code></pre>
 <p>Excluir a variável 2 (id)</p>
-<pre class="r"><code>dados %&gt;%
-  select(-id)</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>id)</span></code></pre></div>
 <pre><code># A tibble: 96 x 8
    trat            gen       blocos  sev1  sev2  sev3  area areat
    &lt;chr&gt;           &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1199,8 +1357,8 @@ número da coluna no conjunto de dados</p>
 10 UFV 02          Predileta      2  1.9   12      12 133.   23.7
 # ... with 86 more rows</code></pre>
 <p>Selecionar um intervalo de variáveis</p>
-<pre class="r"><code>dados %&gt;%
-  select(c(1:4, 8))</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">8</span>))</span></code></pre></div>
 <pre><code># A tibble: 96 x 5
    trat               id gen       blocos  area
    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;
@@ -1217,8 +1375,8 @@ número da coluna no conjunto de dados</p>
 # ... with 86 more rows</code></pre>
 <p>Selecionar colunas pela classe Método 1 - Usando
 <code>where</code></p>
-<pre class="r"><code>dados %&gt;%
-  select(where(is.numeric))</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric))</span></code></pre></div>
 <pre><code># A tibble: 96 x 7
       id blocos  sev1  sev2  sev3  area areat
    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1234,8 +1392,8 @@ número da coluna no conjunto de dados</p>
 10    10      2  1.9   12      12 133.   23.7
 # ... with 86 more rows</code></pre>
 <p>Método 1 - Usando <code>select_if</code></p>
-<pre class="r"><code>dados %&gt;%
-  select_if(is.numeric)</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(is.numeric)</span></code></pre></div>
 <pre><code># A tibble: 96 x 7
       id blocos  sev1  sev2  sev3  area areat
    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1251,8 +1409,8 @@ número da coluna no conjunto de dados</p>
 10    10      2  1.9   12      12 133.   23.7
 # ... with 86 more rows</code></pre>
 <p>Escolha as colunas que possuem um determinado texto</p>
-<pre class="r"><code>dados %&gt;%
-  select(contains(&quot;area&quot;))</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;area&quot;</span>))</span></code></pre></div>
 <pre><code># A tibble: 96 x 2
     area areat
    &lt;dbl&gt; &lt;dbl&gt;
@@ -1274,17 +1432,17 @@ número da coluna no conjunto de dados</p>
 <li>Transforma variáveis existentes ou adiciona novas variáveis.</li>
 </ul>
 <p>Criando uma variável que é a soma das variáveis de severidade</p>
-<pre class="r"><code>dados &lt;- dados %&gt;%
-  mutate(soma_sev = sev1 + sev2 + sev3)</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">soma_sev =</span> sev1 <span class="sc">+</span> sev2 <span class="sc">+</span> sev3)</span></code></pre></div>
 <p>Convertendo em fator as variáveis trat e gen</p>
-<pre class="r"><code>dados &lt;- dados %&gt;%
-  mutate(trat = as.factor(trat), gen = as.factor(gen))</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trat =</span> <span class="fu">as.factor</span>(trat), <span class="at">gen =</span> <span class="fu">as.factor</span>(gen))</span></code></pre></div>
 <p>Usando sufixos com mutate</p>
-<pre class="r"><code>dados &lt;- dados %&gt;%
-  mutate_if(is.factor, as.character)</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.factor, as.character)</span></code></pre></div>
 <p>Realizando o processo contrário</p>
-<pre class="r"><code>dados &lt;- dados %&gt;%
-  mutate_if(is.character, as.factor)</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, as.factor)</span></code></pre></div>
 </div>
 <div id="trasmute" class="section level3">
 <h3><code>trasmute()</code></h3>
@@ -1292,8 +1450,8 @@ número da coluna no conjunto de dados</p>
 <li>Adiciona novas variáveis e exclui as outras</li>
 </ul>
 <p>Criando uma variável da interação entre trat e gen</p>
-<pre class="r"><code>dados %&gt;%
-  transmute(soma_sev = sev1 + sev2 + sev3)</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">soma_sev =</span> sev1 <span class="sc">+</span> sev2 <span class="sc">+</span> sev3)</span></code></pre></div>
 <pre><code># A tibble: 96 x 1
    soma_sev
       &lt;dbl&gt;
@@ -1315,8 +1473,8 @@ número da coluna no conjunto de dados</p>
 <li>Altera os nomes das variáveis</li>
 </ul>
 <p>Renomear trat e gen por tratamento e genótipo, respectivamente.</p>
-<pre class="r"><code>dados %&gt;%
-  rename(tratamento = trat , genotipo = gen)</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">tratamento =</span> trat , <span class="at">genotipo =</span> gen)</span></code></pre></div>
 <pre><code># A tibble: 96 x 10
    tratamento         id genotipo  blocos  sev1  sev2  sev3  area areat soma_sev
    &lt;fct&gt;           &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
@@ -1332,8 +1490,8 @@ número da coluna no conjunto de dados</p>
 10 UFV 02             10 Predileta      2  1.9   12      12 133.   23.7     25.9
 # ... with 86 more rows</code></pre>
 <p>Renomeia sev por severidade</p>
-<pre class="r"><code>dados %&gt;%
-  rename_with(~ gsub(&quot;sev&quot;, &quot;severidade&quot;, .x))</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">gsub</span>(<span class="st">&quot;sev&quot;</span>, <span class="st">&quot;severidade&quot;</span>, .x))</span></code></pre></div>
 <pre><code># A tibble: 96 x 10
    trat              id gen   blocos sever~1 sever~2 sever~3  area areat soma_~4
    &lt;fct&gt;          &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
@@ -1370,16 +1528,16 @@ determinada pelo usurário do conjunto de dados</p>
 </ul></li>
 </ul>
 <p>Média e mediana da area</p>
-<pre class="r"><code>dados %&gt;%
-  summarise(area_mean = mean(area),
-            area_median = median(area)) </code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">area_mean =</span> <span class="fu">mean</span>(area),</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">area_median =</span> <span class="fu">median</span>(area)) </span></code></pre></div>
 <pre><code># A tibble: 1 x 2
   area_mean area_median
       &lt;dbl&gt;       &lt;dbl&gt;
 1      232.        204.</code></pre>
 <p>Calcula a média para todas as variáveis numéricas</p>
-<pre class="r"><code>dados %&gt;%
-  summarise_if(.predicate = is.numeric, .funs = mean)</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(<span class="at">.predicate =</span> is.numeric, <span class="at">.funs =</span> mean)</span></code></pre></div>
 <pre><code># A tibble: 1 x 8
      id blocos  sev1  sev2  sev3  area areat soma_sev
   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
@@ -1392,9 +1550,9 @@ determinada pelo usurário do conjunto de dados</p>
 determinada. Sempre é utilizada com outra função.</li>
 </ul>
 <p>Filtrando os genótipos pela area menor que 100</p>
-<pre class="r"><code>dados %&gt;%
-  group_by(trat, gen) %&gt;%
-  filter(area &lt; 100)</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trat, gen) <span class="sc">%&gt;%</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(area <span class="sc">&lt;</span> <span class="dv">100</span>)</span></code></pre></div>
 <pre><code># A tibble: 10 x 10
 # Groups:   trat, gen [3]
    trat               id gen       blocos  sev1  sev2  sev3  area areat soma_sev
@@ -1410,13 +1568,13 @@ determinada. Sempre é utilizada com outra função.</li>
  9 UFV 02             15 Inca           3  0.97   3.3     8  54.5  14.0     12.3
 10 UFV 02             16 Inca           4  1.9    3.3     8  57.8  14.5     13.2</code></pre>
 <p>Estatísticas da área por tratamento por genótipo</p>
-<pre class="r"><code>dados %&gt;%
-  group_by(trat, gen) %&gt;%
-  summarise(
-    area_mean = mean(area),
-    area_range = max(area) - min(area),
-    area_desv = sd(area)
-  ) </code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trat, gen) <span class="sc">%&gt;%</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">area_mean =</span> <span class="fu">mean</span>(area),</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">area_range =</span> <span class="fu">max</span>(area) <span class="sc">-</span> <span class="fu">min</span>(area),</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">area_desv =</span> <span class="fu">sd</span>(area)</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
 <pre><code>`summarise()` has grouped output by &#39;trat&#39;. You can override using the
 `.groups` argument.</code></pre>
 <pre><code># A tibble: 24 x 5
@@ -1435,10 +1593,10 @@ determinada. Sempre é utilizada com outra função.</li>
 10 &quot;PROG 122&quot;       Predileta      191.       49.3      23.6
 # ... with 14 more rows</code></pre>
 <p>#Contagem de tratamentos com área maior que 100</p>
-<pre class="r"><code>dados %&gt;%
-  filter(area &gt; 100) %&gt;%
-  group_by(trat) %&gt;%
-  summarise(cont_trat = n())</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(area <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trat) <span class="sc">%&gt;%</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cont_trat =</span> <span class="fu">n</span>())</span></code></pre></div>
 <pre><code># A tibble: 12 x 2
    trat              cont_trat
    &lt;fct&gt;                 &lt;int&gt;
@@ -1488,12 +1646,12 @@ conjuntos de dados.</p>
 y e todas as colunas de x e y.</li>
 </ul>
 <p>Criando dois conjuntos de dados</p>
-<pre class="r"><code>dados1 &lt;- dados %&gt;%
-  mutate(soma_sev = sev1 + sev2 + sev3) %&gt;%
-  select(trat:blocos, soma_sev) %&gt;%
-  filter(soma_sev &gt; 50)
-
-head(dados1)</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>dados1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">soma_sev =</span> sev1 <span class="sc">+</span> sev2 <span class="sc">+</span> sev3) <span class="sc">%&gt;%</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(trat<span class="sc">:</span>blocos, soma_sev) <span class="sc">%&gt;%</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(soma_sev <span class="sc">&gt;</span> <span class="dv">50</span>)</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados1)</span></code></pre></div>
 <pre><code># A tibble: 6 x 5
   trat      id gen       blocos soma_sev
   &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -1503,12 +1661,12 @@ head(dados1)</code></pre>
 4 UFV 72    35 Predileta      3     65.3
 5 UFV 72    36 Predileta      4     56.3
 6 UFV 72    39 Inca           3     56.3</code></pre>
-<pre class="r"><code>dados2 &lt;- dados %&gt;%
-  mutate(mult_sev = sev1 * sev2 * sev3) %&gt;%
-  select(trat:blocos, mult_sev) %&gt;%
-  filter(mult_sev &gt; mean(mult_sev))
-
-head(dados2)</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>dados2 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mult_sev =</span> sev1 <span class="sc">*</span> sev2 <span class="sc">*</span> sev3) <span class="sc">%&gt;%</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(trat<span class="sc">:</span>blocos, mult_sev) <span class="sc">%&gt;%</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mult_sev <span class="sc">&gt;</span> <span class="fu">mean</span>(mult_sev))</span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados2)</span></code></pre></div>
 <pre><code># A tibble: 6 x 5
   trat        id gen       blocos mult_sev
   &lt;fct&gt;    &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -1518,8 +1676,8 @@ head(dados2)</code></pre>
 4 UFV 72      39 Inca           3    2251.
 5 PROG 125    41 Predileta      1    5217.
 6 PROG 125    42 Predileta      2    7688 </code></pre>
-<pre class="r"><code>inner &lt;- inner_join(dados1, dados2, by = &quot;trat&quot;)
-inner</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>inner <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(dados1, dados2, <span class="at">by =</span> <span class="st">&quot;trat&quot;</span>)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>inner</span></code></pre></div>
 <pre><code># A tibble: 208 x 9
    trat    id.x gen.x     blocos.x soma_sev  id.y gen.y     blocos.y mult_sev
    &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
@@ -1542,8 +1700,8 @@ inner</code></pre>
 correspondente em y, mantendo apenas as colunas de x. É considerado um
 “filtering join”.</li>
 </ul>
-<pre class="r"><code>anti &lt;- anti_join(dados1, dados2, by = &quot;trat&quot;)
-anti</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>anti <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(dados1, dados2, <span class="at">by =</span> <span class="st">&quot;trat&quot;</span>)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>anti</span></code></pre></div>
 <pre><code># A tibble: 4 x 5
   trat              id gen       blocos soma_sev
   &lt;fct&gt;          &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -1561,8 +1719,8 @@ difere do <code>inner_join</code> porque o <code>inner_join</code> irá
 retornar uma linha de x para cada valor correspondente de y, enquanto um
 <code>semi_join</code> nunca irá duplicar valores x.</li>
 </ul>
-<pre class="r"><code>semi &lt;- semi_join(dados1, dados2, by = &quot;trat&quot;)
-semi</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>semi <span class="ot">&lt;-</span> <span class="fu">semi_join</span>(dados1, dados2, <span class="at">by =</span> <span class="st">&quot;trat&quot;</span>)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>semi</span></code></pre></div>
 <pre><code># A tibble: 36 x 5
    trat        id gen       blocos soma_sev
    &lt;fct&gt;    &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -1584,8 +1742,8 @@ semi</code></pre>
 <li>Retorna todas as linhas e todas as colunas tanto de x quanto de y.
 Returno <code>NA</code> no caso de não haver valor correspondente.</li>
 </ul>
-<pre class="r"><code>full &lt;- full_join(dados1, dados2, by = &quot;trat&quot;)
-full</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>full <span class="ot">&lt;-</span> <span class="fu">full_join</span>(dados1, dados2, <span class="at">by =</span> <span class="st">&quot;trat&quot;</span>)</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>full</span></code></pre></div>
 <pre><code># A tibble: 212 x 9
    trat    id.x gen.x     blocos.x soma_sev  id.y gen.y     blocos.y mult_sev
    &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
@@ -1608,8 +1766,8 @@ full</code></pre>
 de y. Se houver múltiplas correspondências entre x e y, todas as
 combinações de correspondências serão retornadas.</li>
 </ul>
-<pre class="r"><code>left &lt;- left_join(dados1, dados2, by = &quot;trat&quot;)
-left</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>left <span class="ot">&lt;-</span> <span class="fu">left_join</span>(dados1, dados2, <span class="at">by =</span> <span class="st">&quot;trat&quot;</span>)</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>left</span></code></pre></div>
 <pre><code># A tibble: 212 x 9
    trat    id.x gen.x     blocos.x soma_sev  id.y gen.y     blocos.y mult_sev
    &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
@@ -1632,8 +1790,8 @@ left</code></pre>
 de y. Se houver múltiplas correspondências entre x e y, todas as
 combinações de correspondências serão retornadas.</li>
 </ul>
-<pre class="r"><code>right &lt;- right_join(dados1, dados2, by = &quot;trat&quot;)
-right</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>right <span class="ot">&lt;-</span> <span class="fu">right_join</span>(dados1, dados2, <span class="at">by =</span> <span class="st">&quot;trat&quot;</span>)</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>right</span></code></pre></div>
 <pre><code># A tibble: 208 x 9
    trat    id.x gen.x     blocos.x soma_sev  id.y gen.y     blocos.y mult_sev
    &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
@@ -1690,13 +1848,13 @@ armazenados nos nomes das colunas e <code>values_to</code>, que é também
 uma <code>string</code>, especificando o nome da coluna a ser criada a
 partir dos dados armazenados nos valores das células.</li>
 </ul>
-<pre class="r"><code>dados2 &lt;- dados %&gt;%
-  pivot_longer(
-    cols = c(sev1, sev2, sev3),
-    names_to = &quot;Sev&quot;,
-    values_to = &quot;Value&quot;
-  )
-dados2</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>dados2 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(sev1, sev2, sev3),</span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;Sev&quot;</span>,</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;Value&quot;</span></span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>dados2</span></code></pre></div>
 <pre><code># A tibble: 288 x 9
    trat               id gen       blocos  area areat soma_sev Sev   Value
    &lt;fct&gt;           &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
@@ -1720,10 +1878,10 @@ providenciando dois argumentos: <code>names_from</code> descreve qual
 coluna usar para o nome da coluna de saída e <code>values_from</code>
 informa a coluna para obter os valores das células.</li>
 </ul>
-<pre class="r"><code>dados3 &lt;- dados2 %&gt;%
-  pivot_wider(names_from = Sev,
-              values_from = Value)
-dados3</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>dados3 <span class="ot">&lt;-</span> dados2 <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Sev,</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> Value)</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>dados3</span></code></pre></div>
 <pre><code># A tibble: 96 x 10
    trat               id gen       blocos  area areat soma_sev  sev1  sev2  sev3
    &lt;fct&gt;           &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1770,7 +1928,7 @@ Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>R version 4.1.3 (2022-03-10)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 Running under: Windows 10 x64 (build 19042)
@@ -1786,8 +1944,8 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.5.2   stringr_1.4.1   dplyr_1.0.9     purrr_0.3.4    
- [5] readr_2.1.2     tidyr_1.2.0     tibble_3.1.8    ggplot2_3.3.6  
+ [1] forcats_0.5.2   stringr_1.4.1   dplyr_1.0.10    purrr_0.3.4    
+ [5] readr_2.1.2     tidyr_1.2.1     tibble_3.1.8    ggplot2_3.3.6  
  [9] tidyverse_1.3.2 workflowr_1.7.0
 
 loaded via a namespace (and not attached):
@@ -1795,30 +1953,39 @@ loaded via a namespace (and not attached):
  [4] ps_1.7.1            assertthat_0.2.1    rprojroot_2.0.3    
  [7] digest_0.6.29       utf8_1.2.2          R6_2.5.1           
 [10] cellranger_1.1.0    backports_1.4.1     reprex_2.0.2       
-[13] evaluate_0.16       httr_1.4.4          pillar_1.8.1       
-[16] rlang_1.0.4         readxl_1.4.1        googlesheets4_1.0.1
-[19] rstudioapi_0.13     whisker_0.4         callr_3.7.1        
-[22] jquerylib_0.1.4     rmarkdown_2.15      googledrive_2.0.0  
-[25] bit_4.0.4           munsell_0.5.0       broom_1.0.0        
+[13] evaluate_0.17       httr_1.4.4          pillar_1.8.1       
+[16] rlang_1.0.6         readxl_1.4.1        googlesheets4_1.0.1
+[19] rstudioapi_0.14     whisker_0.4         callr_3.7.2        
+[22] jquerylib_0.1.4     rmarkdown_2.17      googledrive_2.0.0  
+[25] bit_4.0.4           munsell_0.5.0       broom_1.0.1        
 [28] compiler_4.1.3      httpuv_1.6.5        modelr_0.1.9       
 [31] xfun_0.32           pkgconfig_2.0.3     htmltools_0.5.3    
-[34] tidyselect_1.1.2    codetools_0.2-18    fansi_1.0.3        
-[37] crayon_1.5.1        withr_2.5.0         tzdb_0.3.0         
-[40] dbplyr_2.2.1        later_1.3.0         grid_4.1.3         
-[43] jsonlite_1.8.0      gtable_0.3.0        lifecycle_1.0.1    
-[46] DBI_1.1.3           git2r_0.30.1        magrittr_2.0.3     
-[49] scales_1.2.1        vroom_1.5.7         cli_3.3.0          
-[52] stringi_1.7.6       cachem_1.0.6        fs_1.5.2           
-[55] promises_1.2.0.1    xml2_1.3.3          bslib_0.4.0        
-[58] ellipsis_0.3.2      generics_0.1.3      vctrs_0.4.1        
-[61] tools_4.1.3         bit64_4.0.5         glue_1.6.2         
-[64] hms_1.1.2           parallel_4.1.3      processx_3.7.0     
-[67] fastmap_1.1.0       yaml_2.3.5          colorspace_2.0-3   
-[70] gargle_1.2.0        rvest_1.0.3         knitr_1.39         
-[73] haven_2.5.0         sass_0.4.2         </code></pre>
+[34] tidyselect_1.2.0    fansi_1.0.3         crayon_1.5.2       
+[37] withr_2.5.0         tzdb_0.3.0          dbplyr_2.2.1       
+[40] later_1.3.0         grid_4.1.3          jsonlite_1.8.0     
+[43] gtable_0.3.1        lifecycle_1.0.3     DBI_1.1.3          
+[46] git2r_0.30.1        magrittr_2.0.3      scales_1.2.1       
+[49] vroom_1.6.0         cli_3.3.0           stringi_1.7.6      
+[52] cachem_1.0.6        fs_1.5.2            promises_1.2.0.1   
+[55] xml2_1.3.3          bslib_0.4.0         ellipsis_0.3.2     
+[58] generics_0.1.3      vctrs_0.4.1         tools_4.1.3        
+[61] bit64_4.0.5         glue_1.6.2          hms_1.1.2          
+[64] parallel_4.1.3      processx_3.7.0      fastmap_1.1.0      
+[67] yaml_2.3.5          colorspace_2.0-3    gargle_1.2.1       
+[70] rvest_1.0.3         knitr_1.40          haven_2.5.1        
+[73] sass_0.4.2         </code></pre>
 </div>
 </div>
 </div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>Weverton Gomes da Costa, Pós-Doutorando, Embrapa
+Mandioca e Fruticultura, <a href="mailto:wevertonufv@gmail.com"
+class="email">wevertonufv@gmail.com</a><a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 

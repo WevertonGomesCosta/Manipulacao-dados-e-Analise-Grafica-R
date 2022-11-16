@@ -1,12 +1,13 @@
 ---
 title: "License"
-author: "Costa, W. G."
+author: 
+  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Embrapa Mandioca e Fruticultura, wevertonufv@gmail.com]
 date: "`r Sys.Date()`"
 site: workflowr::wflow_site
-url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/license.html
 output:
   workflowr::wflow_html:
-    toc: yes
+    toc: no
   highlight: github
 editor_options:
   chunk_output_type: console
