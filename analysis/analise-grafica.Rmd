@@ -176,14 +176,12 @@ Esse gráfico é muito utilizado para comparar a frequência de dados contínuos
 ```{r}
 dados %>%
   ggplot(aes(x = area, fill = gen)) +
-  geom_histogram() +
-  geom_vline(aes(xintercept = 300)) +
-  geom_hline(aes(yintercept = 10))
+  geom_histogram()
 ```
 
 Para plotar uma reta no gráfico, podemos utilizar a função `geom_vline()` para linhas verticais ou `geom_hline()` para linhas horizontais. 
 
-No exemplo abaixo vamos calcular a média da área por `gen` e vamos plotar a reta média para cada `gen` no histograma.
+No exemplo abaixo vamos calcular a média da `area` por `gen` e plotar a reta média para cada `gen`. 
 
 ```{r}
 mean_area <- dados %>%
@@ -195,6 +193,15 @@ dados %>%
   geom_histogram(bins = 10) +
   geom_vline(aes(xintercept = mean_area$mean_area[1])) +
   geom_vline(aes(xintercept = mean_area$mean_area[2]))
+```
+
+Agora podemos considerar ver apenas quais `area` apresentam `gen` com contagem acima de 10.
+
+```{r}
+dados %>%
+  ggplot(aes(x = area, fill = gen)) +
+  geom_histogram(bins = 10) +
+  geom_hline(aes(yintercept = 10))
 ```
 
 ### Boxplot
