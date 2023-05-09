@@ -3,7 +3,7 @@ title: |
   Análise Gráfica no R
   ![](images/logo.jpg){width=100px style="display:block; margin:0 auto"}
 author: 
-  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Embrapa Mandioca e Fruticultura, wevertonufv@gmail.com]
+  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Departamento de Estatística - UFV, wevertonufv@gmail.com]
 date: "`r Sys.Date()`"
 url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/analise-grafica.html
 output: workflowr::wflow_html
@@ -16,7 +16,11 @@ github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```
 
-## Análise exploratória
+Agora que já aprendemos algumas técnicas de manipulação de dados, vamos começar a explorar como criar gráficos usando o pacote `ggplot2` do tidyverse. Nesta seção, vamos aprender a sintaxe básica para criar um gráfico e como personalizá-lo para apresentar os resultados de forma clara e informativa.
+
+## Análise exploratória com `DataExplorer`
+
+Nesta seção, faremos uma análise exploratória dos dados, utilizando as bibliotecas `tidyverse` e `DataExplorer`. Primeiramente, vamos importar os dados exemplos utilizando a função `read_csv()`.
 
 ```{r}
 library(tidyverse)
@@ -31,62 +35,49 @@ dados <- read_csv("data/dados.csv")       # Função para importar os dados
 dados
 ```
 
-### Tipos de valores e ocorrência de valores ausentes.
+A partir disso, podemos utilizar algumas funções do pacote DataExplorer para analisar os dados, tais como:
+
+-   `plot_intro()`: que mostra o tipo de cada variável e a ocorrência de valores ausentes;
+-   `plot_missing()`: que exibe o perfil dos valores ausentes;
+-   `plot_bar()`: que exibe a distribuição das variáveis qualitativas;
+-   `plot_histogram()`: que exibe a distribuição das variáveis quantitativas
+
+Veja como utilizá-las abaixo:
 
 ```{r}
 plot_intro(dados)
-```
 
-### Perfil dos valores ausentes.
-
-```{r}
 plot_missing(dados)
-```
 
-### Distribuiçãoo das variáveis qualitativas.
-
-```{r}
 plot_bar(dados)
-```
 
-### Distribuiçãoo das variáveis quantitativas.
-
-```{r}
 plot_histogram(dados)
 ```
 
-### Examinar relações
+### Biblioteca `esquisse`
 
-A biblioteca esquisse permite criar uma interface para que você pode de forma ágil visualizar a relação das variáveis da forma que desejar.
-
-```{r}
-library(esquisse)
-```
+A biblioteca `esquisse` permite criar uma interface para que você pode de forma ágil visualizar a relação das variáveis da forma que desejar.
 
 ```{r eval = FALSE}
+library(esquisse)
+
 esquisser(dados)
 ```
 
 ## Sintaxe básica do `ggplot2`
 
-A função `ggplot()` necessita de no mínimo 3 elementos para a produção dos gráficos:
+Para criar gráficos utilizando o pacote `ggplot2`, é necessário utilizar a função `ggplot()` e passar no mínimo três elementos:
 
--   DADOS <- Objeto principal
--   ESTÉTICA `aes()` -> Variáveis de cada eixo
--   OBJETO GEOMÉTRICO `geom_***()`- Geometria que irão representar os dados no gráfico, pontos, boxplot, linha, etc.
+-   O objeto principal que contém os dados;
+-   A estética `aes()` que define as variáveis de cada eixo;
+-   O objeto geométrico `geom_***()` que define a geometria que irá representar os dados no gráfico, como pontos, boxplot, linha, etc.
 
-Recomendo a leitura do material [Function reference do ggplot](https://ggplot2.tidyverse.org/reference/)
-
-Novamente, vamos utilizar o framework `tidyverse` para já importar todas as bibliotecas presentes nele, incluindo o `ggplot2`.
+Recomendamos a leitura da documentação do pacote para mais detalhes sobre as funcionalidades disponíveis [Function reference do ggplot](https://ggplot2.tidyverse.org/reference/). Para utilizar o `ggplot2` juntamente com o `tidyverse`, basta importar a biblioteca `tidyverse`, que já inclui o `ggplot2`.
 
 ```{r}
 #install.packages("tidyverse") # Instalar o tidyverse
 library(tidyverse)
-```
 
-Importar os dados exemplos
-
-```{r}
 dados <- read_csv("data/dados.csv")       # Função para importar os dados
 
 dados

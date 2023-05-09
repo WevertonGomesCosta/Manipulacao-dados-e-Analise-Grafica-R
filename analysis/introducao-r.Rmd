@@ -3,7 +3,7 @@ title: |
   Introdução ao R
   ![](images/logo.jpg){width=100px style="display:block; margin:0 auto"}
 author: 
-  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Embrapa Mandioca e Fruticultura, wevertonufv@gmail.com]
+  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Departamento de Estatística - UFV, wevertonufv@gmail.com]
 date: "`r Sys.Date()`"
 site: workflowr::wflow_site
 url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/introducao-r.html
@@ -19,18 +19,19 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 
 # Introdução ao R
 
-Para que você possa ter mais conhecimento sobre o R, preparei um material de introdução ao R. Assim você pode aprender mais sobre o software e como utilizá-lo. Na seção [Tutorial](#Tutorial) já vimos sobre a instalação e carregamento de pacotes e outros tópicos importantes. Aqui vamos dar mais enfoque na programação em si.
+O R é uma linguagem de programação livre e de código aberto que é amplamente utilizada para análise de dados, estatística e visualização de dados. Neste curso, vamos explorar alguns conceitos básicos do R que vão ajudar a iniciar seus estudos em análise de dados.
+
+Neste material de introdução ao R, você aprenderá mais sobre o software e como utilizá-lo. Já vimos na seção [Tutorial](https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/Tutorial.html) como instalar e carregar pacotes, agora vamos dar mais enfoque na programação em si.
 
 ## Diretório de trabalho
 
-Para dar início a qualquer projeto, primeiro precisamos indicar para o R onde vamos trabalhar, ou seja, indicar a nossa pasta de trabalho. 
-Para isso usamos a função `setwd()` para indicar a pasta.
+Para dar início a qualquer projeto, primeiro precisamos indicar para o R onde vamos trabalhar, ou seja, indicar a nossa pasta de trabalho. Para isso usamos a função `setwd()`:
 
 ```{r eval = FALSE}
 setwd("C:/curso_conectagem")
 ```
 
-*OBS: O diretório de trabalho deve ser adicionado dentro de aspas. Além disso, no windowns, ao copiar um diretório ele deverá vim no formato `C:\curso_conectagem`, observe que a barra que deve ser adicionado no diretório deve ser ao contrário ou então usar duplas barras como: `C:\\curso_conectagem`.*
+*OBS: No Windows, ao copiar um diretório, é importante lembrar que a barra deve ser invertida, como no exemplo acima, ou utilizar duas barras: `C:\\curso_conectagem`.*
 
 Para confirmar se o diretório foi definido corretamente, usamos a função `getwd()`.
 
@@ -38,22 +39,18 @@ Para confirmar se o diretório foi definido corretamente, usamos a função `get
 getwd()
 ```
 
+O diretório de trabalho é onde o R buscará por arquivos quando não houver um caminho absoluto para eles. É importante definir o diretório de trabalho no início do seu código para evitar problemas com caminhos relativos.
+
 ## Importando dados
 
-Os dados podem ser importados para o R em diversos formatos (tipos de arquivos). Alguns dos formatos mais usados são mostrados a seguir:
-
--   Planilha eletrônica (.xls, .xlsx, .ods)
--   Bloco de notas (.txt)
--   Valores separados por vírgulas (.csv)
--   Dbase (.dbf)
--   Diversos Pacotes estatísticos: (.Rdata - R), (.sav - SPSS), etc
+Os dados podem ser importados para o R em diversos formatos (tipos de arquivos), como planilhas eletrônicas (.xls, .xlsx, .ods), arquivos de texto (.txt), valores separados por vírgulas (.csv), Dbase (.dbf) e outros formatos utilizados por pacotes estatísticos (.Rdata - R, .sav - SPSS, etc).
 
 É possível importar os dados pela própria interface do RStudio. Para isso, vamos em `Import Dataset` e selecionamos o formato dos dados.
 
 ![](images/importdataset.png)
 ![](images/optionimportdata.png)
 
-Durante o curso iremos utilizar várias funções para importação de dados, para que você possa se ambientar melhor com as funções. De início vamos usar a função `read_csv()` do pacote `readr`, já incluso no framework `tidyverse`. Essa função importa tanto dados em formato .csv quanto .txt.
+Durante o curso, utilizaremos várias funções para importação de dados, para que você possa se familiarizar melhor com elas. Começaremos utilizando a função `read_csv()` do pacote `readr`, que já está incluso no framework `tidyverse`. Essa função importa tanto dados em formato .csv quanto .txt.
 
 ```{r}
 library(tidyverse)
@@ -64,9 +61,7 @@ dados
 
 ### Exportando dados:
 
-Da mesma forma que a importação dos dados, os dados também podem ser exportados para do R em diversos formatos (tipos de arquivos).
-
-Aqui, como exemplo, iremos usar a função `write_csv()` para exportar os dados no formato `.csv`.
+Da mesma forma que a importação dos dados, os dados também podem ser exportados para do R em diversos formatos (tipos de arquivos). Aqui, como exemplo, iremos usar a função `write_csv()` para exportar os dados no formato `.csv`.
 
 ```{r}
 write_csv(dados, file = "dados2.csv")
@@ -74,9 +69,11 @@ write_csv(dados, file = "dados2.csv")
 
 ## Objetos
 
-Objetos são qualquer variável que irá ser armazenado durante a sua sessão no R. Para que uma variável será armazenada no ambiente de sua sessão você deve atribuir um ou mais valores a está variável utilizando `<-`.
+Objetos são uma parte essencial da programação em R. São usados para armazenar valores, que podem ser dados numéricos, caracteres, booleanos, fatores e outros. 
 
 ### Criando objetos
+
+Os objetos são variáveis que armazenam valores durante a sessão no R. Para criar um objeto, usamos o sinal de atribuição `<-`, `=` ou `->`, como por exemplo `x <- 50`..
 
 ```{r}
 x <- 50
@@ -103,20 +100,18 @@ m <- sqrt(z)
 
 ### Imprimir valores dos objetos
 
-Usamos a função `print()` para printar ou imprimir os valores dos objetos que estão armazenados, veja o exemplo:
+Para exibir o valor armazenado em um objeto, você pode usar a função print() ou simplesmente digitar o nome do objeto:
 
 ```{r}
 print(x)
-print(y)
-print(z)
-print(m)
+y
 ```
 
-*Observação: Se atribuirmos um novo valor a um objeto já existente perderemos o conteúdo que ele estava armazenando anteriormente. Por exemplo, se atribuirmos um valor a `x <- 100`, em seu ambiente x passará a ter o valor de 100 e não mais de 50, como atribuído anteriormente*
+É importante lembrar que, ao atribuir um novo valor a um objeto já existente, seu conteúdo anterior será perdido. Por exemplo, se atribuirmos um valor a `x <- 100`, em seu ambiente x passará a ter o valor de 100 e não mais o valor de 50, como atribuído anteriormente.
 
 ### Listar objetos armazenados no ambiente
 
-Para listar todos os objetos armazenados no ambiente utilizamos a função `ls()`.
+Para listar todos os objetos armazenados no ambiente, utilizamos a função `ls()`.
 
 ```{r}
 ls()
@@ -124,17 +119,13 @@ ls()
 
 ### Removendo objetos
 
-#### Removendo objetos específicos
-
-Se desejar remover algum objeto armazenado, você pode utilizar a função `rm()` incluindo dentro do parênteses o objeto a ser removido do seu ambiente.
+Se desejar remover algum objeto armazenado, pode utilizar a função `rm()` incluindo dentro do parênteses o objeto a ser removido do seu ambiente.
 
 ```{r}
-rm(x, y)
+rm(x)
 ```
 
-#### Remover todos objetos
-
-Agora, se você quer limpar todo o seu ambiente, dentro da função `rm()` você pode especificar uma lista `list()`, *veremos mais à frente sobre listas*, das variáveis presentes no seu ambiente `ls()`.
+Para remover todos os objetos armazenados no ambiente, você pode usar `rm(list = ls())`.
 
 ```{r}
 rm(list = ls()) 
@@ -158,7 +149,7 @@ nome <- "nome" ## Observe que caracteres são tratados com o uso de aspas.
 nome
 ```
 
--   `numeric`: Números reais.
+-   `numeric` ou `double`: Números reais.
 
 ```{r}
 numero <- 5.10
@@ -172,14 +163,7 @@ inteiro <- c(5, 10, 15, 16)
 inteiro
 ```
 
--   `double`: Números reais, mesmo que `numeric`.
-
-```{r}
-numero <- 5.10
-numero
-```
-
--   `logical`: também chamados de ou booleanos, são TRUE ou FALSE. T ou F também são aceitos.
+-   `logical`: também chamados de booleanos, são `TRUE` ou `FALSE`. T ou F também são aceitos.
 
 ```{r}
 x <- c(TRUE, FALSE, FALSE) # vetor de elementos lógicos
@@ -221,19 +205,20 @@ class(v)
 typeof(v)
 ```
 
-Um objeto pode conter um ou mais elementos, a função `length()` retorna o tamanho do objeto. Como exemplo atribuímos um valor a `x` e depois utilizamos a função `length()` para retornar o tamanho do objeto.
+No R, um objeto pode conter um ou mais elementos e a função `length()` é utilizada para retornar o tamanho do objeto. 
+
+Por exemplo, podemos atribuir um valor a `x` e depois utilizar a função `length()` para retornar o tamanho do objeto:
 
 ```{r}
 x <- 10
 length(x)                ## Retorna o tamanho do objeto
 ```
 
-Como exemplo, vamos criar um objeto `y` sendo uma sequência `seq()` de 1 a 5 e vamos solicitar o tamanho `length()` desse objeto.
+Também podemos criar um objeto `y` sendo uma sequência `seq()` de 1 a 5 e solicitar o tamanho `length()` desse objeto:
 
 ```{r}
-y <- seq(1, 5, 1)          ## A função seq() retorna uma sequência de números, considerando o número inicial (1) até um número final (5), dando um salto do último número indicado (1).
-
-length(y)                ## Retorna o tamanho do objeto
+y <- seq(1, 5, 1)  # A função seq() retorna uma sequência de números de 1 a 5, com intervalo 1.
+length(y)  # Retorna o tamanho do objeto
 ```
 
 #### Estrutura dos objetos
@@ -280,7 +265,7 @@ class(z)
 typeof(z)
 ```
 
-- `list()`: Combina diferentes tipos num mesmo objeto, mas em formato de lista. Listas são coleções de elementos que não precisam ser da mesma classe. list é uma importante classe de objetos no R. Listas podem ser criadas explicitamente usando a função `list()`. Vejamos alguns exemplos:
+- `list()`: combina diferentes tipos num mesmo objeto, mas em formato de lista. Listas são coleções de elementos que não precisam ser da mesma classe. As listas podem ser criadas explicitamente usando a função `list()`:
 
 ```{r}
 q <- list(w)
@@ -296,7 +281,7 @@ typeof(q)
 2) Cada componente da lista pode ser acessado por meio de um índice entre dois colchetes [].
 
 
-- `data.frame()`: O mesmo que uma matriz, mas aceita vetores de diferentes estruturas (numérico, caracteres, lógicos, complexos, inteiros). Geralmente nós guardamos nossos dados em objetos do tipo `data.frame`, pois sempre temos variáveis numéricas e variáveis categóricas (por exemplo, largura do rio e nome do rio, respectivamente).
+- `data.frame()`: é o mesmo que uma matriz, mas aceita vetores de diferentes estruturas (numérico, caracteres, lógicos, complexos, inteiros). Geralmente, nós guardamos nossos dados em objetos do tipo `data.frame`, pois sempre temos variáveis numéricas e categóricas (por exemplo, largura do rio e nome do rio, respectivamente).
 
 ```{r}
 w <- data.frame(c(1, 2, 3), c(1, 2, 3))
@@ -321,126 +306,115 @@ typeof(w)
 
 ## Função Envolvendo Condições
 
-No R, as funções envolvendo condições são programadas com `if()`, `else() e ifelse()`. O início do código se dá com o comando if seguido de parênteses e chaves `if(){}`. Dentro dos parênteses temos uma condição lógica, que deverá ter como resultado ou `TRUE` ou `FALSE`. Dentro das chaves temos o bloco de código que será executado se -- e somente se -- a condição dos parênteses for `TRUE`. Vejamos um exemplo muito simples. Temos dois blocos de código que criam as variáveis `x` e `y`, mas eles só serão executados se as variáveis `x` e `y` forem `TRUE`, respectivamente.
+Uma das principais vantagens do R é sua capacidade de lidar com dados complexos e aplicar funções condicionais a eles. Isso é especialmente útil para a análise gráfica, pois permite que os usuários criem visualizações personalizadas que respondam a diferentes cenários de dados.
+
+### `if()` e `else()`
+
+Uma das funções condicionais mais básicas é `if()` e `else()`. Essa função verifica se uma determinada condição é verdadeira ou falsa e executa o código correspondente a cada resultado.
 
 ```{r}
-x <- TRUE
-y <- FALSE
-## só executa se x = TRUE
-if (x) {
-  a <- 1
+x <- 5
+if (x > 3) {
+  print("x é maior que 3")
+} else {
+  print("x é menor ou igual a 3")
 }
-
-## só executa se cria_y = TRUE
-if (y) {
-  b <- 1
-}
-## note que a foi criado
-exists("a")
-exists("b")
 ```
 
-Diversas vezes em programação queremos apenas que a ação descrita no código ocorra caso ela satisfaça uma condição pré-estabelecida. Para isso existem os operadores lógicos e as expressões apresentadas abaixo:
+No exemplo acima, a função `if` verifica se a variável `x` é maior que 3. Como `x` tem o valor de 5, a condição é verdadeira e a mensagem "x é maior que 3" é impressa. Se a condição fosse falsa, a mensagem "x é menor ou igual a 3" seria impressa.
+
+## `ifelse`
+
+A função `ifelse` é uma variação do `if` e `else`, mas é capaz de aplicar uma condição a um vetor inteiro de valores.
+
+```{r}
+x <- c(1, 2, 3, 4, 5)
+ifelse(x > 3, "maior que 3", "menor ou igual a 3")
+```
+
+No exemplo acima, a função `ifelse` verifica se cada valor em `x` é maior que 3. Os valores verdadeiros recebem o valor "maior que 3" e os valores falsos recebem o valor "menor ou igual a 3".
+
+## `switch`
+
+A função switch é usada para selecionar um dos vários caminhos possíveis, com base em um valor de entrada específico.
+
+```{r}
+x <- "azul"
+switch(x,
+       "vermelho" = print("Você escolheu vermelho"),
+       "verde" = print("Você escolheu verde"),
+       "azul" = print("Você escolheu azul"),
+       print("Escolha inválida"))
+```
+
+No exemplo acima, a função `switch` seleciona uma mensagem para imprimir, com base na escolha de cor feita pelo usuário. Se a escolha não for "vermelho", "verde" ou "azul", a mensagem "Escolha inválida" é impressa.
+
+## Operadores Lógicos
+
+Os operadores lógicos no R são usados para testar as condições lógicas em expressões. O R possui seis operadores lógicos:
 
 ![](images/tabela_1-8.png)
 
-### Expressões lógicas `if()`, `else()` e `ifelse()`. 
+Aqui estão alguns exemplos de uso desses operadores em funções de condição no R:
 
-Para utilizá-las, além dos operadores acima, é importante saber o comando de E e OU em programação, que são respectivamente: `&` e `|`. Veja os exemplos abaixo:
+# Exemplo do operador "E" lógico
 
 ```{r}
-m <- 5
-if (m == 5) {
-  print("sim")
-} else{
-  print("não")
+x <- 5
+if (x > 1 & x < 10) {
+  print("x está entre 1 e 10")
 }
 ```
 
-*Aqui o valor retornado da função foi `sim` pois `m` é igual a 5 na condição.*
+# Exemplo do operador "OU" lógico
 
 ```{r}
-if(m == 4) {
-  print("sim")
-} else {
-  print("não")
+y <- 15
+if (y < 5 | y > 20) {
+  print("y não está entre 5 e 20")
 }
 ```
 
-*Aqui o valor retornado da função foi `não` pois `m` é igual a 4 na condição.*
+# Exemplo do operador "NÃO" lógico
 
 ```{r}
-if(m >= 4) {
-  print("sim")
-} else{
-  print("não")
-}
-```
-*Aqui o valor retornado da função foi `sim` pois `m` é maior do que 4 na condição.*
-
-```{r}
-if(m > 4) {
-  print("sim")
-} else{
-  print("não")
-}
-```
-*Por fim, aqui o valor retornado da função foi `sim` pois `m` é diferente de 4 na condição.*
-
-```{r}
-if(m != 4) {
-  print("sim")
-} else{
-  print("não")
+z <- 8
+if (!(z == 5)) {
+  print("z não é igual a 5")
 }
 ```
 
-Alternativamente, pode-se usar o comando `ifelse()`. Veja os exemplos abaixo.
+# Exemplo do operador "E" lógico curto-circuito
 
 ```{r}
-n <- 6
-
-ifelse(n == 6, "sim", "não")
-```
-
-```{r}
-ifelse(n != 6, "sim", "não")
-```
-
-```{r}
-ifelse(n >= 6, "sim", "não")
-```
-
-```{r}
-ifelse(n %% 2 == 0, "par", "impar")
-```
-
-*O símbolo %% refere-se a uma divisão onde o resultado retornado é inteiro.*
-
-### Utilizando os operadores lógicos `&` e `|`.
-
-Para utilizar esses operadores lógicos dependemos de no mínimo duas condições. Como exemplo, criamos um programa que identifica se os objetos são positivos ou negativos.
-
-```{r}
-a <- -5
-b <- 0
-
-if (a >= 0 & b >= 0) {
-  print("a e b são números positivos")
-} else{
-  if (a >= 0 & b < 0) {
-    print("a é positivo e b é negativo")
-  } else{
-    if (a < 0 & b >= 0) {
-      print("a é negativo e b é positivo")
-    } else{
-      if (a < 0 & b < 0) {
-        print("a e b são negativos")
-      }
-    }
-  }
+a <- 3
+b <- NULL
+if (!is.null(b) && a < 5) {
+  print("a é menor que 5 e b não é nulo")
 }
 ```
+
+# Exemplo do operador "OU" lógico curto-circuito
+
+
+```{r}
+c <- 10
+d <- NULL
+if (is.null(d) || c > 5) {
+  print("c é maior que 5 ou d é nulo")
+}
+```
+
+# Exemplo do operador "OU-exclusivo" lógico
+
+```{r}
+e <- TRUE
+f <- FALSE
+if (xor(e, f)) {
+  print("e é verdadeiro e f é falso ou vice-versa")
+} 
+```
+
 
 Outro exemplo, podemos criar um programa que identifica se existe ao menos um objeto positivo ou negativo.
 
@@ -450,7 +424,7 @@ b <- -5
 
 if (a < 0 | b < 0) {
   print("Existe pelo menos uma variável negativa")
-} else{
+} else {
   print("Todas as variáveis do conjunto de dados são positivas")
 }
 ```
@@ -463,13 +437,11 @@ if (a < 0 | b < 0) {
 
 ## Criando funções no R
 
-Uma das maiores vantagens do R é a possibilidade e a facilidade de se criar novas funções. Como vimos, já existem várias funções nativas do R e também disponíveis em diversos pacotes, além do fato que novos pacotes e novas funções surgem a cada dia. Desta forma, apesar de ser fácil criar uma função, não se deve descartar a possibilidade de elas já existirem, com o mesmo propósito e terem sido disponibilizadas por outros autores, o que nos economiza muito tempo em nossos trabalhos. Desta forma, não queira reinventar a roda. Será mostrado aqui como criar algumas funções simples, visando apenas ao entendimento de como elas podem ser desenvolvidas.
+Uma das principais vantagens do R é a facilidade e a possibilidade de criar novas funções. Além disso, existem diversas funções nativas do R e disponíveis em pacotes que podem ser utilizadas, economizando tempo e evitando a reinvenção da roda. Nesta seção, veremos como criar algumas funções simples para entender como elas são desenvolvidas.
 
-As funções nada mais são que objetos do R da classe `function`. Como todo objeto, as funções podem ter quaisquer nomes, desde que iniciados com uma letra (maiúscula ou minúscula).
+As funções no R são objetos da classe `function` e podem ter qualquer nome, desde que iniciem com uma letra (maiúscula ou minúscula). No entanto, é importante evitar criar objetos com nomes de funções já existentes no R, como `sum`, `mean`, `sd`, `t`, `c`, entre outros.
 
-*Observação: evite criar objetos com nomes de funções já existentes no R, por exemplo: sum, mean, sd, t, c, etc.*
-
-Como exemplo vamos criar uma função de `soma`
+Como exemplo, vamos criar uma função de soma simples:
 
 ```{r}
 soma <- function(a, b) {
@@ -479,7 +451,7 @@ soma <- function(a, b) {
 class(soma)
 ```
 
-Aplicando a função `soma()` em dois objetos numéricos.
+Acima, criamos a função `soma` que recebe dois argumentos, `a` e `b`, e retorna a soma desses dois valores. Para testar a função, podemos usá-la da seguinte forma:
 
 ```{r}
 x <- 6
@@ -487,22 +459,63 @@ y <- 10
 soma(x, y)
 ```
 
-Podemos também somar vetores por meio dessa função:
+Para somar vetores no R, podemos criar uma função que recebe dois vetores e retorna um novo vetor com a soma dos elementos correspondentes. Como exemplo, podemos melhorar o código da função `soma` apresentado anteriormente:
+
+```{r}
+soma_vetor <- function(a, b) {
+  if (length(a) != length(b)) {
+    stop("Os vetores não possuem o mesmo comprimento")
+  }
+  soma <- a + b
+  return(soma)
+}
+```
+
+Acima, adicionamos uma verificação de comprimento dos vetores para evitar erros. A função verifica se os dois vetores têm o mesmo comprimento e, caso contrário, interrompe o processo e exibe uma mensagem de erro.
+
+Agora, a função soma_vetor verifica se os dois vetores têm o mesmo comprimento e, caso contrário, interrompe o processo e exibe uma mensagem de erro.
+
+Podemos testar a nova função com os vetores `x` e `y` criados anteriormente:
 
 ```{r}
 x <- c(2, 4, 6)
 y <- c(6, 8, 10)
-soma(x, y)
+soma_vetor(x, y)
 ```
 
 ## Valores ausentes
 
-Valores ausentes (missing values) são denotados por `NA` ou `NaN`. Um valor `NaN` também é `NA`, mas a recíproca não é verdadeira. As funções `is.na()` e `is.nan()` são usadas para testar se um objeto é `NA` ou `NaN`, respectivamente.
+Na análise de dados, é comum encontrarmos valores ausentes (missing values), que podem ocorrer por diversos motivos, como falhas na coleta de dados ou erros de medição.
+
+No R, os valores ausentes são denotados por `NA` ou `NaN` (Not a Number). Note que um valor `NaN` também é considerado `NA`, mas o contrário não é verdadeiro. Para verificar se um objeto é `NA` ou `NaN`, usamos as funções `is.na()` e `is.nan()`, respectivamente.
+
+As funções `is.na()` e `is.nan()` são usadas para testar se um objeto é `NA` ou `NaN`, respectivamente. Por exemplo, podemos criar um vetor com um valor ausente usando o comando `c()`:
 
 ```{r}
 x <- c(1, 2, NA, 10, 3) # vetor com um elemento NA
+x
 ```
 
+Em seguida, podemos usar a função `is.na()` para identificar quais elementos do vetor `x` são valores ausentes:
+
 ```{r}
-is.na(x) # retorna um  vetor lógico indicando que elementos são NA
+is.na(x) # retorna um vetor lógico indicando quais elementos são NA
 ```
+
+Dessa forma, podemos identificar a presença de valores ausentes em um vetor e tratá-los adequadamente na análise de dados. Por exemplo, podemos remover as observações com valores ausentes utilizando a função `na.omit()`:
+
+```{r}
+y <- na.omit(x) # remove os elementos NA do vetor x e atribui ao vetor y
+y
+```
+
+Também é possível preencher os valores ausentes com um valor padrão utilizando a função `replace()`:
+
+```{r}
+z <- replace(x, is.na(x), 0) # substitui os valores NA do vetor x por 0 e atribui ao vetor z
+z
+```
+
+Com essas técnicas, podemos tratar valores ausentes de forma adequada e evitar resultados incorretos na análise de dados.
+
+Parabéns! Agora que você já sabe o básico da linguagem R, está pronto para aprender a manipular e transformar seus dados utilizando o pacote tidyverse. O tidyverse é um conjunto de pacotes desenvolvido especialmente para tornar a análise de dados mais fácil e eficiente no R. Na próxima aba, vamos começar a explorar as poderosas ferramentas do tidyverse para preparar nossos dados para a visualização em gráficos. Vamos lá!

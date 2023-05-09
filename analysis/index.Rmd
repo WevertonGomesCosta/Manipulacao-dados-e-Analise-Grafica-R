@@ -3,7 +3,7 @@ title: |
   Curso - Análise Gráfica no R 
   ![](images/logo.jpg){width=100px style="display:block; margin:0 auto"}
 author: 
-  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Embrapa Mandioca e Fruticultura, wevertonufv@gmail.com]
+  - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Departamento de Estatística - UFV, wevertonufv@gmail.com]
 date: "`r Sys.Date()`"
 site: workflowr::wflow_site
 url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/index.html
@@ -12,6 +12,10 @@ output:
 editor_options:
   chunk_output_type: console
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 # Curso de Análise Gráfica no R 
 
