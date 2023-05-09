@@ -265,9 +265,9 @@ dados %>%
 
 ### Regressão
 
-Para produzir um gráfico de regressão utilizamos a função `geom_smooth()`. O *default* dessa função é usar os argumentos `method = 'loess'`, método não-parámetrico e definido por curvas, e a `formula 'y ~ x'`.
+Para produzir um gráfico de regressão utilizamos a função `geom_smooth()`. Por padrão, essa função utiliza o método não-paramétrico "loess" e a fórmula "y ~ x". 
 
-Nesse gráfico, podemos definir os argumentos `method =`, que define qual método iremos utilizar, por exemplo `method =lm` para definir uma regressão linear entre `x` e `y`, `se=` que é um argumento lógico (ou seja, recebe `TRUE` ou `FALSE`) e indica se será representado o desvio da reta. 
+Nesse gráfico, podemos definir os argumentos `method =`, que define qual método iremos utilizar, por exemplo `method =lm` para definir uma regressão linear entre `x` e `y`, `se=` que é um argumento lógico (ou seja, recebe `TRUE` ou `FALSE`) e indica se será representado o intervalo de confiança.
 
 ```{r}
 dados %>%
@@ -288,10 +288,9 @@ Se quisermos inserir a fórmula no gráfico, utilizamos a `stat_poly_eq` funçã
 ```{r}
 library(ggpmisc)
 
-dados %>%
-  ggplot(aes(x = id, y = area)) +
-  geom_smooth(method = lm, se = FALSE) +
+ggplot(data = dados, aes(x = id, y = area)) +
   geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
   stat_poly_eq(formula = y ~ x,
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")))
 ```
@@ -300,7 +299,7 @@ dados %>%
 
 ### Facetas
 
-Temos duas formas de facetas no R `facet_grid()` e `facet_wrap()`. Utilizamos as facetas para criar gráficos para cada categoria de uma variável
+As facetas são utilizadas para criar gráficos para cada categoria de uma variável. Temos duas Podemos utilizar as funções  `facet_grid()` ou `facet_wrap()` para criar essas facetas.
 
 ```{r}
 dados %>%
