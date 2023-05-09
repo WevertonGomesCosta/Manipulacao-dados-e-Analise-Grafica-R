@@ -11,7 +11,6 @@ output:
   highlight: github
 editor_options:
   chunk_output_type: console
-github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 ---
 
 Este curso de análise gráfica em R, produzido por [Costa, W. G. 2022](https://github.com/WevertonGomesCosta) 2022, está licenciado sob a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.

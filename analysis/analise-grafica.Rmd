@@ -5,11 +5,10 @@ title: |
 author: 
   - Costa, W. G.^[Weverton Gomes da Costa, Pós-Doutorando, Departamento de Estatística - UFV, wevertonufv@gmail.com]
 date: "`r Sys.Date()`"
-url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/analise-grafica.html
+url: https://wevertongomescosta.github.io/Manipulacao-dados-e-Analise-Grafica-R/manipulacaodedados
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
-github-repo: wevertongomescosta/Manipulacao-dados-e-Analise-Grafica-R
 ---
 
 ```{r setup, include=FALSE}
