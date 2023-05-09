@@ -53,16 +53,6 @@ plot_bar(dados)
 plot_histogram(dados)
 ```
 
-### Biblioteca `esquisse`
-
-A biblioteca `esquisse` permite criar uma interface para que você pode de forma ágil visualizar a relação das variáveis da forma que desejar.
-
-```{r eval = FALSE}
-library(esquisse)
-
-esquisser(dados)
-```
-
 ## Sintaxe básica do `ggplot2`
 
 Para criar gráficos utilizando o pacote `ggplot2`, é necessário utilizar a função `ggplot()` e passar no mínimo três elementos:
@@ -71,7 +61,9 @@ Para criar gráficos utilizando o pacote `ggplot2`, é necessário utilizar a fu
 -   A estética `aes()` que define as variáveis de cada eixo;
 -   O objeto geométrico `geom_***()` que define a geometria que irá representar os dados no gráfico, como pontos, boxplot, linha, etc.
 
-Recomendamos a leitura da documentação do pacote para mais detalhes sobre as funcionalidades disponíveis [Function reference do ggplot](https://ggplot2.tidyverse.org/reference/). Para utilizar o `ggplot2` juntamente com o `tidyverse`, basta importar a biblioteca `tidyverse`, que já inclui o `ggplot2`.
+Recomendamos a leitura da documentação do pacote para mais detalhes sobre as funcionalidades disponíveis [Function reference do ggplot](https://ggplot2.tidyverse.org/reference/). 
+
+Para utilizar o `ggplot2` juntamente com o `tidyverse`, basta importar a biblioteca `tidyverse`, que já inclui o `ggplot2`.
 
 ```{r}
 #install.packages("tidyverse") # Instalar o tidyverse
@@ -94,9 +86,9 @@ Como já mencionado, o gráfico necessita de 3 informações básica, os dados (
 
 ### Gráfico de dispersão
 
-Aqui vamos utilizar os nossos `dados` para representar uma dispersão (`geom_point()`) da variável `id` eixo x e `area` no eixo y.
+Para criar um gráfico de dispersão, vamos utilizar os nossos `dados` para representar uma dispersão (`geom_point()`) da variável `id` eixo x e `area` no eixo y.
 
-A codificação para a construção de gráficos pode ser feita de duas formas.
+Podemos criar esse gráfico de duas formas: inserindo o banco de dados diretamente na função `ggplot()` ou utilizando o operador `%>%` (pipe) para passar o banco de dados para a função `ggplot()`.
 
 1 - Inserindo o banco de dados dentro da função `ggplot()`.
 
@@ -125,7 +117,7 @@ dados %>%
   geom_line()
 ```
 
-### Gráfico de barras e colunas
+### Gráfico de Colunas
 
 Para criar um gráfico de colunas usamos a função `geom_col()`.
 
@@ -135,12 +127,25 @@ dados %>%
   geom_col()
 ```
 
-E para o gráfico de barras usamos a função `geom_bar()`, mas aqui a função cria uma contagem dos dados, então devemos atribuir apenas uma estética `x` ou `y`.
+### Gráfico de Barras
+
+E para o gráfico de barras usamos a função `geom_bar()`.  No entanto, essa função cria uma contagem dos dados, então devemos atribuir apenas uma estética `x` ou `y`.
 
 ```{r}
 dados %>%
   ggplot(aes(x = area)) +
   geom_bar()
+```
+
+Observe que existe uma diferença sútil entre `geom_col` e `geom_bar`: `geom_col` mostra o valor para o eixo y baseado nos valores numa coluna no seu tibble; geom_bar gera os valores para o eixo y baseado no número de observações em cada grupo de seu tibble. 
+Então geom_bar é realmente um atalho para:
+
+```{r}
+dados %>%
+  group_by(area) %>%
+  tally() %>%
+  ggplot() +
+  geom_col(aes(x = area, y = n))
 ```
 
 Para que o gráfico de barras seja equivalente ao gráfico de colunas, atribuímos o argumento `stat="identity"` dentro da função `geom_bar()`. Aqui devemos especificar tanto o `x` ou `y`.
@@ -169,29 +174,39 @@ dados %>%
   geom_histogram()
 ```
 
+Também podemos utlizar para verificar a função de distribuição dos dados. Vamos testar uma função de distribuição normal, pela função `stat_function`.
+
+```{r}
+dados %>%
+  ggplot(aes(x = area)) +
+  geom_histogram(aes(y = after_stat(density))) +
+  stat_function(
+    fun = dnorm, 
+    aes(colour = "red"), 
+    args = list(mean = mean(dados$area), sd = sd(dados$area))
+  )
+```
+
+### Linha vertical e horizontal
+
 Para plotar uma reta no gráfico, podemos utilizar a função `geom_vline()` para linhas verticais ou `geom_hline()` para linhas horizontais. 
 
 No exemplo abaixo vamos calcular a média da `area` por `gen` e plotar a reta média para cada `gen`. 
 
 ```{r}
-mean_area <- dados %>%
-  group_by(gen) %>%
-  summarise(mean_area = mean(area))
-
 dados %>%
   ggplot(aes(x = area, fill = gen)) +
   geom_histogram(bins = 10) +
-  geom_vline(aes(xintercept = mean_area$mean_area[1])) +
-  geom_vline(aes(xintercept = mean_area$mean_area[2]))
+  geom_vline(xintercept = mean(dados$area), colour = "green", linetype = "longdash")
 ```
 
-Agora podemos considerar ver apenas quais `area` apresentam `gen` com contagem acima de 10.
+Agora podemos considerar apenas quais `area` apresentam `gen` com contagem acima de 10.
 
 ```{r}
 dados %>%
   ggplot(aes(x = area, fill = gen)) +
   geom_histogram(bins = 10) +
-  geom_hline(aes(yintercept = 10))
+  geom_hline(yintercept = 10, colour = "blue", linetype = "dotted")
 ```
 
 ### Boxplot
@@ -206,7 +221,11 @@ dados %>%
 
 ### Correlação
 
-Para gráficos de correlação precisamos antes de plotar o gráfico calcular a correlação entre as variáveis. Vamos estimar a correlação das variaveis `sev1`, `sev2`, `sev3`, `area` e `areat`. Usaremos a função `corr_coef()`, do pacote `metan` [(mais informações sobre esse pacote)](https://tiagoolivoto.github.io/metan/index.html) para retornar uma matriz de correlação das nossas variáveis e a função `plot()` para plotar o gráfico. 
+Para gráficos de correlação precisamos antes de plotar o gráfico calcular a correlação entre as variáveis. 
+
+Vamos estimar a correlação das variaveis `sev1`, `sev2`, `sev3`, `area` e `areat`. 
+
+Usaremos a função `corr_coef()`, do pacote `metan` [(mais informações sobre esse pacote)](https://tiagoolivoto.github.io/metan/index.html) para retornar uma matriz de correlação das nossas variáveis e a função `plot()` para plotar o gráfico. 
 
 ```{r}
 #install.packages(metan)
@@ -239,8 +258,9 @@ plot(
 Outra forma de visualizar a correlação entre as variáveis é pela função `corr_plot()`. Essa função permite a visualização gráfica e numérica de uma matriz de correlação.
 
 ```{r}
-corr_plot(dados %>%
-            select(sev1:areat))
+dados %>%
+  select(sev1:areat) %>%
+  corr_plot()
 ```
 
 ### Regressão
@@ -304,7 +324,7 @@ dados %>%
   facet_grid(gen ~ as.factor(blocos))
 ```
 
-### Escala
+### Escalas
 
 Para alterar a escala dos eixos definimos `xlim` e/ou `ylim`
 
