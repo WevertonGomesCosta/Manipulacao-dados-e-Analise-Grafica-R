@@ -1,0 +1,19 @@
+Characteristics 	Relative contribuition	modulo
+Chlorophyll a	3.39	48% RPAR
+Leaf area	8.08	48% RPAR
+Plant height	15.44	48% RPAR
+Hypocotyl diameter	2.12	48% RPAR
+Number of branches	5.49	48% RPAR
+Number of pod per plant	25.28	48% RPAR
+Number of seed per pod	5.00	48% RPAR
+Hundred seed weight	25.83	48% RPAR
+Seed weight per plant	9.36	48% RPAR
+Chlorophyll a	12.93	25% RPAR
+Leaf area	5.82	25% RPAR
+Plant height	21.16	25% RPAR
+Hypocotyl diameter	0.5	25% RPAR
+Number of branches	8.33	25% RPAR
+Number of pod per plant	7.38	25% RPAR
+Number of seed per pod	5.35	25% RPAR
+Hundred seed weight	11.51	25% RPAR
+Seed weight per plant	27	25% RPAR

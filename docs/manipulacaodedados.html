@@ -624,15 +624,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtree23ed1594c4806fb1729569dc9f0b9947775969dftargetblank23ed159a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreec23081ada9af5cb6a36490225e00441b81239aaftargetblankc23081aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/23ed1594c4806fb1729569dc9f0b9947775969df" target="_blank">23ed159</a>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/c23081ada9af5cb6a36490225e00441b81239aaf" target="_blank">c23081a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtree23ed1594c4806fb1729569dc9f0b9947775969dftargetblank23ed159a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomWevertonGomesCostaManipulacaodadoseAnaliseGraficaRtreec23081ada9af5cb6a36490225e00441b81239aaftargetblankc23081aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -642,7 +642,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/23ed1594c4806fb1729569dc9f0b9947775969df" target="_blank">23ed159</a>.
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/tree/c23081ada9af5cb6a36490225e00441b81239aaf" target="_blank">c23081a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -659,8 +659,16 @@ were generated:
 Ignored files:
     Ignored:    .Rproj.user/
 
+Untracked files:
+    Untracked:  data/contribuicao.txt
+    Untracked:  data/dados.xlsx
+    Untracked:  grafico.tiff
+
 Unstaged changes:
+    Modified:   analysis/analise-grafica.Rmd
     Modified:   analysis/manipulacaodedados.Rmd
+    Modified:   data/dados.csv
+    Modified:   grÃ¡fico.tiff
 
 </code></pre>
 <p>
@@ -706,6 +714,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/blob/db263fb67c678733191b3fd1a5d502ef34290630/analysis/manipulacaodedados.Rmd" target="_blank">db263fb</a>
+</td>
+<td>
+WevertonGomesCosta
+</td>
+<td>
+2023-05-09
+</td>
+<td>
+Update Manipulação de dados
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/WevertonGomesCosta/Manipulacao-dados-e-Analise-Grafica-R/db263fb67c678733191b3fd1a5d502ef34290630/docs/manipulacaodedados.html" target="_blank">db263fb</a>
+</td>
+<td>
+WevertonGomesCosta
+</td>
+<td>
+2023-05-09
+</td>
+<td>
+Update Manipulação de dados
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1151,18 +1193,18 @@ nosso conjunto de dados. Podemos utilizar os operadores lógicos (&gt;,
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gen <span class="sc">==</span> <span class="st">&quot;Predileta&quot;</span> <span class="sc">&amp;</span> area <span class="sc">&gt;=</span> <span class="dv">100</span>)</span></code></pre></div>
 <pre><code># A tibble: 41 x 9
-   trat            id gen       blocos  sev1  sev2  sev3  area areat
-   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 &quot;UFV 02&quot;        10 Predileta      2  1.9     12    12  133.  23.7
- 2 &quot;UFV 04&quot;        17 Predileta      1  0.97    12    12  129.  23.4
- 3 &quot;UFV 04&quot;        18 Predileta      2  1.9     12    12  133.  23.7
- 4 &quot;UFV 04&quot;        19 Predileta      3  1.9     22    31  269.  35.5
- 5 &quot;UFV 04&quot;        20 Predileta      4  1.9     12    12  133.  23.7
- 6 &quot;Guaxup\xe9&quot;    25 Predileta      1  0.97    12    12  129.  23.4
- 7 &quot;Guaxup\xe9&quot;    26 Predileta      2  0.97    12    22  164.  26.8
- 8 &quot;Guaxup\xe9&quot;    27 Predileta      3  0.97    12    12  129.  23.4
- 9 &quot;Guaxup\xe9&quot;    28 Predileta      4  1.9     22    22  238.  33.1
-10 &quot;UFV 72&quot;        33 Predileta      1  1.9     22    31  269.  35.5
+   trat       id gen       blocos  sev1  sev2  sev3  area areat
+   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 UFV 02     10 Predileta      2  1.9     12    12  133.  23.7
+ 2 UFV 04     17 Predileta      1  0.97    12    12  129.  23.4
+ 3 UFV 04     18 Predileta      2  1.9     12    12  133.  23.7
+ 4 UFV 04     19 Predileta      3  1.9     22    31  269.  35.5
+ 5 UFV 04     20 Predileta      4  1.9     12    12  133.  23.7
+ 6 Guaxupe    25 Predileta      1  0.97    12    12  129.  23.4
+ 7 Guaxupe    26 Predileta      2  0.97    12    22  164.  26.8
+ 8 Guaxupe    27 Predileta      3  0.97    12    12  129.  23.4
+ 9 Guaxupe    28 Predileta      4  1.9     22    22  238.  33.1
+10 UFV 72     33 Predileta      1  1.9     22    31  269.  35.5
 # i 31 more rows</code></pre>
 <p>Algumas condições e funções úteis para utilizar com
 <code>filter</code>:</p>
@@ -1215,20 +1257,20 @@ outra função.</em></p>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trat) <span class="sc">%&gt;%</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_area =</span> <span class="fu">mean</span>(area))</span></code></pre></div>
 <pre><code># A tibble: 12 x 2
-   trat              mean_area
-   &lt;fct&gt;                 &lt;dbl&gt;
- 1 &quot;Guaxup\xe9&quot;          146. 
- 2 &quot;Lagoa da prata&quot;      205. 
- 3 &quot;M 354&quot;               461. 
- 4 &quot;M 373&quot;               329. 
- 5 &quot;PROG 122&quot;            186. 
- 6 &quot;PROG 125&quot;            301. 
- 7 &quot;RIL 18&quot;              358. 
- 8 &quot;Testemunha 6165&quot;     124. 
- 9 &quot;UFV 02&quot;               83.3
-10 &quot;UFV 04&quot;              182. 
-11 &quot;UFV 72&quot;              246. 
-12 &quot;VR 20&quot;               170. </code></pre>
+   trat            mean_area
+   &lt;fct&gt;               &lt;dbl&gt;
+ 1 Guaxupe             146. 
+ 2 Lagoa da prata      205. 
+ 3 M 354               461. 
+ 4 M 373               329. 
+ 5 PROG 122            186. 
+ 6 PROG 125            301. 
+ 7 RIL 18              358. 
+ 8 Testemunha 6165     124. 
+ 9 UFV 02               83.3
+10 UFV 04              182. 
+11 UFV 72              246. 
+12 VR 20               170. </code></pre>
 <p>Filtrando os genótipos pela area menor que 100</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trat, gen) <span class="sc">%&gt;%</span></span>
@@ -1259,18 +1301,18 @@ outra função.</em></p>
 `.groups` argument.</code></pre>
 <pre><code># A tibble: 24 x 5
 # Groups:   trat [12]
-   trat             gen       area_mean area_range area_desv
-   &lt;fct&gt;            &lt;fct&gt;         &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
- 1 &quot;Guaxup\xe9&quot;     Inca           127.       38.3      17.1
- 2 &quot;Guaxup\xe9&quot;     Predileta      165.      108.       51.0
- 3 &quot;Lagoa da prata&quot; Inca           187.       59.5      28.2
- 4 &quot;Lagoa da prata&quot; Predileta      223.       98        43.6
- 5 &quot;M 354&quot;          Inca           423.      210        88.4
- 6 &quot;M 354&quot;          Predileta      499.      226.      108. 
- 7 &quot;M 373&quot;          Inca           321.       65.1      31.2
- 8 &quot;M 373&quot;          Predileta      338.      133        54.4
- 9 &quot;PROG 122&quot;       Inca           182.       62.8      30.3
-10 &quot;PROG 122&quot;       Predileta      191.       49.3      23.6
+   trat           gen       area_mean area_range area_desv
+   &lt;fct&gt;          &lt;fct&gt;         &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Guaxupe        Inca           127.       38.3      17.1
+ 2 Guaxupe        Predileta      165.      108.       51.0
+ 3 Lagoa da prata Inca           187.       59.5      28.2
+ 4 Lagoa da prata Predileta      223.       98        43.6
+ 5 M 354          Inca           423.      210        88.4
+ 6 M 354          Predileta      499.      226.      108. 
+ 7 M 373          Inca           321.       65.1      31.2
+ 8 M 373          Predileta      338.      133        54.4
+ 9 PROG 122       Inca           182.       62.8      30.3
+10 PROG 122       Predileta      191.       49.3      23.6
 # i 14 more rows</code></pre>
 <p>Contagem de tratamentos com área maior que 100</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
@@ -1278,20 +1320,20 @@ outra função.</em></p>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trat) <span class="sc">%&gt;%</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cont_trat =</span> <span class="fu">n</span>())</span></code></pre></div>
 <pre><code># A tibble: 12 x 2
-   trat              cont_trat
-   &lt;fct&gt;                 &lt;int&gt;
- 1 &quot;Guaxup\xe9&quot;              8
- 2 &quot;Lagoa da prata&quot;          8
- 3 &quot;M 354&quot;                   8
- 4 &quot;M 373&quot;                   8
- 5 &quot;PROG 122&quot;                8
- 6 &quot;PROG 125&quot;                8
- 7 &quot;RIL 18&quot;                  8
- 8 &quot;Testemunha 6165&quot;         4
- 9 &quot;UFV 02&quot;                  2
-10 &quot;UFV 04&quot;                  8
-11 &quot;UFV 72&quot;                  8
-12 &quot;VR 20&quot;                   8</code></pre>
+   trat            cont_trat
+   &lt;fct&gt;               &lt;int&gt;
+ 1 Guaxupe                 8
+ 2 Lagoa da prata          8
+ 3 M 354                   8
+ 4 M 373                   8
+ 5 PROG 122                8
+ 6 PROG 125                8
+ 7 RIL 18                  8
+ 8 Testemunha 6165         4
+ 9 UFV 02                  2
+10 UFV 04                  8
+11 UFV 72                  8
+12 VR 20                   8</code></pre>
 <div id="ordenando-observações-com-arrange" class="section level3">
 <h3>Ordenando Observações com <code>arrange()</code></h3>
 <p>A função <code>arrange()</code> permite ordenar as observações de um
