@@ -771,7 +771,7 @@ Aqui deixo para vocês alguns outros gráficos que podem ser produzidos pelo ggp
 
 ## Gráficos Extras
 
-### Histograma com alteração da posição da legenda
+### Gráfico de barras com alteração da posição da legenda
 
 ```{r}
 yield <- read_excel("data/yield.xlsx")
@@ -785,67 +785,103 @@ data %>%
   scale_fill_brewer(palette = "Set1") +
   labs(fill = "Growth type", x = "Year", y = "Count") +
   theme_classic() +
-  theme(legend.position = c(0.1, 0.9),
+  theme(legend.position = c(0.3, 0.8),
         legend.background = element_rect(fill = "white"),
-        legend.box.background = element_rect(color = "black", linewidth = 1)) 
+        legend.box.background = element_rect(color = "black", linewidth = 1))
 ```
 
-### Histograma e linha em um só gráfico (3 eixos)
+### Gráfico com 3 eixos - Barras e linha
 
 ```{r}
 #Transformando variáveis em fatores
 yield$Year <- as.factor(yield$Year)
 
 ggplot() +
-  geom_bar(data = data, aes(as.factor(Year), fill = Growth_type), width = 0.8) +
-  geom_line(data = yield, aes(x = Year, y = (Yield * (175 / 125000))), 
-            group = 1, color = "#a50026", size = 1) +
-  geom_point(data = yield, aes(x = Year, y = (Yield * (175 / 125000))), 
-             group = 1, color = "#a50026", size = 2) +
-  scale_y_continuous(name = "Count", 
-                     sec.axis = sec_axis( ~ . * 125000 / 175, name = "Yield (Thousand Tons)")) +
+  # plot the bar chart
+  geom_bar(data = data,
+           aes(as.factor(Year), fill = Growth_type),
+           width = 0.8) +
+  # plot the line chart
+  geom_line(
+    data = yield,
+    aes(x = Year, y = (Yield * (175 / 125000))),
+    group = 1,
+    color = "#a50026",
+    size = 1
+  ) +
+  # plot the points on the line chart
+  geom_point(
+    data = yield,
+    aes(x = Year, y = (Yield * (175 / 125000))),
+    group = 1,
+    color = "#a50026",
+    size = 2
+  ) +
+  # add a secondary y axis for the yield
+  scale_y_continuous(name = "Count",
+                     sec.axis = sec_axis(~ . * 125000 / 175, name = "Yield (Thousand Tons)")) +
+  # set the fill color palette
   scale_fill_brewer(palette = "Dark2") +
+  # set the labels for the legend and x-axis
   labs(fill = "Event Type", x = "Year") +
+  # set the theme to a classic style
   theme_classic() +
-  theme(legend.position = c(0.1, 0.9),
-        legend.background = element_rect(fill = "white"),
-        legend.box.background = element_rect(color = "black", linewidth = 0.5),
-        axis.text.y = element_text(angle = 0, vjust = 0.5, hjust = 1),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_blank())
+  # customize the legend and axis text styles
+  theme(
+    legend.position = c(0.3, 0.8),
+    legend.background = element_rect(fill = "white"),
+    legend.box.background = element_rect(color = "black", linewidth = 1),
+    axis.text.y = element_text(
+      angle = 0,
+      vjust = 0.5,
+      hjust = 1
+    ),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank()
+  )
 ```
 
 ### Gráfico de colunas com texto 
 
 ```{r}
-library(readxl)                   # Ler aquivos em .xls e .xlsx
-library(tidyverse)                # Framework para manipulação e visualização de dados
-
 dados <- read_excel("data/medias.xlsx")
 
 dados %>%
   ggplot(aes(x = TRAT, y = mean, fill = TRAT)) +
-  geom_col(position = position_dodge(width = 0.85), colour = 'black', alpha = 0.8, width = 0.85) +
-  geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), width = .3, position = position_dodge(width = 0.85)) +
-  geom_text(aes(y = mean + sd, label = group), position = position_dodge(width = 0.85), vjust = -0.5, size = 4) +
-  scale_fill_brewer(palette = "Paired") +
-  labs(y = "Produtividade do cafeeiro", x = "") +
+  geom_col(
+    position = position_dodge(width = 0.85),
+    colour = 'black',
+    alpha = 0.8,
+    width = 0.85
+  ) +
+  geom_errorbar(
+    aes(ymin = mean - sd, ymax = mean + sd),
+    width = .3,
+    position = position_dodge(width = 0.85)
+  ) +
+  geom_text(
+    aes(y = mean + sd, label = group),
+    position = position_dodge(width = 0.85),
+    vjust = -0.5,
+    size = 4
+  ) +
+  scale_fill_gdocs() +
+  labs(y = "Produtividade", x = "") +
   theme_classic() +
-  theme(axis.text.x = element_blank(),
-        legend.title = element_blank(),
-        legend.position = c(0.8, 0.9),
-        legend.background = element_rect(fill = "white"),
-        legend.box.background = element_rect(color = "black", linewidth = 0.5)) +
-  guides(fill = guide_legend(title = "Tratamentos"))
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    legend.title = element_blank(),
+    legend.position = "top",
+    legend.background = element_rect(fill = "white"),
+    legend.box.background = element_rect(color = "black", linewidth = 1)
+  )
 ```
 
 ### Gráfico de segmentos e pontos
 
 ```{r}
-library(readxl)                   # Ler aquivos em .xls e .xlsx
-library(tidyverse)                # Framework para manipulação e visualização de dados
-
 imp_trait <- read_excel("data/imp.xlsx")
 
 imp_trait %>%
@@ -861,9 +897,11 @@ imp_trait %>%
     yend = value
   )) +
   labs(y = "Increase in node purity", x = "") +
-  scale_colour_manual(labels = c("Accuracy", "Gini Indice"), values = c("#0072B2", "#E69F00")) +
+  scale_colour_manual(
+    labels = c("Accuracy", "Gini Indice"),
+    values = c("#0072B2", "#E69F00")
+  ) +
   scale_shape_discrete(labels = c("Accuracy", "Gini Indice")) +
-  
   theme_minimal() +
   theme(
     legend.position = c(0.8, 0.15),
@@ -893,7 +931,7 @@ ggplot(progress, aes(Iteration, progress[[1]])) +
   labs(y = colnames(progress[1]))
 ```
 
-### Agrupando gráficos de boxplot
+### Agrupar gráficos
 
 ```{r}
 herd_prod <- read.table("data/prod_herd.txt", header = T)
@@ -1021,18 +1059,22 @@ ggplot(graf, aes(
 
 ```{r}
 graf %>%
-  filter(Variable != "Coefficient_of_variation") %>% 
-  mutate(
-    Study = as.factor(Study)
-  ) %>%
-  ggplot(aes(x = as.numeric(Year), y = Average, colour = Study)) +
+  filter(Variable != "Coefficient_of_variation") %>%
+  mutate(Study = as.factor(Study)) %>%
+  ggplot(aes(
+    x = as.numeric(Year),
+    y = Average,
+    colour = Study
+  )) +
   geom_point() +
   stat_poly_line(se = FALSE) +
-  stat_poly_eq(aes(label = after_stat(eq.label)),
-               label.y = c(0.95, 0.9, 0.85),
-               label.x = c(1, 1, 1)) +
-  facet_wrap(~ Variable, ncol = 3, scales="free_y") +
-  scale_x_continuous(breaks = c(2004:2017))+
+  stat_poly_eq(
+    aes(label = after_stat(eq.label)),
+    label.y = c(0.95, 0.9, 0.85),
+    label.x = c(1, 1, 1)
+  ) +
+  facet_wrap( ~ Variable, ncol = 3, scales = "free_y") +
+  scale_x_continuous(breaks = c(2004:2017)) +
   theme_bw() +
   theme(plot.title = element_text(size = 16, face = "bold"),
         axis.text.x = element_text(angle = 45)) +
