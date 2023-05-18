@@ -14,7 +14,6 @@ editor_options:
 ---
 
 Este curso de análise gráfica em R, produzido por [Costa, W. G. 2022](https://github.com/WevertonGomesCosta) 2022, está licenciado sob a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
-Produzido por .
 
 Isso significa que você é livre para:
 
